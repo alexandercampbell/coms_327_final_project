@@ -11,5 +11,7 @@ int main(int argc, char *argv[]) {
 
 	dungeon d;
 	dungeon_generate(&d);
+	io_render(&d);
+	io_wait_for_key();
 }
 

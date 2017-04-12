@@ -45,3 +45,31 @@ key_press io_wait_for_key() {
 	}
 }
 
+static void io_draw_with_color(char c, int x, int y, int color) {
+	attron(COLOR_PAIR(color));
+	mvaddch(y, x, c);
+	attroff(COLOR_PAIR(color));
+}
+
+void io_render(dungeon *d) {
+	clear();
+
+	for (int x = 0; x < DUNGEON_WIDTH; x++) {
+		for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+			cell c = d->cells[y][x];
+			char ch;
+			int color;
+
+			if (c == cell_grass)       { ch = ','; color = COLOR_YELLOW; }
+			else if (c == cell_tree)   { ch = 'T'; color = COLOR_GREEN; }
+			else if (c == cell_rock)   { ch = '#'; color = COLOR_BLACK; }
+			else if (c == cell_tunnel) { ch = '.'; color = COLOR_BLUE; }
+			else                       { ch = '?'; color = COLOR_MAGENTA; }
+
+			io_draw_with_color(ch, x, y, color);
+		}
+	}
+
+	refresh();
+}
+

@@ -1,6 +1,8 @@
 
 #pragma once
 
+// no (non-stdlib) includes allowed :)
+
 #define DUNGEON_WIDTH  200
 #define DUNGEON_HEIGHT 100
 #define DUNGEON_NUM_CELLS (DUNGEON_WIDTH * DUNGEON_HEIGHT)
