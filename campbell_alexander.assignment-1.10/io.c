@@ -56,6 +56,13 @@ void io_render(dungeon *d) {
 
 	for (int x = 0; x < DUNGEON_WIDTH; x++) {
 		for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+			mob *m = d->mobs[y][x];
+			if (m) {
+				io_draw_with_color(m->symb, x, y, m->is_friendly ?
+						COLOR_GREEN : COLOR_RED);
+				continue;
+			}
+
 			cell c = d->cells[y][x];
 			char ch;
 			int color;

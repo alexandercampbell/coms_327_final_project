@@ -53,10 +53,10 @@ typedef struct mob {
 	int hp;
 	int max_hp;
 
+	char symb;
 	dice unarmed_attack;
 	weapon *weapon;
 	ring *ring;
-
 	race race;
 } mob;
 
@@ -69,8 +69,8 @@ typedef enum {
 
 typedef struct dungeon {
 	cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
+	mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	int num_mobs;
-	mob mobs[MAX_MOBS];
 } dungeon;
 
 typedef enum key_press {
