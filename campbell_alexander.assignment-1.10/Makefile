@@ -5,7 +5,7 @@ CFLAGS = -std=gnu11 -Wall -ggdb
 LDFLAGS = -lncurses
 
 BIN = main
-OBJS = main.o
+OBJS = main.o io.o dungeon.o
 
 .PHONY: all
 all: $(BIN) ctags
