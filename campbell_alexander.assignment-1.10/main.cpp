@@ -1,4 +1,7 @@
 
+#include <iostream>
+using namespace std;
+
 #include <stdlib.h>
 #include <time.h>
 
@@ -10,18 +13,21 @@
 int main(int argc, char *argv[]) {
 	srand(time(0));
 
-	io_init();
-	atexit(io_quit);
+	cout << "Generating dungeon..." << endl;
 
 	World w;
 	world_init(&w);
+
+	io_init();
 	while (true) {
 		io_render(&w);
 
 		Key key = io_wait_for_key();
 		if (key == Key::quit) break;
-
 		pc_process_key(&w, key);
 	}
+	io_quit();
+
+	cout << "Thanks for playing!" << endl;
 }
 
