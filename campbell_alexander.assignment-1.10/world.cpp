@@ -118,27 +118,26 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 		}
 	}
 
+	int num_rooms = RAND_BETWEEN(3, 5);
+	for (int i = 0; i < num_rooms; i++) {
+		int room_x = RAND_BETWEEN(0, DUNGEON_WIDTH-1);
+		int room_y = RAND_BETWEEN(0, DUNGEON_HEIGHT-1);
+		place_dungeon_room(l, room_x, room_y);
+	}
+
 	// Set up staircases.
 	l->up_stair_x = above_stair_x;
 	l->up_stair_y = above_stair_y;
-	l->cells[l->up_stair_y][l->up_stair_x] = Cell::stair_up;
 	place_dungeon_room(l, l->up_stair_x, l->up_stair_y);
+	l->cells[l->up_stair_y][l->up_stair_x] = Cell::stair_up;
 
 	if (l->depth == NUM_LEVELS - 1) {
 		// we are the final floor
 	} else {
 		l->down_stair_x = RAND_BETWEEN(1, DUNGEON_WIDTH);
 		l->down_stair_y = RAND_BETWEEN(1, DUNGEON_HEIGHT);
-		l->cells[l->down_stair_y][l->down_stair_x] = Cell::stair_down;
-
 		place_dungeon_room(l, l->down_stair_x, l->down_stair_y);
-	}
-
-	int num_rooms = RAND_BETWEEN(3, 5);
-	for (int i = 0; i < num_rooms; i++) {
-		int room_x = RAND_BETWEEN(0, DUNGEON_WIDTH-1);
-		int room_y = RAND_BETWEEN(0, DUNGEON_HEIGHT-1);
-		place_dungeon_room(l, room_x, room_y);
+		l->cells[l->down_stair_y][l->down_stair_x] = Cell::stair_down;
 	}
 }
 
