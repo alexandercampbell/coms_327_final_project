@@ -1,5 +1,5 @@
 
-#include "io.h"
+#include "io.hpp"
 
 void io_init() {
 	initscr();
@@ -25,17 +25,17 @@ void io_quit() {
 
 static struct {
 	int ncurses_key;
-	key_press result;
+	key result;
 } key_bindings[] = {
-	{KEY_LEFT, key_left},
-	{KEY_DOWN, key_down},
-	{KEY_UP, key_up},
-	{KEY_RIGHT, key_right},
-	{'q', key_quit},
-	{0, 0},
+	{KEY_LEFT, key::left},
+	{KEY_DOWN, key::down},
+	{KEY_UP, key::up},
+	{KEY_RIGHT, key::right},
+	{'q', key::quit},
+	{0, key(0)},
 };
 
-key_press io_wait_for_key() {
+key io_wait_for_key() {
 	while (true) {
 		int k = getch();
 		for (int i = 0; key_bindings[i].ncurses_key != 0; i++) {
@@ -68,10 +68,10 @@ void io_render(dungeon *d) {
 			char ch;
 			int color;
 
-			if (c == cell_grass)       { ch = ','; color = COLOR_YELLOW; }
-			else if (c == cell_tree)   { ch = 'T'; color = COLOR_GREEN; }
-			else if (c == cell_rock)   { ch = '#'; color = COLOR_BLACK; }
-			else if (c == cell_tunnel) { ch = '.'; color = COLOR_BLUE; }
+			if (c == cell::grass)       { ch = ','; color = COLOR_YELLOW; }
+			else if (c == cell::tree)   { ch = 'T'; color = COLOR_GREEN; }
+			else if (c == cell::rock)   { ch = '#'; color = COLOR_BLACK; }
+			else if (c == cell::tunnel) { ch = '.'; color = COLOR_BLUE; }
 			else                       { ch = '?'; color = COLOR_MAGENTA; }
 
 			io_draw_with_color(ch, x, y, color);

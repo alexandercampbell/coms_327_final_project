@@ -1,7 +1,7 @@
 
-CC = clang
+CPP = clang++
 
-CFLAGS = -std=gnu11 -Wall -ggdb
+CFLAGS = -std=gnu++11 -Wall -ggdb
 LDFLAGS = -lncurses
 
 BIN = main
@@ -14,8 +14,8 @@ $(BIN): $(OBJS)
 
 -include $(OBJS:.o=.d)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -MMD -MF $*.d -c $<
+%.o: %.cpp
+	$(CPP) $(CFLAGS) -MMD -MF $*.d -c $<
 
 
 .PHONY: clean
@@ -23,5 +23,5 @@ clean:
 	rm -rf $(BIN) *.o *.d TAGS
 
 ctags:
-	ctags *.h *.c
+	ctags *.hpp *.cpp
 

@@ -1,9 +1,9 @@
 
 #include <stdlib.h>
 
-#include "dungeon.h"
-#include "io.h"
-#include "model.h"
+#include "dungeon.hpp"
+#include "io.hpp"
+#include "model.hpp"
 
 int main(int argc, char *argv[]) {
 	io_init();
@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 	dungeon d;
 	dungeon_generate(&d);
 	io_render(&d);
-	while (io_wait_for_key() != key_quit)
+	while (io_wait_for_key() != key::quit)
 		;
 }
 

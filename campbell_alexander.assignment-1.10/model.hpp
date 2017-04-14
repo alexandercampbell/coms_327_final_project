@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include <stdbool.h>
-
 // no (non-stdlib) includes allowed :)
 
 #define DUNGEON_WIDTH  120
@@ -12,41 +10,41 @@
 
 // Model definitions
 
-typedef struct dice {
+struct dice {
 	int base;
 	int num;
 	int sides;
-} dice;
+};
 
-typedef enum {
+enum class weapon_type {
 	dagger,
 	sword,
 	axe,
-} weapon_type;
+};
 
-typedef struct weapon {
+struct weapon {
 	char *name;
 	char *desc;
 	dice damage;
-} weapon;
+};
 
-typedef struct ring {
+struct ring {
 	char *name;
 	char *desc;
 
 	double damage_mul;
 	double hp_mul;
-} ring;
+};
 
-typedef enum {
+enum class race {
 	race_human,
 	race_elf,
 	race_orc,
 	race_dwarf,
 	race_reptile
-} race;
+};
 
-typedef struct mob {
+struct mob {
 	bool is_player;
 	bool is_friendly;
 
@@ -58,27 +56,27 @@ typedef struct mob {
 	weapon *weapon;
 	ring *ring;
 	race race;
-} mob;
+};
 
-typedef enum {
-	cell_grass,
-	cell_tree,
-	cell_rock,
-	cell_tunnel,
-} cell;
+enum class cell {
+	grass,
+	tree,
+	rock,
+	tunnel,
+};
 
-typedef struct dungeon {
+struct dungeon {
 	cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	int num_mobs;
-} dungeon;
+};
 
-typedef enum key_press {
-	key_none,
-	key_up,
-	key_left,
-	key_down,
-	key_right,
-	key_quit,
-} key_press;
+enum class key {
+	none,
+	up,
+	left,
+	down,
+	right,
+	quit,
+};
 
