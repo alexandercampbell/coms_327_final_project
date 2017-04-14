@@ -73,6 +73,7 @@ enum class Cell {
 	rock,
 	tunnel,
 	river,
+	mountain,
 	stair_up,
 	stair_down,
 };

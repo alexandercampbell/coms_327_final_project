@@ -27,6 +27,17 @@ static void populate_rivers(Level *l) {
 	}
 }
 
+static void populate_mountains(Level *l) {
+	for (int x = 1; x < DUNGEON_WIDTH - 1; x++) {
+		l->cells[0][x] = Cell::mountain;
+		l->cells[DUNGEON_HEIGHT - 1][x] = Cell::mountain;
+	}
+	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+		l->cells[y][0] = Cell::mountain;
+		l->cells[y][DUNGEON_WIDTH - 1] = Cell::mountain;
+	}
+}
+
 static void place_dungeon_entrance(Level *l) {
 	int entrance_x = RAND_BETWEEN(16, DUNGEON_WIDTH - 1 - 16);
 	int entrance_y = RAND_BETWEEN(16, DUNGEON_HEIGHT - 1 - 16);
@@ -64,6 +75,7 @@ static void generate_town(Level *l) {
 	memset(l->mobs, 0, DUNGEON_NUM_CELLS * sizeof(Mob*));
 	populate_trees(l);
 	populate_rivers(l);
+	populate_mountains(l);
 	place_dungeon_entrance(l);
 }
 

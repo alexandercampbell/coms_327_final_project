@@ -92,6 +92,7 @@ void io::render(World *w) {
 			else if (c == Cell::river)      { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
 			else if (c == Cell::stair_up)   { ch = '<'; color = COLOR_WHITE; }
 			else if (c == Cell::stair_down) { ch = '>'; color = COLOR_WHITE; }
+			else if (c == Cell::mountain)   { ch = '^'; color = COLOR_WHITE; }
 			else                            { ch = '?'; color = COLOR_MAGENTA; }
 
 			int dist_x = w->pc->x - x;
