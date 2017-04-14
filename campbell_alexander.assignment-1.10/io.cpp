@@ -114,6 +114,29 @@ void io::render(World *w) {
 		}
 	}
 
+	int line = 0;
+	int console_start_line = RENDER_HEIGHT - w->messages.size();
+	for (Message &m : w->messages) {
+		if (m.severity == MessageSeverity::Good) {
+			attron(COLOR_PAIR(COLOR_GREEN));
+		} else if (m.severity == MessageSeverity::Warning) {
+			attron(COLOR_PAIR(COLOR_YELLOW));
+		} else if (m.severity == MessageSeverity::OhGodTheresBloodEverywhere) {
+			attron(COLOR_PAIR(COLOR_RED));
+		}
+
+		mvprintw(console_start_line + line, RENDER_WIDTH + 1, "%s", m.text.c_str());
+		line++;
+
+		if (m.severity == MessageSeverity::Good) {
+			attroff(COLOR_PAIR(COLOR_GREEN));
+		} else if (m.severity == MessageSeverity::Warning) {
+			attroff(COLOR_PAIR(COLOR_YELLOW));
+		} else if (m.severity == MessageSeverity::OhGodTheresBloodEverywhere) {
+			attroff(COLOR_PAIR(COLOR_RED));
+		}
+	}
+
 	refresh();
 }
 

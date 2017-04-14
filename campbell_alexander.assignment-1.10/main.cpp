@@ -15,6 +15,10 @@ int main(int argc, char *argv[]) {
 
 	World w;
 	world_init(&w);
+	world_push_message(&w, "You see some bones here.");
+	world_push_message(&w, "You heal yourself [+10 HP]", MessageSeverity::Good);
+	world_push_message(&w, "You hear scratching in the distance.", MessageSeverity::Warning);
+	world_push_message(&w, "The kobold strikes you. [-5 HP]", MessageSeverity::OhGodTheresBloodEverywhere);
 	while (true) {
 		io::render(&w);
 

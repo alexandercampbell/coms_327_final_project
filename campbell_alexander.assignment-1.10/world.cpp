@@ -131,3 +131,14 @@ void world_init(World *w) {
 	pc::update_memory(w);
 }
 
+void world_push_message(World *w, string text, MessageSeverity severity) {
+	Message msg;
+	msg.text = text;
+	msg.severity = severity;
+
+	w->messages.push_back(msg);
+	if (w->messages.size() > WORLD_UI_MESSAGE_HISTORY) {
+		w->messages.pop_front();
+	}
+}
+

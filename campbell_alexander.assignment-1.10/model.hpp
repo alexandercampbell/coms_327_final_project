@@ -1,6 +1,10 @@
 
 #pragma once
 
+#include <deque>
+#include <string>
+using namespace std;
+
 // no (non-stdlib) includes allowed :)
 
 #define DUNGEON_WIDTH  80
@@ -9,6 +13,10 @@
 #define MAX_MOBS 50
 // 3 dungeon floors, 1 town
 #define NUM_LEVELS (1 + 3)
+
+// Number of messages kept in memory at one time. When the UI message queue
+// fills, we will evict old messages.
+#define WORLD_UI_MESSAGE_HISTORY 20
 
 /**
  * Macros
@@ -99,10 +107,28 @@ struct Level {
 	int num_mobs;
 };
 
+/**
+ * MessageSeverity will be used by the IO module to distinguish messages with
+ * color and bolding.
+ */
+enum class MessageSeverity {
+	Info,
+	Good,
+	Warning,
+	OhGodTheresBloodEverywhere,
+};
+
+struct Message {
+	string text;
+	MessageSeverity severity;
+};
+
 struct World {
 	Level levels[NUM_LEVELS];
 	Level *cur_level; // &levels[pc->level]
 	Mob *pc;
+
+	deque<Message> messages;
 };
 
 enum class Key {
