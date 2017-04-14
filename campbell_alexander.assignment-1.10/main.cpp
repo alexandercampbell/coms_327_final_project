@@ -6,13 +6,13 @@
 #include "model.hpp"
 
 int main(int argc, char *argv[]) {
-	io_init();
-	atexit(io_quit);
+	io::init();
+	atexit(io::quit);
 
 	dungeon d;
 	dungeon_generate(&d);
-	io_render(&d);
-	while (io_wait_for_key() != key::quit)
+	io::render(&d);
+	while (io::wait_for_key() != key::quit)
 		;
 }
 

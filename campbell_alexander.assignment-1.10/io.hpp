@@ -5,10 +5,12 @@
 
 #include "model.hpp"
 
-void io_init();
-void io_quit(); // idempotent
+namespace io {
+	void init();
+	void quit(); // idempotent
 
-void io_render(dungeon *d);
+	void render(dungeon *d);
 
-key io_wait_for_key();
+	key wait_for_key();
+}
 

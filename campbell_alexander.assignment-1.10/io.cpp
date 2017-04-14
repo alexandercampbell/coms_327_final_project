@@ -1,7 +1,7 @@
 
 #include "io.hpp"
 
-void io_init() {
+void io::init() {
 	initscr();
 	raw();
 	noecho();
@@ -19,7 +19,7 @@ void io_init() {
 	init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
 }
 
-void io_quit() {
+void io::quit() {
 	endwin();
 }
 
@@ -35,7 +35,7 @@ static struct {
 	{0, key(0)},
 };
 
-key io_wait_for_key() {
+key io::wait_for_key() {
 	while (true) {
 		int k = getch();
 		for (int i = 0; key_bindings[i].ncurses_key != 0; i++) {
@@ -46,20 +46,20 @@ key io_wait_for_key() {
 	}
 }
 
-static void io_draw_with_color(char c, int x, int y, int color) {
+static void draw_with_color(char c, int x, int y, int color) {
 	attron(COLOR_PAIR(color));
 	mvaddch(y, x, c);
 	attroff(COLOR_PAIR(color));
 }
 
-void io_render(dungeon *d) {
+void io::render(dungeon *d) {
 	clear();
 
 	for (int x = 0; x < DUNGEON_WIDTH; x++) {
 		for (int y = 0; y < DUNGEON_HEIGHT; y++) {
 			mob *m = d->mobs[y][x];
 			if (m) {
-				io_draw_with_color(m->symb, x, y, m->is_friendly ?
+				draw_with_color(m->symb, x, y, m->is_friendly ?
 						COLOR_GREEN : COLOR_RED);
 				continue;
 			}
@@ -74,7 +74,7 @@ void io_render(dungeon *d) {
 			else if (c == cell::tunnel) { ch = '.'; color = COLOR_BLUE; }
 			else                       { ch = '?'; color = COLOR_MAGENTA; }
 
-			io_draw_with_color(ch, x, y, color);
+			draw_with_color(ch, x, y, color);
 		}
 	}
 
