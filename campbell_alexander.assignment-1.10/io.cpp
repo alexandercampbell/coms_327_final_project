@@ -72,7 +72,8 @@ void io::render(dungeon *d) {
 			else if (c == cell::tree)   { ch = 'T'; color = COLOR_GREEN; }
 			else if (c == cell::rock)   { ch = '#'; color = COLOR_BLACK; }
 			else if (c == cell::tunnel) { ch = '.'; color = COLOR_BLUE; }
-			else                       { ch = '?'; color = COLOR_MAGENTA; }
+			else if (c == cell::river)  { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
+			else                        { ch = '?'; color = COLOR_MAGENTA; }
 
 			draw_with_color(ch, x, y, color);
 		}

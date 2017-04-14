@@ -4,6 +4,7 @@
 #include <ncurses.h>
 
 #include "model.hpp"
+#include "util.hpp"
 
 namespace io {
 	void init();

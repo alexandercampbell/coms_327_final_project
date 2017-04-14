@@ -63,6 +63,7 @@ enum class cell {
 	tree,
 	rock,
 	tunnel,
+	river,
 };
 
 struct dungeon {
