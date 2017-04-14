@@ -36,6 +36,8 @@ static struct {
 	{'k', Key::up},
 	{'l', Key::right},
 	{'q', Key::quit},
+	{'>', Key::descend_stairs},
+	{'<', Key::ascend_stairs},
 	{0, Key(0)},
 };
 

@@ -3,13 +3,13 @@
 
 // no (non-stdlib) includes allowed :)
 
-#define DUNGEON_WIDTH  120
-#define DUNGEON_HEIGHT 80
+#define DUNGEON_WIDTH  80
+#define DUNGEON_HEIGHT 40
 #define DUNGEON_NUM_CELLS (DUNGEON_WIDTH * DUNGEON_HEIGHT)
 #define MAX_MOBS 50
 // 10 dungeon floors, 1 town
 #define NUM_LEVELS 11
-#define PC_VIEW_RADIUS 6
+#define PC_VIEW_RADIUS 12
 
 // Model definitions
 
@@ -82,6 +82,9 @@ struct Level {
 	int depth;
 	bool is_dungeon;
 
+	int down_stair_x, down_stair_y;
+	int up_stair_x, up_stair_y; // may be -1
+
 	Cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Cell pc_memory[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
@@ -101,6 +104,8 @@ enum class Key {
 	down,
 	right,
 	quit,
+	ascend_stairs,
+	descend_stairs
 };
 
 enum class Direction {

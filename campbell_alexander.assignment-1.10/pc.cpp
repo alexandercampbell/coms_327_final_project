@@ -16,7 +16,27 @@ void pc::init(Mob *pc) {
 	pc->unarmed_attack.sides = 6;
 }
 
+static bool use_stairs(World *w, bool ascend) {
+	Cell c = w->cur_level->cells[w->pc->y][w->pc->x];
+	if (c == Cell::stair_up && ascend) {
+		w->pc->level--;
+	} else if (c == Cell::stair_down && !ascend) {
+		w->pc->level++;
+	} else {
+		return false;
+	}
+
+	w->cur_level->mobs[w->pc->y][w->pc->x] = nullptr;
+	w->cur_level = &w->levels[w->pc->level];
+	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
+	return true;
+}
+
 bool pc::process_key(World *w, Key k) {
+	if (k == Key::ascend_stairs || k == Key::descend_stairs) {
+		return use_stairs(w, k == Key::ascend_stairs);
+	}
+
 	Direction dir;
 	if (k == Key::up) dir = Direction::up;
 	else if (k == Key::left) dir = Direction::left;

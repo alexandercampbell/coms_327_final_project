@@ -63,6 +63,9 @@ static void place_dungeon_entrance(Level *l) {
 
 	l->cells[entrance_y][entrance_x + 4] = Cell::tunnel;
 	l->cells[entrance_y][entrance_x] = Cell::stair_down;
+
+	l->down_stair_x = entrance_x;
+	l->down_stair_y = entrance_y;
 }
 
 static void generate_town(Level *l) {
@@ -79,7 +82,25 @@ static void generate_town(Level *l) {
 	place_dungeon_entrance(l);
 }
 
-static void generate_dungeon_level(Level *l) {
+static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_y) {
+	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+		for (int x = 0; x < DUNGEON_WIDTH; x++) {
+			l->cells[y][x] = (FRAND() > 0.9) ? Cell::rock : Cell::tunnel;
+		}
+	}
+
+	// Set up staircases.
+	l->up_stair_x = above_stair_x;
+	l->up_stair_y = above_stair_y;
+	l->cells[l->up_stair_y][l->up_stair_x] = Cell::stair_up;
+
+	if (l->depth == NUM_LEVELS - 1) {
+		// we are the final floor
+	} else {
+		l->down_stair_x = RAND_BETWEEN(1, DUNGEON_WIDTH);
+		l->down_stair_y = RAND_BETWEEN(1, DUNGEON_HEIGHT);
+		l->cells[l->down_stair_y][l->down_stair_x] = Cell::stair_down;
+	}
 }
 
 void world_init(World *w) {
@@ -91,7 +112,11 @@ void world_init(World *w) {
 	generate_town(&w->levels[0]);
 	for (int i = 1; i < NUM_LEVELS; i++) {
 		w->levels[i].depth = i;
-		generate_dungeon_level(&w->levels[i]);
+		generate_dungeon_level(
+			&w->levels[i],
+			w->levels[i - 1].down_stair_x,
+			w->levels[i - 1].down_stair_y
+		);
 	}
 
 	w->cur_level = &w->levels[0];
@@ -99,8 +124,8 @@ void world_init(World *w) {
 	w->pc = new Mob;
 	pc::init(w->pc);
 
-	w->pc->x = RAND_BETWEEN(0, DUNGEON_WIDTH);
-	w->pc->y = RAND_BETWEEN(0, DUNGEON_HEIGHT);
+	w->pc->x = RAND_BETWEEN(0, DUNGEON_WIDTH - 1);
+	w->pc->y = RAND_BETWEEN(0, DUNGEON_HEIGHT - 1);
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
 
 	pc::update_memory(w);
