@@ -29,6 +29,8 @@ static bool use_stairs(World *w, bool ascend) {
 	w->cur_level->mobs[w->pc->y][w->pc->x] = nullptr;
 	w->cur_level = &w->levels[w->pc->level];
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
+
+	pc::update_memory(w);
 	return true;
 }
 
@@ -54,14 +56,18 @@ bool pc::process_key(World *w, Key k) {
 
 void pc::update_memory(World *w) {
 	Mob *pc = w->pc;
-	for (int y = pc->y - PC_VIEW_RADIUS; y <= pc->y + PC_VIEW_RADIUS; y++) {
+
+	// Can't see as far in the dungeon.
+	int radius = PC_VIEW_RADIUS(w);
+
+	for (int y = pc->y - radius; y <= pc->y + radius; y++) {
 		if (y < 0 || y >= DUNGEON_HEIGHT) continue;
-		for (int x = pc->x - PC_VIEW_RADIUS; x <= pc->x + PC_VIEW_RADIUS; x++) {
+		for (int x = pc->x - radius; x <= pc->x + radius; x++) {
 			if (x < 0 || x >= DUNGEON_WIDTH) continue;
 
 			int dist_x = x - pc->x;
 			int dist_y = y - pc->y;
-			if (sqrt(dist_x * dist_x + dist_y * dist_y) <= PC_VIEW_RADIUS) {
+			if (sqrt(dist_x * dist_x + dist_y * dist_y) <= radius) {
 				w->cur_level->pc_memory[y][x] = w->cur_level->cells[y][x];
 			}
 		}

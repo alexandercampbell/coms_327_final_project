@@ -99,7 +99,9 @@ void io::render(World *w) {
 
 			int dist_x = w->pc->x - x;
 			int dist_y = w->pc->y - y;
-			bool directly_visible = dist_x * dist_x + dist_y * dist_y < PC_VIEW_RADIUS * PC_VIEW_RADIUS;
+			int view_radius = PC_VIEW_RADIUS(w);
+			bool directly_visible = dist_x * dist_x + dist_y * dist_y <
+				view_radius * view_radius;
 			if (directly_visible) {
 				attron(A_BOLD);
 			} else {

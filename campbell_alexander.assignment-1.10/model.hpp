@@ -7,11 +7,19 @@
 #define DUNGEON_HEIGHT 40
 #define DUNGEON_NUM_CELLS (DUNGEON_WIDTH * DUNGEON_HEIGHT)
 #define MAX_MOBS 50
-// 10 dungeon floors, 1 town
-#define NUM_LEVELS 11
-#define PC_VIEW_RADIUS 12
+// 3 dungeon floors, 1 town
+#define NUM_LEVELS (1 + 3)
 
-// Model definitions
+/**
+ * Macros
+ */
+
+// PC_VIEW_RADIUS increases when we are above ground (i.e. in town).
+#define PC_VIEW_RADIUS(world) ((world->pc->level == 0) ? 12 : 6)
+
+/**
+ * Model definitions.
+ */
 
 struct Dice {
 	int base;
