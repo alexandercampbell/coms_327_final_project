@@ -5,5 +5,5 @@
 
 #include "model.hpp"
 
-bool mob_try_to_move(Dungeon &dungeon, Mob *mob, Direction direction);
+bool mob_try_to_move(Level *level, Mob *mob, Direction direction);
 

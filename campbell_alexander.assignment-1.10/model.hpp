@@ -7,6 +7,8 @@
 #define DUNGEON_HEIGHT 80
 #define DUNGEON_NUM_CELLS (DUNGEON_WIDTH * DUNGEON_HEIGHT)
 #define MAX_MOBS 50
+// 10 dungeon floors, 1 town
+#define NUM_LEVELS 11
 
 // Model definitions
 
@@ -48,8 +50,10 @@ struct Mob {
 	bool is_player;
 	bool is_friendly;
 
+	// World->levels[level]->mobs[y][x] is a pointer to this Mob.
 	int x;
 	int y;
+	int level;
 
 	int hp;
 	int max_hp;
@@ -69,11 +73,19 @@ enum class Cell {
 	river,
 };
 
-struct Dungeon {
+struct Level {
+	int depth;
+	bool is_dungeon;
+
 	Cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
-	Mob *pc;
 	int num_mobs;
+};
+
+struct World {
+	Level levels[NUM_LEVELS];
+	Level *cur_level; // &levels[pc->level]
+	Mob *pc;
 };
 
 enum class Key {

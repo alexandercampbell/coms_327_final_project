@@ -52,11 +52,11 @@ static void draw_with_color(char c, int x, int y, int color) {
 	attroff(COLOR_PAIR(color));
 }
 
-void io::render(Dungeon *d) {
+void io::render(World *w) {
 	clear();
 
-	int render_start_x = d->pc->x - RENDER_WIDTH / 2;
-	int render_start_y = d->pc->y - RENDER_HEIGHT / 2;
+	int render_start_x = w->pc->x - RENDER_WIDTH / 2;
+	int render_start_y = w->pc->y - RENDER_HEIGHT / 2;
 	int render_stop_x = render_start_x + RENDER_WIDTH;
 	int render_stop_y = render_start_y + RENDER_HEIGHT;
 
@@ -69,14 +69,14 @@ void io::render(Dungeon *d) {
 			int draw_x = x - render_start_x;
 			int draw_y = y - render_start_y;
 
-			Mob *m = d->mobs[y][x];
+			Mob *m = w->cur_level->mobs[y][x];
 			if (m) {
 				draw_with_color(m->symb, draw_x, draw_y, m->is_friendly ?
 						COLOR_GREEN : COLOR_RED);
 				continue;
 			}
 
-			Cell c = d->cells[y][x];
+			Cell c = w->cur_level->cells[y][x];
 			char ch;
 			int color;
 

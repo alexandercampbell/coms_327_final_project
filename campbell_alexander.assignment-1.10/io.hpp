@@ -13,7 +13,7 @@ namespace io {
 	void init();
 	void quit(); // idempotent
 
-	void render(Dungeon *d);
+	void render(World *w);
 
 	Key wait_for_key();
 }

@@ -5,7 +5,7 @@ CFLAGS = -std=c++11 -Wall -ggdb
 LDFLAGS = -lncurses
 
 BIN = main
-OBJS = main.o io.o dungeon.o pc.o mob.o
+OBJS = main.o io.o world.o pc.o mob.o
 
 .PHONY: all
 all: $(BIN) ctags
