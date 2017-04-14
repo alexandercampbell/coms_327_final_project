@@ -15,19 +15,22 @@ int main(int argc, char *argv[]) {
 
 	cout << "Generating dungeon..." << endl;
 
-	World w;
-	world_init(&w);
+	World *w = new World;
+	world_init(w);
 
 	io_init();
 	while (true) {
-		io_render(&w);
+		io_render(w);
 
 		Key key = io_wait_for_key();
 		if (key == Key::quit) break;
-		pc_process_key(&w, key);
+		pc_process_key(w, key);
 	}
 	io_quit();
 
+	delete w;
 	cout << "Thanks for playing!" << endl;
+
+	return 0;
 }
 
