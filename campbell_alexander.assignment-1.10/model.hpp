@@ -66,11 +66,14 @@ struct Mob {
 };
 
 enum class Cell {
+	dirt,
 	grass,
 	tree,
 	rock,
 	tunnel,
 	river,
+	stair_up,
+	stair_down,
 };
 
 struct Level {

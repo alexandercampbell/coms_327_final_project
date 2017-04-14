@@ -17,10 +17,43 @@ static void populate_rivers(Level *l) {
 	}
 }
 
+static void place_dungeon_entrance(Level *l) {
+	int entrance_x = RAND_BETWEEN(16, DUNGEON_WIDTH - 1 - 16);
+	int entrance_y = RAND_BETWEEN(16, DUNGEON_HEIGHT - 1 - 16);
+
+	for (int y = -7; y <= 7; y++) {
+		for (int x = -7; x <= 7; x++) {
+			l->cells[entrance_y + y][entrance_x + x] = Cell::tunnel;
+		}
+	}
+
+	for (int y = -3; y <= 3; y++) {
+		for (int x = -3; x <= 3; x++) {
+			l->cells[entrance_y + y][entrance_x + x] = Cell::tunnel;
+		}
+	}
+
+	for (int i = -4; i <= 4; i++) {
+		l->cells[entrance_y + i][entrance_x - 4] = Cell::rock;
+		l->cells[entrance_y + i][entrance_x + 4] = Cell::rock;
+		l->cells[entrance_y + 4][entrance_x + i] = Cell::rock;
+		l->cells[entrance_y - 4][entrance_x + i] = Cell::rock;
+	}
+
+	l->cells[entrance_y][entrance_x + 4] = Cell::tunnel;
+	l->cells[entrance_y][entrance_x] = Cell::stair_down;
+}
+
 static void generate_town(Level *l) {
-	memset(l->cells, int(Cell::grass), DUNGEON_NUM_CELLS);
-	memset(l->mobs, 0, DUNGEON_NUM_CELLS);
+	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+		for (int x = 0; x < DUNGEON_WIDTH; x++) {
+			l->cells[y][x] = (FRAND() > 0.9) ? Cell::grass : Cell::dirt;
+		}
+	}
+
+	memset(l->mobs, 0, DUNGEON_NUM_CELLS * sizeof(Mob*));
 	populate_rivers(l);
+	place_dungeon_entrance(l);
 }
 
 static void generate_dungeon_level(Level *l) {

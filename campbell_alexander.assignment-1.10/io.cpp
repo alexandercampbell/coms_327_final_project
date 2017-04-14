@@ -80,12 +80,15 @@ void io::render(World *w) {
 			char ch;
 			int color;
 
-			if (c == Cell::grass)       { ch = ','; color = COLOR_YELLOW; }
-			else if (c == Cell::tree)   { ch = 'T'; color = COLOR_GREEN; }
-			else if (c == Cell::rock)   { ch = '#'; color = COLOR_BLACK; }
-			else if (c == Cell::tunnel) { ch = '.'; color = COLOR_BLUE; }
-			else if (c == Cell::river)  { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
-			else                        { ch = '?'; color = COLOR_MAGENTA; }
+			if (c == Cell::dirt) continue;
+			else if (c == Cell::grass)      { ch = ','; color = COLOR_GREEN; }
+			else if (c == Cell::tree)       { ch = 'T'; color = COLOR_GREEN; }
+			else if (c == Cell::rock)       { ch = '#'; color = COLOR_BLACK; }
+			else if (c == Cell::tunnel)     { ch = '.'; color = COLOR_WHITE; }
+			else if (c == Cell::river)      { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
+			else if (c == Cell::stair_up)   { ch = '<'; color = COLOR_WHITE; }
+			else if (c == Cell::stair_down) { ch = '>'; color = COLOR_WHITE; }
+			else                            { ch = '?'; color = COLOR_MAGENTA; }
 
 			draw_with_color(ch, draw_x, draw_y, color);
 		}
