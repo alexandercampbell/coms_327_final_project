@@ -67,8 +67,6 @@ bool pc_process_key(World *w, Key k) {
 	bool move_successful = mob_try_to_move(w->cur_level, w->pc, dir);
 	if (move_successful) {
 		pc_update_memory(w);
-	} else {
-		world_push_message(w, "Something's in the way.");
 	}
 
 	return move_successful;
