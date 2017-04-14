@@ -7,6 +7,7 @@
 
 #include "model.hpp"
 #include "mob.hpp"
+#include "world.hpp"
 
 namespace pc {
 	void init(Mob *pc);
