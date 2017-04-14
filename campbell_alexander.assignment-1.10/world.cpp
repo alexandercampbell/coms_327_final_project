@@ -114,8 +114,6 @@ static void place_dungeon_room(Level *l, int center_x, int center_y) {
 static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop_x, int stop_y) {
 	int x = start_x;
 	int y = start_y;
-	int moves = 0;
-	float irregular_tunnel_probability = 0.2;
 
 	while (x != stop_x || y != stop_y) {
 		int x_distance = stop_x - x;
@@ -123,32 +121,24 @@ static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop
 		bool x_farther = abs(x_distance) > abs(y_distance);
 
 		if (x_farther) {
-			if (FRAND() > irregular_tunnel_probability) {
+			if (FRAND() > 0.2) {
 				x += (x_distance > 0) ? 1 : -1;
 			} else {
 				y += (y_distance > 0) ? 1 : -1;
 			}
 		} else {
-			if (FRAND() > irregular_tunnel_probability) {
+			if (FRAND() > 0.2) {
 				y += (y_distance > 0) ? 1 : -1;
 			} else {
 				x += (x_distance > 0) ? 1 : -1;
 			}
 		}
 
-		x = CLAMPED_TO(x, 1, DUNGEON_WIDTH - 2);
-		y = CLAMPED_TO(y, 1, DUNGEON_HEIGHT - 2);
+		x = CLAMPED_TO(x, 0, DUNGEON_WIDTH - 1);
+		y = CLAMPED_TO(y, 0, DUNGEON_HEIGHT - 1);
 
 		if (l->cells[y][x] == Cell::rock) {
 			l->cells[y][x] = Cell::tunnel;
-		}
-
-		moves++;
-		// If we've failed to connect the rooms after many moves, remove
-		// the chance of tunneling in the wrong direction and instead
-		// tunnel directly to the correct spot.
-		if (moves > 200) {
-			irregular_tunnel_probability = 0;
 		}
 	}
 }
@@ -163,10 +153,10 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	vector<int> room_x_positions;
 	vector<int> room_y_positions;
 
-	int num_rooms = RAND_BETWEEN(3, 5);
+	int num_rooms = RAND_BETWEEN(5, 8);
 	for (int i = 0; i < num_rooms; i++) {
-		int room_x = RAND_BETWEEN(2, DUNGEON_WIDTH-2);
-		int room_y = RAND_BETWEEN(2, DUNGEON_HEIGHT-2);
+		int room_x = RAND_BETWEEN(4, DUNGEON_WIDTH-5);
+		int room_y = RAND_BETWEEN(4, DUNGEON_HEIGHT-5);
 		place_dungeon_room(l, room_x, room_y);
 
 		room_x_positions.push_back(room_x);
@@ -183,8 +173,8 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	if (l->depth == NUM_LEVELS - 1) {
 		// we are the final floor
 	} else {
-		l->down_stair_x = RAND_BETWEEN(1, DUNGEON_WIDTH);
-		l->down_stair_y = RAND_BETWEEN(1, DUNGEON_HEIGHT);
+		l->down_stair_x = RAND_BETWEEN(4, DUNGEON_WIDTH-5);
+		l->down_stair_y = RAND_BETWEEN(4, DUNGEON_HEIGHT-5);
 		place_dungeon_room(l, l->down_stair_x, l->down_stair_y);
 		room_x_positions.push_back(l->down_stair_x);
 		room_y_positions.push_back(l->down_stair_y);
