@@ -31,6 +31,10 @@ static struct {
 	{KEY_DOWN, Key::down},
 	{KEY_UP, Key::up},
 	{KEY_RIGHT, Key::right},
+	{'h', Key::left},
+	{'j', Key::down},
+	{'k', Key::up},
+	{'l', Key::right},
 	{'q', Key::quit},
 	{0, Key(0)},
 };
