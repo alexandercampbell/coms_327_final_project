@@ -82,10 +82,39 @@ static void generate_town(Level *l) {
 	place_dungeon_entrance(l);
 }
 
+static void place_dungeon_room(Level *l, int center_x, int center_y) {
+	// height is ignored if `circular == true`
+	bool circular = FRAND() > 0.8;
+	if (circular) {
+		int radius = RAND_BETWEEN(4, 14);
+		for (int y = center_y - radius; y <= center_y + radius; y++) {
+			for (int x = center_x - radius; x <= center_x + radius; x++) {
+				if (x < 0 || x >= DUNGEON_WIDTH || y < 0 || y >= DUNGEON_HEIGHT) continue;
+
+				int dist_x = (x - center_x);
+				int dist_y = (y - center_y);
+				if (sqrt(dist_x * dist_x + dist_y * dist_y) <= radius) {
+					l->cells[y][x] = Cell::tunnel;
+				}
+			}
+		}
+	} else {
+		int width = RAND_BETWEEN(4, 14);
+		int height = RAND_BETWEEN(4, 14);
+		for (int y = center_y - height/2; y <= center_y + height/2; y++) {
+			for (int x = center_x - width/2; x <= center_x + width/2; x++) {
+				if (x < 0 || x >= DUNGEON_WIDTH || y < 0 || y >= DUNGEON_HEIGHT) continue;
+
+				l->cells[y][x] = Cell::tunnel;
+			}
+		}
+	}
+}
+
 static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_y) {
 	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
 		for (int x = 0; x < DUNGEON_WIDTH; x++) {
-			l->cells[y][x] = (FRAND() > 0.9) ? Cell::rock : Cell::tunnel;
+			l->cells[y][x] = Cell::rock;
 		}
 	}
 
@@ -93,6 +122,7 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	l->up_stair_x = above_stair_x;
 	l->up_stair_y = above_stair_y;
 	l->cells[l->up_stair_y][l->up_stair_x] = Cell::stair_up;
+	place_dungeon_room(l, l->up_stair_x, l->up_stair_y);
 
 	if (l->depth == NUM_LEVELS - 1) {
 		// we are the final floor
@@ -100,6 +130,15 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 		l->down_stair_x = RAND_BETWEEN(1, DUNGEON_WIDTH);
 		l->down_stair_y = RAND_BETWEEN(1, DUNGEON_HEIGHT);
 		l->cells[l->down_stair_y][l->down_stair_x] = Cell::stair_down;
+
+		place_dungeon_room(l, l->down_stair_x, l->down_stair_y);
+	}
+
+	int num_rooms = RAND_BETWEEN(3, 5);
+	for (int i = 0; i < num_rooms; i++) {
+		int room_x = RAND_BETWEEN(0, DUNGEON_WIDTH-1);
+		int room_y = RAND_BETWEEN(0, DUNGEON_HEIGHT-1);
+		place_dungeon_room(l, room_x, room_y);
 	}
 }
 
