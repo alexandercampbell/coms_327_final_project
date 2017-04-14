@@ -86,7 +86,7 @@ static void place_dungeon_room(Level *l, int center_x, int center_y) {
 	// height is ignored if `circular == true`
 	bool circular = FRAND() > 0.8;
 	if (circular) {
-		int radius = RAND_BETWEEN(4, 14);
+		int radius = RAND_BETWEEN(4, 9);
 		for (int y = center_y - radius; y <= center_y + radius; y++) {
 			for (int x = center_x - radius; x <= center_x + radius; x++) {
 				if (x < 0 || x >= DUNGEON_WIDTH || y < 0 || y >= DUNGEON_HEIGHT) continue;
@@ -99,8 +99,8 @@ static void place_dungeon_room(Level *l, int center_x, int center_y) {
 			}
 		}
 	} else {
-		int width = RAND_BETWEEN(4, 14);
-		int height = RAND_BETWEEN(4, 14);
+		int width = RAND_BETWEEN(4, 10);
+		int height = RAND_BETWEEN(4, 6);
 		for (int y = center_y - height/2; y <= center_y + height/2; y++) {
 			for (int x = center_x - width/2; x <= center_x + width/2; x++) {
 				if (x < 0 || x >= DUNGEON_WIDTH || y < 0 || y >= DUNGEON_HEIGHT) continue;
@@ -134,12 +134,13 @@ static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop
 			}
 		}
 
-		x = CLAMPED_TO(x, 0, DUNGEON_WIDTH - 1);
-		y = CLAMPED_TO(y, 0, DUNGEON_HEIGHT - 1);
+		x = CLAMPED_TO(x, 0, DUNGEON_WIDTH - 2);
+		y = CLAMPED_TO(y, 0, DUNGEON_HEIGHT - 2);
 
-		if (l->cells[y][x] == Cell::rock) {
-			l->cells[y][x] = Cell::tunnel;
-		}
+		if (l->cells[y][x] == Cell::rock) l->cells[y][x] = Cell::tunnel;
+		if (l->cells[y][x+1] == Cell::rock) l->cells[y][x+1] = Cell::tunnel;
+		if (l->cells[y+1][x] == Cell::rock) l->cells[y+1][x] = Cell::tunnel;
+		if (l->cells[y+1][x+1] == Cell::rock) l->cells[y+1][x+1] = Cell::tunnel;
 	}
 }
 

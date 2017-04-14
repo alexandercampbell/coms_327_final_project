@@ -7,12 +7,12 @@ using namespace std;
 
 // no (non-stdlib) includes allowed :)
 
-#define DUNGEON_WIDTH  80
-#define DUNGEON_HEIGHT 40
+#define DUNGEON_WIDTH  92
+#define DUNGEON_HEIGHT 64
 #define DUNGEON_NUM_CELLS (DUNGEON_WIDTH * DUNGEON_HEIGHT)
 #define MAX_MOBS 50
-// 3 dungeon floors, 1 town
-#define NUM_LEVELS (1 + 3)
+// 10 dungeon floors, 1 town
+#define NUM_LEVELS (1 + 10)
 
 // Number of messages kept in memory at one time. When the UI message queue
 // fills, we will evict old messages.
