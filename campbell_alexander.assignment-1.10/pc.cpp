@@ -66,6 +66,11 @@ bool pc_process_key(World *w, Key k) {
 
 	bool move_successful = mob_try_to_move(w->cur_level, w->pc, dir);
 	if (move_successful) {
+		if (w->cur_level->cells[w->pc->y][w->pc->x] == Cell::river) {
+			if (FRAND() < 0.03) {
+				world_push_message(w, "You see a minnow swim by.");
+			}
+		}
 		pc_update_memory(w);
 	}
 
