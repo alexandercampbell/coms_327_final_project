@@ -1,7 +1,7 @@
 
 CPP = clang++
 
-CFLAGS = -std=gnu++11 -Wall -ggdb
+CFLAGS = -std=c++11 -Wall -ggdb
 LDFLAGS = -lncurses
 
 BIN = main
@@ -11,6 +11,7 @@ OBJS = main.o io.o dungeon.o
 all: $(BIN) ctags
 
 $(BIN): $(OBJS)
+	$(CPP) $^ -o $@ $(LDFLAGS)
 
 -include $(OBJS:.o=.d)
 
