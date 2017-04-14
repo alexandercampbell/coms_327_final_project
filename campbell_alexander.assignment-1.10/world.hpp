@@ -1,6 +1,9 @@
 
 #pragma once
 
+#include <vector>
+using namespace std;
+
 #include <string.h>
 #include <assert.h>
 
