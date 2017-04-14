@@ -120,13 +120,13 @@ static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop
 		bool x_farther = x_distance > y_distance;
 
 		if (x_farther) {
-			if (FRAND() > 0.8) {
+			if (FRAND() > 0.2) {
 				x += (x_distance > 0) ? 1 : -1;
 			} else {
 				y += (y_distance > 0) ? 1 : -1;
 			}
 		} else {
-			if (FRAND() > 0.8) {
+			if (FRAND() > 0.2) {
 				y += (y_distance > 0) ? 1 : -1;
 			} else {
 				x += (x_distance > 0) ? 1 : -1;
