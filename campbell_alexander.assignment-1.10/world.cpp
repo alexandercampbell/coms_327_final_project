@@ -114,19 +114,22 @@ static void place_dungeon_room(Level *l, int center_x, int center_y) {
 static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop_x, int stop_y) {
 	int x = start_x;
 	int y = start_y;
+	int moves = 0;
+	float irregular_tunnel_probability = 0.2;
+
 	while (x != stop_x || y != stop_y) {
 		int x_distance = stop_x - x;
 		int y_distance = stop_y - y;
-		bool x_farther = x_distance > y_distance;
+		bool x_farther = abs(x_distance) > abs(y_distance);
 
 		if (x_farther) {
-			if (FRAND() > 0.2) {
+			if (FRAND() > irregular_tunnel_probability) {
 				x += (x_distance > 0) ? 1 : -1;
 			} else {
 				y += (y_distance > 0) ? 1 : -1;
 			}
 		} else {
-			if (FRAND() > 0.2) {
+			if (FRAND() > irregular_tunnel_probability) {
 				y += (y_distance > 0) ? 1 : -1;
 			} else {
 				x += (x_distance > 0) ? 1 : -1;
@@ -138,6 +141,14 @@ static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop
 
 		if (l->cells[y][x] == Cell::rock) {
 			l->cells[y][x] = Cell::tunnel;
+		}
+
+		moves++;
+		// If we've failed to connect the rooms after many moves, remove
+		// the chance of tunneling in the wrong direction and instead
+		// tunnel directly to the correct spot.
+		if (moves > 200) {
+			irregular_tunnel_probability = 0;
 		}
 	}
 }
