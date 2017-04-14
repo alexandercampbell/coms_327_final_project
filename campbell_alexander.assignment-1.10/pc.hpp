@@ -9,9 +9,7 @@
 #include "mob.hpp"
 #include "world.hpp"
 
-namespace pc {
-	void init(Mob *pc);
-	bool process_key(World *w, Key k);
-	void update_memory(World *w);
-};
+void pc_init(Mob *pc);
+bool pc_process_key(World *w, Key k);
+void pc_update_memory(World *w);
 

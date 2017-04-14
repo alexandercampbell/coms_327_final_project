@@ -1,7 +1,7 @@
 
 #include "pc.hpp"
 
-void pc::init(Mob *pc) {
+void pc_init(Mob *pc) {
 	memset(pc, 0, sizeof(*pc));
 
 	pc->is_player = true;
@@ -48,11 +48,11 @@ static bool use_stairs(World *w, bool ascend) {
 	w->cur_level = &w->levels[w->pc->level];
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
 
-	pc::update_memory(w);
+	pc_update_memory(w);
 	return true;
 }
 
-bool pc::process_key(World *w, Key k) {
+bool pc_process_key(World *w, Key k) {
 	if (k == Key::ascend_stairs || k == Key::descend_stairs) {
 		return use_stairs(w, k == Key::ascend_stairs);
 	}
@@ -66,7 +66,7 @@ bool pc::process_key(World *w, Key k) {
 
 	bool move_successful = mob_try_to_move(w->cur_level, w->pc, dir);
 	if (move_successful) {
-		pc::update_memory(w);
+		pc_update_memory(w);
 	} else {
 		world_push_message(w, "Something's in the way.");
 	}
@@ -74,7 +74,7 @@ bool pc::process_key(World *w, Key k) {
 	return move_successful;
 }
 
-void pc::update_memory(World *w) {
+void pc_update_memory(World *w) {
 	Mob *pc = w->pc;
 
 	// Can't see as far in the dungeon.

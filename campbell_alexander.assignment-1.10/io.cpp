@@ -1,7 +1,7 @@
 
 #include "io.hpp"
 
-void io::init() {
+void io_init() {
 	initscr();
 	raw();
 	noecho();
@@ -19,7 +19,7 @@ void io::init() {
 	init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
 }
 
-void io::quit() {
+void io_quit() {
 	endwin();
 }
 
@@ -41,7 +41,7 @@ static struct {
 	{0, Key(0)},
 };
 
-Key io::wait_for_key() {
+Key io_wait_for_key() {
 	while (true) {
 		int k = getch();
 		for (int i = 0; key_bindings[i].ncurses_key != 0; i++) {
@@ -58,7 +58,7 @@ static void draw_with_color(char c, int x, int y, int color) {
 	attroff(COLOR_PAIR(color));
 }
 
-void io::render(World *w) {
+void io_render(World *w) {
 	clear();
 
 	int render_start_x = w->pc->x - RENDER_WIDTH / 2;

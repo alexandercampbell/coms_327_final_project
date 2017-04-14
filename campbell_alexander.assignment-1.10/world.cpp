@@ -122,13 +122,13 @@ void world_init(World *w) {
 	w->cur_level = &w->levels[0];
 
 	w->pc = new Mob;
-	pc::init(w->pc);
+	pc_init(w->pc);
 
 	w->pc->x = RAND_BETWEEN(0, DUNGEON_WIDTH - 1);
 	w->pc->y = RAND_BETWEEN(0, DUNGEON_HEIGHT - 1);
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
 
-	pc::update_memory(w);
+	pc_update_memory(w);
 }
 
 void world_push_message(World *w, string text, MessageSeverity severity) {

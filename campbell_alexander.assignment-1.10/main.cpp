@@ -10,18 +10,18 @@
 int main(int argc, char *argv[]) {
 	srand(time(0));
 
-	io::init();
-	atexit(io::quit);
+	io_init();
+	atexit(io_quit);
 
 	World w;
 	world_init(&w);
 	while (true) {
-		io::render(&w);
+		io_render(&w);
 
-		Key key = io::wait_for_key();
+		Key key = io_wait_for_key();
 		if (key == Key::quit) break;
 
-		pc::process_key(&w, key);
+		pc_process_key(&w, key);
 	}
 }
 

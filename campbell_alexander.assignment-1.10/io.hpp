@@ -6,15 +6,13 @@
 #include "model.hpp"
 #include "util.hpp"
 
-namespace io {
-	const int RENDER_WIDTH = 80;
-	const int RENDER_HEIGHT = 24;
+const int RENDER_WIDTH = 80;
+const int RENDER_HEIGHT = 24;
 
-	void init();
-	void quit(); // idempotent
+void io_init();
+void io_quit(); // idempotent
 
-	void render(World *w);
+void io_render(World *w);
 
-	Key wait_for_key();
-}
+Key io_wait_for_key();
 
