@@ -1,12 +1,22 @@
 
 #include "world.hpp"
 
+static void populate_trees(Level *l) {
+	int num_trees = RAND_BETWEEN(10, 30);
+	for (int i = 0; i < num_trees; i++) {
+		int x = RAND_BETWEEN(0, DUNGEON_WIDTH - 1);
+		int y = RAND_BETWEEN(0, DUNGEON_HEIGHT - 1);
+
+		l->cells[y][x] = Cell::tree;
+	}
+}
+
 static void populate_rivers(Level *l) {
 	int num_rivers = RAND_BETWEEN(5, 20);
 	for (int i = 0; i < num_rivers; i++) {
 		int river_length = RAND_BETWEEN(35, 250);
-		int x = RAND_BETWEEN(0, DUNGEON_WIDTH);
-		int y = RAND_BETWEEN(0, DUNGEON_HEIGHT);
+		int x = RAND_BETWEEN(0, DUNGEON_WIDTH - 1);
+		int y = RAND_BETWEEN(0, DUNGEON_HEIGHT - 1);
 		for (int j = 0; j < river_length; j++) {
 			x += RAND_BETWEEN(-1, 1);
 			y += RAND_BETWEEN(-1, 1);
@@ -52,6 +62,7 @@ static void generate_town(Level *l) {
 	}
 
 	memset(l->mobs, 0, DUNGEON_NUM_CELLS * sizeof(Mob*));
+	populate_trees(l);
 	populate_rivers(l);
 	place_dungeon_entrance(l);
 }
