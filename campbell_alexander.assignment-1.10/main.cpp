@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 		Key key = io::wait_for_key();
 		if (key == Key::quit) break;
 
-		pc::process_key(w, key);
+		pc::process_key(&w, key);
 	}
 }
 

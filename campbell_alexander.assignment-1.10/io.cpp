@@ -76,11 +76,11 @@ void io::render(World *w) {
 				continue;
 			}
 
-			Cell c = w->cur_level->cells[y][x];
+			Cell c = w->cur_level->pc_memory[y][x];
 			char ch;
 			int color;
 
-			if (c == Cell::dirt) continue;
+			if (c == Cell::none) continue;
 			else if (c == Cell::grass)      { ch = ','; color = COLOR_GREEN; }
 			else if (c == Cell::tree)       { ch = 'T'; color = COLOR_GREEN; }
 			else if (c == Cell::rock)       { ch = '#'; color = COLOR_BLACK; }
@@ -90,7 +90,18 @@ void io::render(World *w) {
 			else if (c == Cell::stair_down) { ch = '>'; color = COLOR_WHITE; }
 			else                            { ch = '?'; color = COLOR_MAGENTA; }
 
+			int dist_x = w->pc->x - x;
+			int dist_y = w->pc->y - y;
+			bool directly_visible = dist_x * dist_x + dist_y * dist_y < PC_VIEW_RADIUS * PC_VIEW_RADIUS;
+			if (directly_visible) {
+				attron(A_BOLD);
+			} else {
+				color = COLOR_WHITE;
+			}
+
 			draw_with_color(ch, draw_x, draw_y, color);
+
+			if (directly_visible) attroff(A_BOLD);
 		}
 	}
 

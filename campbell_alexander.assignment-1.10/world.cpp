@@ -47,7 +47,7 @@ static void place_dungeon_entrance(Level *l) {
 static void generate_town(Level *l) {
 	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
 		for (int x = 0; x < DUNGEON_WIDTH; x++) {
-			l->cells[y][x] = (FRAND() > 0.9) ? Cell::grass : Cell::dirt;
+			l->cells[y][x] = (FRAND() > 0.9) ? Cell::grass : Cell::none;
 		}
 	}
 
@@ -79,5 +79,7 @@ void world_init(World *w) {
 	w->pc->x = RAND_BETWEEN(0, DUNGEON_WIDTH);
 	w->pc->y = RAND_BETWEEN(0, DUNGEON_HEIGHT);
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
+
+	pc::update_memory(w);
 }
 

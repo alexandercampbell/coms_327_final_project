@@ -9,6 +9,7 @@
 #define MAX_MOBS 50
 // 10 dungeon floors, 1 town
 #define NUM_LEVELS 11
+#define PC_VIEW_RADIUS 6
 
 // Model definitions
 
@@ -66,7 +67,7 @@ struct Mob {
 };
 
 enum class Cell {
-	dirt,
+	none,
 	grass,
 	tree,
 	rock,
@@ -81,6 +82,7 @@ struct Level {
 	bool is_dungeon;
 
 	Cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
+	Cell pc_memory[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	int num_mobs;
 };
