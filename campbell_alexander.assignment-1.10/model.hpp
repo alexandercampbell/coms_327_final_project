@@ -10,25 +10,25 @@
 
 // Model definitions
 
-struct dice {
+struct Dice {
 	int base;
 	int num;
 	int sides;
 };
 
-enum class weapon_type {
+enum class WeaponType {
 	dagger,
 	sword,
 	axe,
 };
 
-struct weapon {
+struct Weapon {
 	char *name;
 	char *desc;
-	dice damage;
+	Dice damage;
 };
 
-struct ring {
+struct Ring {
 	char *name;
 	char *desc;
 
@@ -36,15 +36,15 @@ struct ring {
 	double hp_mul;
 };
 
-enum class race {
-	race_human,
-	race_elf,
-	race_orc,
-	race_dwarf,
-	race_reptile
+enum class Race {
+	human,
+	elf,
+	orc,
+	dwarf,
+	reptile
 };
 
-struct mob {
+struct Mob {
 	bool is_player;
 	bool is_friendly;
 
@@ -52,13 +52,13 @@ struct mob {
 	int max_hp;
 
 	char symb;
-	dice unarmed_attack;
-	weapon *weapon;
-	ring *ring;
-	race race;
+	Dice unarmed_attack;
+	Weapon *weapon;
+	Ring *ring;
+	Race race;
 };
 
-enum class cell {
+enum class Cell {
 	grass,
 	tree,
 	rock,
@@ -66,13 +66,13 @@ enum class cell {
 	river,
 };
 
-struct dungeon {
-	cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
-	mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
+struct Dungeon {
+	Cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
+	Mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	int num_mobs;
 };
 
-enum class key {
+enum class Key {
 	none,
 	up,
 	left,

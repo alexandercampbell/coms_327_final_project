@@ -9,5 +9,5 @@ using namespace std;
 #include "model.hpp"
 #include "util.hpp"
 
-void dungeon_generate(dungeon *d);
+void dungeon_generate(Dungeon *d);
 

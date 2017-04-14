@@ -10,8 +10,8 @@ namespace io {
 	void init();
 	void quit(); // idempotent
 
-	void render(dungeon *d);
+	void render(Dungeon *d);
 
-	key wait_for_key();
+	Key wait_for_key();
 }
 

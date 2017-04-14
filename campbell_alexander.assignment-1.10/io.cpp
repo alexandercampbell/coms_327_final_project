@@ -25,17 +25,17 @@ void io::quit() {
 
 static struct {
 	int ncurses_key;
-	key result;
+	Key result;
 } key_bindings[] = {
-	{KEY_LEFT, key::left},
-	{KEY_DOWN, key::down},
-	{KEY_UP, key::up},
-	{KEY_RIGHT, key::right},
-	{'q', key::quit},
-	{0, key(0)},
+	{KEY_LEFT, Key::left},
+	{KEY_DOWN, Key::down},
+	{KEY_UP, Key::up},
+	{KEY_RIGHT, Key::right},
+	{'q', Key::quit},
+	{0, Key(0)},
 };
 
-key io::wait_for_key() {
+Key io::wait_for_key() {
 	while (true) {
 		int k = getch();
 		for (int i = 0; key_bindings[i].ncurses_key != 0; i++) {
@@ -52,27 +52,27 @@ static void draw_with_color(char c, int x, int y, int color) {
 	attroff(COLOR_PAIR(color));
 }
 
-void io::render(dungeon *d) {
+void io::render(Dungeon *d) {
 	clear();
 
 	for (int x = 0; x < DUNGEON_WIDTH; x++) {
 		for (int y = 0; y < DUNGEON_HEIGHT; y++) {
-			mob *m = d->mobs[y][x];
+			Mob *m = d->mobs[y][x];
 			if (m) {
 				draw_with_color(m->symb, x, y, m->is_friendly ?
 						COLOR_GREEN : COLOR_RED);
 				continue;
 			}
 
-			cell c = d->cells[y][x];
+			Cell c = d->cells[y][x];
 			char ch;
 			int color;
 
-			if (c == cell::grass)       { ch = ','; color = COLOR_YELLOW; }
-			else if (c == cell::tree)   { ch = 'T'; color = COLOR_GREEN; }
-			else if (c == cell::rock)   { ch = '#'; color = COLOR_BLACK; }
-			else if (c == cell::tunnel) { ch = '.'; color = COLOR_BLUE; }
-			else if (c == cell::river)  { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
+			if (c == Cell::grass)       { ch = ','; color = COLOR_YELLOW; }
+			else if (c == Cell::tree)   { ch = 'T'; color = COLOR_GREEN; }
+			else if (c == Cell::rock)   { ch = '#'; color = COLOR_BLACK; }
+			else if (c == Cell::tunnel) { ch = '.'; color = COLOR_BLUE; }
+			else if (c == Cell::river)  { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
 			else                        { ch = '?'; color = COLOR_MAGENTA; }
 
 			draw_with_color(ch, x, y, color);

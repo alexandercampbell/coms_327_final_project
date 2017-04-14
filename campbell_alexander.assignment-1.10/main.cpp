@@ -12,10 +12,10 @@ int main(int argc, char *argv[]) {
 	io::init();
 	atexit(io::quit);
 
-	dungeon d;
+	Dungeon d;
 	dungeon_generate(&d);
 	do {
 		io::render(&d);
-	} while (io::wait_for_key() != key::quit);
+	} while (io::wait_for_key() != Key::quit);
 }
 
