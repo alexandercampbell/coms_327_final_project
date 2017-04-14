@@ -55,11 +55,23 @@ static void draw_with_color(char c, int x, int y, int color) {
 void io::render(Dungeon *d) {
 	clear();
 
-	for (int x = 0; x < DUNGEON_WIDTH; x++) {
-		for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+	int render_start_x = d->pc->x - RENDER_WIDTH / 2;
+	int render_start_y = d->pc->y - RENDER_HEIGHT / 2;
+	int render_stop_x = render_start_x + RENDER_WIDTH;
+	int render_stop_y = render_start_y + RENDER_HEIGHT;
+
+	for (int x = render_start_x; x < render_stop_x; x++) {
+		if (x < 0 || x >= DUNGEON_WIDTH) continue;
+
+		for (int y = render_start_y; y < render_stop_y; y++) {
+			if (y < 0 || y >= DUNGEON_HEIGHT) continue;
+
+			int draw_x = x - render_start_x;
+			int draw_y = y - render_start_y;
+
 			Mob *m = d->mobs[y][x];
 			if (m) {
-				draw_with_color(m->symb, x, y, m->is_friendly ?
+				draw_with_color(m->symb, draw_x, draw_y, m->is_friendly ?
 						COLOR_GREEN : COLOR_RED);
 				continue;
 			}
@@ -75,7 +87,7 @@ void io::render(Dungeon *d) {
 			else if (c == Cell::river)  { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
 			else                        { ch = '?'; color = COLOR_MAGENTA; }
 
-			draw_with_color(ch, x, y, color);
+			draw_with_color(ch, draw_x, draw_y, color);
 		}
 	}
 

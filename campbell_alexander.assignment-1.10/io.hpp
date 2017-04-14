@@ -7,6 +7,9 @@
 #include "util.hpp"
 
 namespace io {
+	const int RENDER_WIDTH = 80;
+	const int RENDER_HEIGHT = 24;
+
 	void init();
 	void quit(); // idempotent
 
