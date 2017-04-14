@@ -25,8 +25,10 @@ void dungeon_generate(Dungeon *d) {
 	populate_rivers(d);
 
 	// TODO: remove this memory leak
-	Mob *m = new Mob();
-	m->symb = '@';
-	d->mobs[24][15] = m;
+	d->pc = new Mob();
+	d->pc->symb = '@';
+	d->pc->x = 15;
+	d->pc->y = 24;
+	d->mobs[24][15] = d->pc;
 }
 

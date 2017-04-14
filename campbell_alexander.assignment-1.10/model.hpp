@@ -48,6 +48,9 @@ struct Mob {
 	bool is_player;
 	bool is_friendly;
 
+	int x;
+	int y;
+
 	int hp;
 	int max_hp;
 
@@ -69,6 +72,7 @@ enum class Cell {
 struct Dungeon {
 	Cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
+	Mob *pc;
 	int num_mobs;
 };
 
@@ -79,5 +83,12 @@ enum class Key {
 	down,
 	right,
 	quit,
+};
+
+enum class Direction {
+	up,
+	left,
+	down,
+	right,
 };
 

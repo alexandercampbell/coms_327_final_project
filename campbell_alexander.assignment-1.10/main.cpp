@@ -5,6 +5,7 @@
 #include "dungeon.hpp"
 #include "io.hpp"
 #include "model.hpp"
+#include "pc.hpp"
 
 int main(int argc, char *argv[]) {
 	srand(time(0));
@@ -14,8 +15,13 @@ int main(int argc, char *argv[]) {
 
 	Dungeon d;
 	dungeon_generate(&d);
-	do {
+	while (true) {
 		io::render(&d);
-	} while (io::wait_for_key() != Key::quit);
+
+		Key key = io::wait_for_key();
+		if (key == Key::quit) break;
+
+		pc::process_key(d, key);
+	}
 }
 
