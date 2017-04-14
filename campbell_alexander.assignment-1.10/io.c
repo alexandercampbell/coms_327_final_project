@@ -31,6 +31,7 @@ static struct {
 	{KEY_DOWN, key_down},
 	{KEY_UP, key_up},
 	{KEY_RIGHT, key_right},
+	{'q', key_quit},
 	{0, 0},
 };
 

@@ -74,9 +74,11 @@ typedef struct dungeon {
 } dungeon;
 
 typedef enum key_press {
+	key_none,
 	key_up,
-	key_down,
 	key_left,
+	key_down,
 	key_right,
+	key_quit,
 } key_press;
 
