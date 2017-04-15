@@ -206,6 +206,10 @@ void world_init(World *w) {
 	memset(w, 0, sizeof(*w));
 	memset(w->levels, 0, sizeof(w->levels));
 
+	// Fixes a crash on certain platforms.
+	// Must initialize the deque for whatever reason.
+	w->messages = deque<Message>();
+
 	generate_town(&w->levels[0]);
 	for (int i = 1; i < NUM_LEVELS; i++) {
 		w->levels[i].depth = i;
