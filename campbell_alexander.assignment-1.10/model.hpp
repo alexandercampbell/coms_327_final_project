@@ -34,20 +34,28 @@ struct Dice {
 	int num;
 	int sides;
 };
+inline Dice mk_dice(int base, int num, int sides) {
+	Dice d = {base, num, sides};
+	return d;
+}
 
-#define IS_WEAPON(item_type) ( \
-		item_type == ItemType::dagger || \
-		item_type == ItemType::sword || \
-		item_type == ItemType::dagger \
-)
+#define IS_WEAPON(item_type) (item_type != ItemType::ring)
 enum class ItemType {
 	// Weapons
+	knife,
 	dagger,
 	sword,
+	hand_axe,
 	axe,
+	bat,
 
 	// Wearable
 	ring
+};
+
+enum class RingAbility {
+	invisibility,
+	teleport_to_town,
 };
 
 struct Item {
@@ -60,6 +68,9 @@ struct Item {
 	Dice damage;
 	float damage_mul;
 	float hp_mul;
+
+	// ring
+	RingAbility ability;
 };
 
 enum class Race {
