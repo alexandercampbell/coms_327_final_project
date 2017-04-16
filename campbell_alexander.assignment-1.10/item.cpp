@@ -46,23 +46,23 @@ static ItemPrototype mk_ring(int min_level, int max_level, string name,
 }
 
 const static vector<ItemPrototype> available_items = {
-	mk_weapon(0, 2, "Steak Knife", '|',
+	mk_weapon(0, 2, "a steak knife", '|',
 		"Standard steak knife. Sharp, but a little too small for serious combat.",
 		mk_dice(3, 1, 4)),
 
-	mk_weapon(1, 3, "Orcish Sword", '|',
+	mk_weapon(1, 3, "an Orcish sword", '|',
 		"An orcish sword. Crooked and tinged green.",
 		mk_dice(5, 2, 3)),
 
-	mk_weapon(1, 3, "Elvish Handaxe", '|',
+	mk_weapon(1, 3, "an Elvish handaxe", '|',
 		"This light axe is surprisingly elegant.",
 		mk_dice(8, 1, 3)),
 
-	mk_ring(0, 0, "Grass Ring",
+	mk_ring(0, 0, "a grass Ring",
 		"This woven grass Ring pulses green, yellow, and oddly, blue.",
 		RingAbility::teleport_to_town),
 
-	mk_ring(3, 10, "Sacrificial Ring",
+	mk_ring(3, 10, "a sacrificial Ring",
 		"This dark red Ring is oozing a puce liquid.",
 		RingAbility::sacrifice),
 };
