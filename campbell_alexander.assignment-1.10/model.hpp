@@ -48,6 +48,7 @@ enum class RingAbility {
 	none,
 	invisibility,
 	teleport_to_town,
+	sacrifice,
 };
 
 struct Item {

@@ -8,7 +8,7 @@ struct ItemPrototype {
 };
 
 static ItemPrototype mk_weapon(int min_level, int max_level, string name, char symb,
-		string desc, Dice damage, float hp_mul) {
+		string desc, Dice damage, float hp_mul=1.f, float damage_mul=1.f) {
 
 	ItemPrototype i = {0};
 
@@ -19,16 +19,50 @@ static ItemPrototype mk_weapon(int min_level, int max_level, string name, char s
 	i.item.desc = desc;
 	i.item.symb = symb;
 	i.item.damage = damage;
-	i.item.damage_mul = 1.f;
 	i.item.hp_mul = hp_mul;
+	i.item.damage_mul = damage_mul;
+
+	return i;
+}
+
+static ItemPrototype mk_ring(int min_level, int max_level, string name,
+		string desc, RingAbility ability, float hp_mul=1.f, float damage_mul=1.f) {
+
+	ItemPrototype i = {0};
+
+	i.min_level = min_level;
+	i.max_level = max_level;
+
+	i.item.name = name;
+	i.item.desc = desc;
+	i.item.symb = 'o';
+	i.item.damage_mul = damage_mul;
+	i.item.hp_mul = hp_mul;
+	i.item.ability = ability;
 
 	return i;
 }
 
 const static vector<ItemPrototype> available_items = {
-	mk_weapon(0, 3, "Kitchen Knife", '-',
-		"Standard steak knife. Wickedly sharp. Unfortunately, ill-suited to combat.",
-		mk_dice(3, 1, 4), 0),
+	mk_weapon(0, 2, "Steak Knife", '|',
+		"Standard steak knife. Sharp, but a little too small for serious combat.",
+		mk_dice(3, 1, 4)),
+
+	mk_weapon(1, 3, "Orcish Sword", '|',
+		"An orcish sword. Crooked and tinged green.",
+		mk_dice(5, 2, 3)),
+
+	mk_weapon(1, 3, "Elvish Handaxe", '|',
+		"This light axe is surprisingly elegant.",
+		mk_dice(8, 1, 3)),
+
+	mk_ring(0, 0, "Grass Ring",
+		"This woven grass Ring pulses green, yellow, and oddly, blue.",
+		RingAbility::teleport_to_town),
+
+	mk_ring(3, 10, "Sacrificial Ring",
+		"This dark red Ring is oozing a puce liquid.",
+		RingAbility::sacrifice),
 };
 
 Item *item_generate(int depth) {
