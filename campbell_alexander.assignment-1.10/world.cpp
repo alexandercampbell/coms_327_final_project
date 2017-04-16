@@ -144,6 +144,27 @@ static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop
 	}
 }
 
+static void place_dungeon_items(Level *l) {
+	int num_items = RAND_BETWEEN(2, 4);
+	for (int i = 0; i < num_items; i++) {
+		Item *item = item_generate(l->depth);
+
+		while (true) {
+			int x = RAND_BETWEEN(1, DUNGEON_WIDTH - 2);
+			int y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 2);
+
+			if (l->items[y][x]) continue;
+
+			if (l->cells[y][x] == Cell::tunnel ||
+				l->cells[y][x] == Cell::grass) {
+
+				l->items[y][x] = item;
+				break;
+			}
+		}
+	}
+}
+
 static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_y) {
 	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
 		for (int x = 0; x < DUNGEON_WIDTH; x++) {
@@ -198,6 +219,8 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 		l->cells[y][0] = Cell::rock;
 		l->cells[y][DUNGEON_WIDTH-1] = Cell::rock;
 	}
+
+	place_dungeon_items(l);
 }
 
 void world_init(World *w) {

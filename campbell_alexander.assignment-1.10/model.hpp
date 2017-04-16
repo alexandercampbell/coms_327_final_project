@@ -39,21 +39,13 @@ inline Dice mk_dice(int base, int num, int sides) {
 	return d;
 }
 
-#define IS_WEAPON(item_type) (item_type != ItemType::ring)
 enum class ItemType {
-	// Weapons
-	knife,
-	dagger,
-	sword,
-	hand_axe,
-	axe,
-	bat,
-
-	// Wearable
-	ring
+	weapon,
+	ring,
 };
 
 enum class RingAbility {
+	none,
 	invisibility,
 	teleport_to_town,
 };
@@ -61,15 +53,16 @@ enum class RingAbility {
 struct Item {
 	string name;
 	string desc;
+	char symb;
 
 	ItemType type;
 
-	// weapon
+	// attributes
 	Dice damage;
 	float damage_mul;
 	float hp_mul;
 
-	// ring
+	// if ring
 	RingAbility ability;
 };
 
@@ -122,6 +115,7 @@ struct Level {
 	Cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Cell pc_memory[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
+	Item *items[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 };
 
 /**

@@ -75,11 +75,29 @@ void io_render(World *w) {
 			int draw_x = x - render_start_x;
 			int draw_y = y - render_start_y;
 
-			Mob *m = w->cur_level->mobs[y][x];
-			if (m) {
-				draw_with_color(m->symb, draw_x, draw_y, m->is_friendly ?
-						COLOR_GREEN : COLOR_RED);
-				continue;
+			int dist_x = w->pc->x - x;
+			int dist_y = w->pc->y - y;
+			int view_radius = PC_VIEW_RADIUS(w);
+			bool directly_visible = dist_x * dist_x + dist_y * dist_y <
+				view_radius * view_radius;
+
+			if (directly_visible) {
+				attron(A_BOLD);
+
+				Mob *m = w->cur_level->mobs[y][x];
+				if (m) {
+					draw_with_color(m->symb, draw_x, draw_y, m->is_friendly ?
+							COLOR_GREEN : COLOR_RED);
+					continue;
+				}
+
+				Item *item = w->cur_level->items[y][x];
+				if (item) {
+					draw_with_color(item->symb, draw_x, draw_y, COLOR_YELLOW);
+					continue;
+				}
+			} else {
+				attroff(A_BOLD);
 			}
 
 			Cell c = w->cur_level->pc_memory[y][x];
@@ -97,22 +115,15 @@ void io_render(World *w) {
 			else if (c == Cell::mountain)   { ch = '^'; color = COLOR_WHITE; }
 			else                            { ch = '?'; color = COLOR_MAGENTA; }
 
-			int dist_x = w->pc->x - x;
-			int dist_y = w->pc->y - y;
-			int view_radius = PC_VIEW_RADIUS(w);
-			bool directly_visible = dist_x * dist_x + dist_y * dist_y <
-				view_radius * view_radius;
-			if (directly_visible) {
-				attron(A_BOLD);
-			} else {
+			if (!directly_visible) {
 				color = COLOR_WHITE;
 			}
 
 			draw_with_color(ch, draw_x, draw_y, color);
-
-			if (directly_visible) attroff(A_BOLD);
 		}
 	}
+
+	attroff(A_BOLD);
 
 	int line = 0;
 	int console_start_line = RENDER_HEIGHT - w->messages.size();

@@ -10,5 +10,5 @@ using namespace std;
 #include "util.hpp"
 
 // Items are generated according to the depth at which they are placed.
-Item item_generate(int depth);
+Item *item_generate(int depth);
 
