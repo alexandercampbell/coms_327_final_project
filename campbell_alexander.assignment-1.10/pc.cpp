@@ -52,9 +52,39 @@ static bool use_stairs(World *w, bool ascend) {
 	return true;
 }
 
+static bool trade_item(World *w) {
+	Item *i = w->cur_level->items[w->pc->y][w->pc->x];
+	if (!i) return false;
+
+	Item **old_item = (i->type == ItemType::weapon) ?
+		&w->pc->weapon : &w->pc->ring;
+
+	if (*old_item) {
+		string s = string("You equip ") + i->name + string(", dropping ") +
+			(*old_item)->name;
+		world_push_message(w, s);
+
+		Item *temp = *old_item;
+		*old_item = i;
+		w->cur_level->items[w->pc->y][w->pc->x] = temp;
+	} else {
+		string s = string("You equip ") + i->name;
+
+		world_push_message(w, s);
+		*old_item = i;
+		w->cur_level->items[w->pc->y][w->pc->x] = NULL;
+	}
+
+	return true;
+}
+
 bool pc_process_key(World *w, Key k) {
 	if (k == Key::ascend_stairs || k == Key::descend_stairs) {
 		return use_stairs(w, k == Key::ascend_stairs);
+	}
+
+	if (k == Key::trade_item) {
+		return trade_item(w);
 	}
 
 	Direction dir;
@@ -72,6 +102,16 @@ bool pc_process_key(World *w, Key k) {
 			}
 		}
 		pc_update_memory(w);
+
+		Item *i = w->cur_level->items[w->pc->y][w->pc->x];
+		if (i) {
+			string s = string("On the ground you see a ") + i->name + ".";
+			world_push_message(w, s.c_str());
+			s = "To trade for your currently equipped ";
+			s += (i->type == ItemType::weapon) ? "weapon" : "ring";
+			s += " press [space]";
+			world_push_message(w, s.c_str());
+		}
 	}
 
 	return move_successful;

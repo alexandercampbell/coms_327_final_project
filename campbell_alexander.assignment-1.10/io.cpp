@@ -38,6 +38,7 @@ static struct {
 	{'q', Key::quit},
 	{'>', Key::descend_stairs},
 	{'<', Key::ascend_stairs},
+	{' ', Key::trade_item},
 	{0, Key(0)},
 };
 

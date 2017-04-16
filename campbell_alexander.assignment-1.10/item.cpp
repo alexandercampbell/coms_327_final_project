@@ -15,6 +15,7 @@ static ItemPrototype mk_weapon(int min_level, int max_level, string name, char s
 	i.min_level = min_level;
 	i.max_level = max_level;
 
+	i.item.type = ItemType::weapon;
 	i.item.name = name;
 	i.item.desc = desc;
 	i.item.symb = symb;
@@ -33,6 +34,7 @@ static ItemPrototype mk_ring(int min_level, int max_level, string name,
 	i.min_level = min_level;
 	i.max_level = max_level;
 
+	i.item.type = ItemType::ring;
 	i.item.name = name;
 	i.item.desc = desc;
 	i.item.symb = 'o';

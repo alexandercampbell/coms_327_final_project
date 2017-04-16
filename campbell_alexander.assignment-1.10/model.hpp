@@ -151,7 +151,8 @@ enum class Key {
 	right,
 	quit,
 	ascend_stairs,
-	descend_stairs
+	descend_stairs,
+	trade_item,
 };
 
 enum class Direction {
