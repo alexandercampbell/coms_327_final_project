@@ -68,20 +68,6 @@ static void place_dungeon_entrance(Level *l) {
 	l->down_stair_y = entrance_y;
 }
 
-static void generate_town(Level *l) {
-	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
-		for (int x = 0; x < DUNGEON_WIDTH; x++) {
-			l->cells[y][x] = (FRAND() > 0.9) ? Cell::grass : Cell::none;
-		}
-	}
-
-	memset(l->mobs, 0, DUNGEON_NUM_CELLS * sizeof(Mob*));
-	populate_trees(l);
-	populate_rivers(l);
-	populate_mountains(l);
-	place_dungeon_entrance(l);
-}
-
 static void place_dungeon_room(Level *l, int center_x, int center_y) {
 	// height is ignored if `circular == true`
 	bool circular = FRAND() > 0.8;
@@ -144,7 +130,7 @@ static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop
 	}
 }
 
-static void place_dungeon_items(Level *l) {
+static void generate_and_place_items(Level *l) {
 	int num_items = RAND_BETWEEN(2, 4);
 	for (int i = 0; i < num_items; i++) {
 		Item *item = item_generate(l->depth);
@@ -156,13 +142,29 @@ static void place_dungeon_items(Level *l) {
 			if (l->items[y][x]) continue;
 
 			if (l->cells[y][x] == Cell::tunnel ||
-				l->cells[y][x] == Cell::grass) {
+				l->cells[y][x] == Cell::grass ||
+				l->cells[y][x] == Cell::none) {
 
 				l->items[y][x] = item;
 				break;
 			}
 		}
 	}
+}
+
+static void generate_town(Level *l) {
+	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+		for (int x = 0; x < DUNGEON_WIDTH; x++) {
+			l->cells[y][x] = (FRAND() > 0.9) ? Cell::grass : Cell::none;
+		}
+	}
+
+	memset(l->mobs, 0, DUNGEON_NUM_CELLS * sizeof(Mob*));
+	populate_trees(l);
+	populate_rivers(l);
+	populate_mountains(l);
+	place_dungeon_entrance(l);
+	generate_and_place_items(l);
 }
 
 static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_y) {
@@ -220,7 +222,7 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 		l->cells[y][DUNGEON_WIDTH-1] = Cell::rock;
 	}
 
-	place_dungeon_items(l);
+	generate_and_place_items(l);
 }
 
 void world_init(World *w) {
