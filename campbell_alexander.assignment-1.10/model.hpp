@@ -35,24 +35,31 @@ struct Dice {
 	int sides;
 };
 
-enum class WeaponType {
+#define IS_WEAPON(item_type) ( \
+		item_type == ItemType::dagger || \
+		item_type == ItemType::sword || \
+		item_type == ItemType::dagger \
+)
+enum class ItemType {
+	// Weapons
 	dagger,
 	sword,
 	axe,
+
+	// Wearable
+	ring
 };
 
-struct Weapon {
-	char *name;
-	char *desc;
+struct Item {
+	string name;
+	string desc;
+
+	ItemType type;
+
+	// weapon
 	Dice damage;
-};
-
-struct Ring {
-	char *name;
-	char *desc;
-
-	double damage_mul;
-	double hp_mul;
+	float damage_mul;
+	float hp_mul;
 };
 
 enum class Race {
@@ -77,8 +84,8 @@ struct Mob {
 
 	char symb;
 	Dice unarmed_attack;
-	Weapon *weapon;
-	Ring *ring;
+	Item *weapon;
+	Item *ring;
 	Race race;
 };
 
