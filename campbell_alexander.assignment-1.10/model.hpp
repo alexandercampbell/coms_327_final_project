@@ -104,7 +104,6 @@ struct Level {
 	Cell cells[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Cell pc_memory[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
-	int num_mobs;
 };
 
 /**
