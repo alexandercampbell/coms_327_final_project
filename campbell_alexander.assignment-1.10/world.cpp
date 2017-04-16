@@ -197,8 +197,14 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	if (l->depth == NUM_LEVELS - 1) {
 		// we are the final floor
 	} else {
-		l->down_stair_x = RAND_BETWEEN(4, DUNGEON_WIDTH-5);
-		l->down_stair_y = RAND_BETWEEN(4, DUNGEON_HEIGHT-5);
+		// Wrapped in a do-while just in case the staircases happen to
+		// be generated on top of eachother.
+		do {
+			l->down_stair_x = RAND_BETWEEN(4, DUNGEON_WIDTH-5);
+			l->down_stair_y = RAND_BETWEEN(4, DUNGEON_HEIGHT-5);
+		} while (l->down_stair_x == l->up_stair_x &&
+				l->down_stair_y == l->down_stair_y);
+
 		place_dungeon_room(l, l->down_stair_x, l->down_stair_y);
 		room_x_positions.push_back(l->down_stair_x);
 		room_y_positions.push_back(l->down_stair_y);
