@@ -99,14 +99,16 @@ enum class Cell {
 	mountain,
 	stair_up,
 	stair_down,
+	health_fountain,
 };
 #define CELL_IS_WALKABLE(c) (\
-	(c) == Cell::none         || \
-	(c) == Cell::grass        || \
-	(c) == Cell::tunnel       || \
-	(c) == Cell::stair_up     || \
-	(c) == Cell::stair_down   || \
-	(c) == Cell::river           \
+	(c) == Cell::none             || \
+	(c) == Cell::grass            || \
+	(c) == Cell::tunnel           || \
+	(c) == Cell::stair_up         || \
+	(c) == Cell::stair_down       || \
+	(c) == Cell::river            || \
+	(c) == Cell::health_fountain     \
 )
 
 struct Level {

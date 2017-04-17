@@ -106,15 +106,16 @@ void io_render(World *w) {
 			int color;
 
 			if (c == Cell::none) continue;
-			else if (c == Cell::grass)      { ch = ','; color = COLOR_GREEN; }
-			else if (c == Cell::tree)       { ch = 'T'; color = COLOR_GREEN; }
-			else if (c == Cell::rock)       { ch = '#'; color = COLOR_BLACK; }
-			else if (c == Cell::tunnel)     { ch = '.'; color = COLOR_WHITE; }
-			else if (c == Cell::river)      { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
-			else if (c == Cell::stair_up)   { ch = '<'; color = COLOR_WHITE; }
-			else if (c == Cell::stair_down) { ch = '>'; color = COLOR_WHITE; }
-			else if (c == Cell::mountain)   { ch = '^'; color = COLOR_WHITE; }
-			else                            { ch = '?'; color = COLOR_MAGENTA; }
+			else if (c == Cell::grass)           { ch = ','; color = COLOR_GREEN; }
+			else if (c == Cell::tree)            { ch = 'T'; color = COLOR_GREEN; }
+			else if (c == Cell::rock)            { ch = '#'; color = COLOR_BLACK; }
+			else if (c == Cell::tunnel)          { ch = '.'; color = COLOR_WHITE; }
+			else if (c == Cell::river)           { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
+			else if (c == Cell::stair_up)        { ch = '<'; color = COLOR_WHITE; }
+			else if (c == Cell::stair_down)      { ch = '>'; color = COLOR_WHITE; }
+			else if (c == Cell::mountain)        { ch = '^'; color = COLOR_WHITE; }
+			else if (c == Cell::health_fountain) { ch = 'H'; color = COLOR_GREEN; }
+			else                                 { ch = '?'; color = COLOR_MAGENTA; }
 
 			if (!directly_visible) {
 				color = COLOR_WHITE;

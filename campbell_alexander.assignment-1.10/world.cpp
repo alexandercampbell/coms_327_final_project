@@ -77,11 +77,15 @@ static void place_dungeon_entrance(Level *l) {
 		l->cells[entrance_y - 4][entrance_x + i] = Cell::rock;
 	}
 
-	l->cells[entrance_y][entrance_x + 4] = Cell::tunnel;
-	l->cells[entrance_y][entrance_x] = Cell::stair_down;
+	l->cells[entrance_y + 4][entrance_x] = Cell::tunnel;
+	l->cells[entrance_y + 4][entrance_x + 1] = Cell::tunnel;
+	l->cells[entrance_y + 4][entrance_x - 1] = Cell::tunnel;
 
 	l->down_stair_x = entrance_x;
-	l->down_stair_y = entrance_y;
+	l->down_stair_y = entrance_y - 2;
+	l->cells[l->down_stair_y][l->down_stair_x] = Cell::stair_down;
+
+	l->cells[entrance_y][entrance_x - 2] = Cell::health_fountain;
 }
 
 static void place_dungeon_room(Level *l, int center_x, int center_y) {

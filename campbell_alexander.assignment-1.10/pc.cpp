@@ -97,9 +97,16 @@ bool pc_process_key(World *w, Key k) {
 
 	bool move_successful = mob_try_to_move(w, w->pc, dir);
 	if (move_successful) {
-		if (w->cur_level->cells[w->pc->y][w->pc->x] == Cell::river) {
+		Cell *c = &w->cur_level->cells[w->pc->y][w->pc->x];
+		if (*c == Cell::river) {
 			if (FRAND() < 0.03) {
 				world_push_message(w, "You see a minnow swim by.");
+			}
+		} else if (*c == Cell::health_fountain) {
+			world_push_message(w, "You step onto the fountain of health and immediately feel refreshed.", MessageSeverity::Good);
+			w->pc->hp += 40;
+			if (w->pc->hp > w->pc->max_hp) {
+				w->pc->hp = w->pc->max_hp;
 			}
 		}
 		pc_update_memory(w);
