@@ -28,7 +28,9 @@ int main(int argc, char *argv[]) {
 	}
 	io_quit();
 
+	world_destroy(w);
 	delete w;
+
 	cout << "Thanks for playing!" << endl;
 
 	return 0;

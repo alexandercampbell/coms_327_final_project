@@ -69,7 +69,7 @@ const static vector<ItemPrototype> available_items = {
 
 Item *item_generate(int depth) {
 	for (int attempts = 0; attempts < 150; attempts++) {
-		int index = RAND_BETWEEN(0, available_items.size());
+		int index = RAND_BETWEEN(0, available_items.size() - 1);
 		const ItemPrototype *i = &available_items[index];
 		if (depth >= i->min_level && depth <= i->max_level) {
 			return (Item*) &i->item;

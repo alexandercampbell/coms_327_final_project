@@ -150,6 +150,7 @@ static void generate_and_place_mobs(Level *l) {
 	int num_mobs = RAND_BETWEEN(4, 7);
 	for (int i = 0; i < num_mobs; i++) {
 		Mob *m = mob_generate(l->depth);
+		if (!m) continue;
 
 		while (true) {
 			int x = RAND_BETWEEN(1, DUNGEON_WIDTH - 2);
@@ -316,6 +317,21 @@ void world_push_message(World *w, string text, MessageSeverity severity) {
 	w->messages.push_back(msg);
 	if (w->messages.size() > WORLD_UI_MESSAGE_HISTORY) {
 		w->messages.pop_front();
+	}
+}
+
+void world_destroy(World *w) {
+	for (int i = 0; i < NUM_LEVELS; i++) {
+		Level *l = &w->levels[i];
+
+		for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+			for (int x = 0; x < DUNGEON_WIDTH; x++) {
+				if (l->mobs[y][x]) {
+					delete l->mobs[y][x];
+					l->mobs[y][x] = nullptr;
+				}
+			}
+		}
 	}
 }
 

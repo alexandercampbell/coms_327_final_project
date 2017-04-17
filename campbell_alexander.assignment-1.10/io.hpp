@@ -2,6 +2,7 @@
 #pragma once
 
 #include <ncurses.h>
+#include <assert.h>
 
 #include "model.hpp"
 #include "util.hpp"

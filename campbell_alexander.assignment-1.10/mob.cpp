@@ -50,6 +50,7 @@ static MobPrototype mk_mob(int min_level, int max_level, string name, bool
 	MobPrototype p;
 	p.min_level = min_level;
 	p.max_level = max_level;
+	p.mob = m;
 
 	return p;
 }
@@ -61,11 +62,12 @@ const static vector<MobPrototype> available_mobs = {
 
 Mob *mob_generate(int depth) {
 	for (int attempts = 0; attempts < 150; attempts++) {
-		int index = RAND_BETWEEN(0, available_mobs.size());
+		int index = RAND_BETWEEN(0, available_mobs.size() - 1);
 		const MobPrototype *p = &available_mobs[index];
+
 		if (depth >= p->min_level && depth <= p->max_level) {
 			Mob *m = new Mob;
-			*m = p->mob;
+			*m = p->mob; // copy
 			return m;
 		}
 	}
