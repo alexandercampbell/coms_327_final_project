@@ -56,24 +56,26 @@ static bool trade_item(World *w) {
 	Item *i = w->cur_level->items[w->pc->y][w->pc->x];
 	if (!i) return false;
 
-	Item **old_item = (i->type == ItemType::weapon) ?
+	Item **pc_item = (i->type == ItemType::weapon) ?
 		&w->pc->weapon : &w->pc->ring;
 
-	if (*old_item) {
+	if (*pc_item) {
 		string s = string("You equip ") + i->name + string(", dropping ") +
-			(*old_item)->name + ".";
+			(*pc_item)->name + ".";
 		world_push_message(w, s);
 
-		Item *temp = *old_item;
-		*old_item = i;
+		Item *temp = *pc_item;
+		*pc_item = i;
 		w->cur_level->items[w->pc->y][w->pc->x] = temp;
 	} else {
 		string s = string("You equip ") + i->name + ".";
 
 		world_push_message(w, s);
-		*old_item = i;
+		*pc_item = i;
 		w->cur_level->items[w->pc->y][w->pc->x] = NULL;
 	}
+
+	world_push_message(w, (*pc_item)->desc.c_str(), MessageSeverity::Good);
 
 	return true;
 }
