@@ -115,6 +115,11 @@ static void place_dungeon_room(Level *l, int center_x, int center_y) {
 			}
 		}
 	}
+
+	// chance to spawn a healing fountain in the room
+	if (FRAND() > 0.8) {
+		l->cells[center_y][center_x] = Cell::health_fountain;
+	}
 }
 
 static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop_x, int stop_y) {
