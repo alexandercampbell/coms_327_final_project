@@ -280,6 +280,9 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 void world_update_mobs(World *w) {
 	for (Mob *m : w->cur_level->mob_turns) {
 		mob_move_ai(w, m);
+
+		// no need to make more moves if the player is dead
+		if (w->pc->hp <= 0) break;
 	}
 }
 

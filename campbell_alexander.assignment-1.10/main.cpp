@@ -27,6 +27,12 @@ int main(int argc, char *argv[]) {
 		pc_process_key(w, key);
 
 		world_update_mobs(w);
+		if (w->pc->hp <= 0) {
+			io_render(w);
+			while (io_wait_for_key() != Key::quit)
+				;
+			break;
+		}
 	}
 	io_quit();
 

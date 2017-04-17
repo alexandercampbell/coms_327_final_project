@@ -32,6 +32,18 @@ void mob_do_combat(World *w, Mob *atk, Mob *def) {
 	}
 
 	if (def->hp <= 0) {
+		if (def == w->pc) {
+			world_push_message(w, "---",
+					MessageSeverity::OhGodTheresBloodEverywhere);
+			world_push_message(w, "You have died.",
+					MessageSeverity::OhGodTheresBloodEverywhere);
+			world_push_message(w, string("You were killed by a ") + atk->name + ".",
+					MessageSeverity::OhGodTheresBloodEverywhere);
+			world_push_message(w, string("Press [q] to return to reality, loser."),
+					MessageSeverity::Warning);
+			return;
+		}
+
 		l->mobs[def->y][def->x] = nullptr;
 
 		bool found_in_mob_turns = false;
