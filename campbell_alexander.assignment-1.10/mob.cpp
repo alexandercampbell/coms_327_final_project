@@ -78,12 +78,36 @@ Mob *mob_generate(int depth) {
 	return NULL;
 }
 
-void mob_move_ai(Level *level, Mob *mob) {
+void mob_move_ai(World *w, Mob *mob) {
 	if (mob->is_friendly) {
 		if (FRAND() < 0.6) return;
 
 		Direction dir = (Direction) RAND_BETWEEN(0, 3); // yuck :)
-		mob_try_to_move(level, mob, dir);
+		mob_try_to_move(w->cur_level, mob, dir);
+		return;
 	}
+
+	int dist_x = w->pc->x - mob->x;
+	int dist_y = w->pc->y - mob->y;
+
+	int squared_distance = dist_x * dist_x + dist_y * dist_y;
+	if (squared_distance > MONSTER_VIEW_RADIUS * MONSTER_VIEW_RADIUS) {
+		return;
+	}
+
+	Direction dir;
+	if (FRAND() > 0.93) {
+		// Small chance of moving randomly, even when we
+		// can see the player.
+		dir = (Direction) RAND_BETWEEN(0, 3); // yuck :)
+	} else {
+		if (abs(dist_x) > abs(dist_y)) {
+			dir = dist_x < 0 ? Direction::left : Direction::right;
+		} else {
+			dir = dist_y < 0 ? Direction::up : Direction::down;
+		}
+	}
+
+	mob_try_to_move(w->cur_level, mob, dir);
 }
 

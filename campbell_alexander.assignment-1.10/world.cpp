@@ -270,7 +270,7 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 
 void world_update_mobs(World *w) {
 	for (Mob *m : w->cur_level->mob_turns) {
-		mob_move_ai(w->cur_level, m);
+		mob_move_ai(w, m);
 	}
 }
 

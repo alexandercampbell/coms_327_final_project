@@ -26,6 +26,8 @@ using namespace std;
 // PC_VIEW_RADIUS increases when we are above ground (i.e. in town).
 #define PC_VIEW_RADIUS(world) ((world->pc->level == 0) ? 12 : 6)
 
+#define MONSTER_VIEW_RADIUS 6
+
 /**
  * Model definitions.
  */
