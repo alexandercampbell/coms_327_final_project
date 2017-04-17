@@ -279,7 +279,7 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	place_dungeon_room(l, l->up_stair_x, l->up_stair_y);
 	room_x_positions.push_back(l->up_stair_x);
 	room_y_positions.push_back(l->up_stair_y);
-	l->cells[l->up_stair_y][l->up_stair_x] = Cell::stair_up;
+
 	if (l->depth == NUM_LEVELS - 1) {
 		// we are the final floor
 	} else {
@@ -294,8 +294,10 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 		place_dungeon_room(l, l->down_stair_x, l->down_stair_y);
 		room_x_positions.push_back(l->down_stair_x);
 		room_y_positions.push_back(l->down_stair_y);
-		l->cells[l->down_stair_y][l->down_stair_x] = Cell::stair_down;
 	}
+
+	l->cells[l->up_stair_y][l->up_stair_x] = Cell::stair_up;
+	l->cells[l->down_stair_y][l->down_stair_x] = Cell::stair_down;
 
 	assert(room_x_positions.size() == room_y_positions.size());
 
