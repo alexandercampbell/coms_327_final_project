@@ -1,15 +1,6 @@
 
 #include "mob.hpp"
 
-static bool cell_is_walkable(Cell c) {
-	return c == Cell::none ||
-		c == Cell::grass ||
-		c == Cell::tunnel ||
-		c == Cell::stair_up ||
-		c == Cell::stair_down ||
-		c == Cell::river;
-}
-
 bool mob_try_to_move(Level *l, Mob *mob, Direction direction) {
 	assert(l->mobs[mob->y][mob->x] == mob);
 
@@ -25,7 +16,11 @@ bool mob_try_to_move(Level *l, Mob *mob, Direction direction) {
 	if (new_x < 0 || new_x >= DUNGEON_WIDTH) return false;
 	if (new_y < 0 || new_y >= DUNGEON_HEIGHT) return false;
 
-	if (!cell_is_walkable(l->cells[new_y][new_x])) return false;
+	if (!CELL_IS_WALKABLE(l->cells[new_y][new_x])) return false;
+	if (l->mobs[new_y][new_x]) {
+		// another mob is already occupying this position
+		return false;
+	}
 
 	l->mobs[mob->y][mob->x] = nullptr;
 	mob->x = new_x;
@@ -33,5 +28,48 @@ bool mob_try_to_move(Level *l, Mob *mob, Direction direction) {
 	l->mobs[mob->y][mob->x] = mob;
 
 	return true;
+}
+
+struct MobPrototype {
+	int min_level;
+	int max_level;
+
+	Mob mob;
+};
+
+static MobPrototype mk_mob(int min_level, int max_level, string name, bool
+		is_friendly, int hp, char symb, Dice unarmed_attack) {
+
+	Mob m = {0};
+	m.name = name;
+	m.is_friendly = is_friendly;
+	m.max_hp = m.hp = hp;
+	m.symb = symb;
+	m.unarmed_attack = unarmed_attack;
+
+	MobPrototype p;
+	p.min_level = min_level;
+	p.max_level = max_level;
+
+	return p;
+}
+
+const static vector<MobPrototype> available_mobs = {
+	mk_mob(0, 0, "a friendly rabbit", true, 10, 'r', mk_dice(0, 1, 1)),
+	mk_mob(0, 0, "a deer", true, 25, 'd', mk_dice(0, 1, 4)),
+};
+
+Mob *mob_generate(int depth) {
+	for (int attempts = 0; attempts < 150; attempts++) {
+		int index = RAND_BETWEEN(0, available_mobs.size());
+		const MobPrototype *p = &available_mobs[index];
+		if (depth >= p->min_level && depth <= p->max_level) {
+			Mob *m = new Mob;
+			*m = p->mob;
+			return m;
+		}
+	}
+
+	return NULL;
 }
 

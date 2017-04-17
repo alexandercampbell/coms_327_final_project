@@ -88,7 +88,7 @@ void io_render(World *w) {
 				Mob *m = w->cur_level->mobs[y][x];
 				if (m) {
 					draw_with_color(m->symb, draw_x, draw_y, m->is_friendly ?
-							COLOR_GREEN : COLOR_RED);
+							COLOR_BLUE : COLOR_RED);
 					continue;
 				}
 

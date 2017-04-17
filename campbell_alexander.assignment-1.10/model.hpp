@@ -67,14 +67,6 @@ struct Item {
 	RingAbility ability;
 };
 
-enum class Race {
-	human,
-	elf,
-	orc,
-	dwarf,
-	reptile
-};
-
 struct Mob {
 	bool is_player;
 	bool is_friendly;
@@ -87,11 +79,11 @@ struct Mob {
 	int hp;
 	int max_hp;
 
+	string name;
 	char symb;
 	Dice unarmed_attack;
 	Item *weapon;
 	Item *ring;
-	Race race;
 };
 
 enum class Cell {
@@ -105,6 +97,14 @@ enum class Cell {
 	stair_up,
 	stair_down,
 };
+#define CELL_IS_WALKABLE(c) (\
+	(c) == Cell::none || \
+	(c) == Cell::grass || \
+	(c) == Cell::tunnel || \
+	(c) == Cell::stair_up || \
+	(c) == Cell::stair_down || \
+	(c) == Cell::river \
+)
 
 struct Level {
 	int depth;

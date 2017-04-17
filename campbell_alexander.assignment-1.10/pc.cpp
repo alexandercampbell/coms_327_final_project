@@ -4,12 +4,12 @@
 void pc_init(Mob *pc) {
 	memset(pc, 0, sizeof(*pc));
 
+	pc->name = "Adventurer";
 	pc->is_player = true;
 	pc->is_friendly = true;
 	pc->hp = 100;
 	pc->max_hp = 100;
 	pc->symb = '@';
-	pc->race = Race::human;
 
 	pc->unarmed_attack.base = 3; 
 	pc->unarmed_attack.num = 2;  

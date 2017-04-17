@@ -1,6 +1,22 @@
 
 #include "world.hpp"
 
+bool level_location_clear(Level *l, int x, int y) {
+	if (x < 0 || x >= DUNGEON_WIDTH || y < 0 || y >= DUNGEON_HEIGHT)
+		return false;
+
+	if (!CELL_IS_WALKABLE(l->cells[y][x]))
+		return false;
+
+	if (l->mobs[y][x])
+		return false;
+
+	if (l->items[y][x])
+		return false;
+
+	return true;
+}
+
 static void populate_trees(Level *l) {
 	int num_trees = RAND_BETWEEN(10, 30);
 	for (int i = 0; i < num_trees; i++) {
@@ -130,6 +146,31 @@ static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop
 	}
 }
 
+static void generate_and_place_mobs(Level *l) {
+	int num_mobs = RAND_BETWEEN(4, 7);
+	for (int i = 0; i < num_mobs; i++) {
+		Mob *m = mob_generate(l->depth);
+
+		while (true) {
+			int x = RAND_BETWEEN(1, DUNGEON_WIDTH - 2);
+			int y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 2);
+
+			if (l->mobs[y][x]) continue;
+
+			if (l->cells[y][x] == Cell::tunnel ||
+				l->cells[y][x] == Cell::grass ||
+				l->cells[y][x] == Cell::none) {
+
+				l->mobs[y][x] = m;
+				m->x = x;
+				m->y = y;
+				m->level = l->depth;
+				break;
+			}
+		}
+	}
+}
+
 static void generate_and_place_items(Level *l) {
 	int num_items = RAND_BETWEEN(2, 4);
 	for (int i = 0; i < num_items; i++) {
@@ -165,6 +206,7 @@ static void generate_town(Level *l) {
 	populate_mountains(l);
 	place_dungeon_entrance(l);
 	generate_and_place_items(l);
+	generate_and_place_mobs(l);
 }
 
 static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_y) {
@@ -229,6 +271,7 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	}
 
 	generate_and_place_items(l);
+	generate_and_place_mobs(l);
 }
 
 void world_init(World *w) {
@@ -255,8 +298,11 @@ void world_init(World *w) {
 
 	w->pc = new Mob;
 	pc_init(w->pc);
-	w->pc->x = RAND_BETWEEN(1, DUNGEON_WIDTH - 2);
-	w->pc->y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 2);
+	do {
+		w->pc->x = RAND_BETWEEN(1, DUNGEON_WIDTH - 2);
+		w->pc->y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 2);
+	} while (!level_location_clear(&w->levels[0], w->pc->x, w->pc->y));
+
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
 
 	pc_update_memory(w);
