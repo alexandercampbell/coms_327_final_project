@@ -58,6 +58,9 @@ static MobPrototype mk_mob(int min_level, int max_level, string name, bool
 const static vector<MobPrototype> available_mobs = {
 	mk_mob(0, 0, "a friendly rabbit", true, 10, 'r', mk_dice(0, 1, 1)),
 	mk_mob(0, 0, "a deer", true, 25, 'd', mk_dice(0, 1, 4)),
+	mk_mob(1, 3, "a kobold", false, 25, 'k', mk_dice(4, 1, 4)),
+	mk_mob(1, 2, "a rat", false, 6, 'r', mk_dice(2, 1, 2)),
+	mk_mob(4, 6, "a dragon", false, 120, 'D', mk_dice(6, 3, 4)),
 };
 
 Mob *mob_generate(int depth) {
