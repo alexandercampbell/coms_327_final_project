@@ -78,3 +78,12 @@ Mob *mob_generate(int depth) {
 	return NULL;
 }
 
+void mob_move_ai(Level *level, Mob *mob) {
+	if (mob->is_friendly) {
+		if (FRAND() < 0.6) return;
+
+		Direction dir = (Direction) RAND_BETWEEN(0, 3); // yuck :)
+		mob_try_to_move(level, mob, dir);
+	}
+}
+

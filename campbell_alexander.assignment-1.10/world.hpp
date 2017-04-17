@@ -15,7 +15,7 @@ using namespace std;
 void world_init(World *w);
 void world_push_message(World *w, string text,
 		MessageSeverity severity = MessageSeverity::Info);
-
+void world_update_mobs(World *w);
 void world_destroy(World *w);
 
 // Return true if the location is walkable, free of items and mobs, and within

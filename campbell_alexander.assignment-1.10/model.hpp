@@ -3,6 +3,7 @@
 
 #include <deque>
 #include <string>
+#include <vector>
 using namespace std;
 
 // no (non-stdlib) includes allowed :)
@@ -98,12 +99,12 @@ enum class Cell {
 	stair_down,
 };
 #define CELL_IS_WALKABLE(c) (\
-	(c) == Cell::none || \
-	(c) == Cell::grass || \
-	(c) == Cell::tunnel || \
-	(c) == Cell::stair_up || \
-	(c) == Cell::stair_down || \
-	(c) == Cell::river \
+	(c) == Cell::none         || \
+	(c) == Cell::grass        || \
+	(c) == Cell::tunnel       || \
+	(c) == Cell::stair_up     || \
+	(c) == Cell::stair_down   || \
+	(c) == Cell::river           \
 )
 
 struct Level {
@@ -117,6 +118,9 @@ struct Level {
 	Cell pc_memory[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Mob *mobs[DUNGEON_HEIGHT][DUNGEON_WIDTH];
 	Item *items[DUNGEON_HEIGHT][DUNGEON_WIDTH];
+
+	int turn;
+	vector<Mob*> mob_turns;
 };
 
 /**

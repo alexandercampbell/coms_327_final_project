@@ -25,6 +25,8 @@ int main(int argc, char *argv[]) {
 		Key key = io_wait_for_key();
 		if (key == Key::quit) break;
 		pc_process_key(w, key);
+
+		world_update_mobs(w);
 	}
 	io_quit();
 

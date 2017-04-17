@@ -147,7 +147,7 @@ static void generate_tunnel_between(Level *l, int start_x, int start_y, int stop
 }
 
 static void generate_and_place_mobs(Level *l) {
-	int num_mobs = RAND_BETWEEN(4, 7);
+	int num_mobs = RAND_BETWEEN(6, 9);
 	for (int i = 0; i < num_mobs; i++) {
 		Mob *m = mob_generate(l->depth);
 		if (!m) continue;
@@ -156,16 +156,13 @@ static void generate_and_place_mobs(Level *l) {
 			int x = RAND_BETWEEN(1, DUNGEON_WIDTH - 2);
 			int y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 2);
 
-			if (l->mobs[y][x]) continue;
-
-			if (l->cells[y][x] == Cell::tunnel ||
-				l->cells[y][x] == Cell::grass ||
-				l->cells[y][x] == Cell::none) {
-
-				l->mobs[y][x] = m;
+			if (level_location_clear(l, x, y)) {
 				m->x = x;
 				m->y = y;
 				m->level = l->depth;
+
+				l->mobs[y][x] = m;
+				l->mob_turns.push_back(m);
 				break;
 			}
 		}
@@ -181,12 +178,7 @@ static void generate_and_place_items(Level *l) {
 			int x = RAND_BETWEEN(1, DUNGEON_WIDTH - 2);
 			int y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 2);
 
-			if (l->items[y][x]) continue;
-
-			if (l->cells[y][x] == Cell::tunnel ||
-				l->cells[y][x] == Cell::grass ||
-				l->cells[y][x] == Cell::none) {
-
+			if (level_location_clear(l, x, y)) {
 				l->items[y][x] = item;
 				break;
 			}
@@ -206,6 +198,7 @@ static void generate_town(Level *l) {
 	populate_rivers(l);
 	populate_mountains(l);
 	place_dungeon_entrance(l);
+
 	generate_and_place_items(l);
 	generate_and_place_mobs(l);
 }
@@ -275,6 +268,12 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	generate_and_place_mobs(l);
 }
 
+void world_update_mobs(World *w) {
+	for (Mob *m : w->cur_level->mob_turns) {
+		mob_move_ai(w->cur_level, m);
+	}
+}
+
 void world_init(World *w) {
 	assert(w);
 
@@ -332,6 +331,8 @@ void world_destroy(World *w) {
 				}
 			}
 		}
+
+		l->mob_turns.clear();
 	}
 }
 
