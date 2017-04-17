@@ -46,8 +46,8 @@ static ItemPrototype mk_ring(int min_level, int max_level, string name,
 }
 
 const static vector<ItemPrototype> available_items = {
-	mk_weapon(0, 2, "a steak knife", '|',
-		"Standard steak knife. Sharp, but a little too small for serious combat.",
+	mk_weapon(0, 2, "a hunter's knife", '|',
+		"Rusty hunter's knife. Sharp, but a little too small for serious combat.",
 		mk_dice(3, 1, 4)),
 
 	mk_weapon(1, 3, "an Orcish sword", '|',

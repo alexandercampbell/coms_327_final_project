@@ -16,7 +16,7 @@ using namespace std;
 
 // Number of messages kept in memory at one time. When the UI message queue
 // fills, we will evict old messages.
-#define WORLD_UI_MESSAGE_HISTORY 20
+#define WORLD_UI_MESSAGE_HISTORY 18
 
 /**
  * Macros

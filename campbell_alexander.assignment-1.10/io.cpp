@@ -149,6 +149,14 @@ void io_render(World *w) {
 		}
 	}
 
+	attron(COLOR_PAIR(COLOR_YELLOW));
+	mvprintw(1, RENDER_WIDTH + 1, "HP:       %2d/%d", w->pc->hp, w->pc->max_hp);
+	mvprintw(2, RENDER_WIDTH + 1, "Ring:     %s", (w->pc->ring) ?
+			w->pc->ring->name.c_str() : "none");
+	mvprintw(3, RENDER_WIDTH + 1, "Wielding: %s", (w->pc->weapon) ?
+			w->pc->weapon->name.c_str() : "fists");
+	attroff(COLOR_PAIR(COLOR_YELLOW));
+
 	refresh();
 }
 

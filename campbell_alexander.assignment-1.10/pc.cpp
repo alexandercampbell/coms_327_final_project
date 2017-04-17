@@ -69,14 +69,13 @@ static bool trade_item(World *w) {
 		w->cur_level->items[w->pc->y][w->pc->x] = temp;
 	} else {
 		string s = string("You equip ") + i->name + ".";
-
 		world_push_message(w, s);
+
 		*pc_item = i;
 		w->cur_level->items[w->pc->y][w->pc->x] = NULL;
 	}
 
 	world_push_message(w, (*pc_item)->desc.c_str(), MessageSeverity::Good);
-
 	return true;
 }
 
