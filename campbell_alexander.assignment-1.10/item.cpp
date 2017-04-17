@@ -46,6 +46,10 @@ static ItemPrototype mk_ring(int min_level, int max_level, string name,
 }
 
 const static vector<ItemPrototype> available_items = {
+	/**
+	 * Weapons
+	 */
+
 	mk_weapon(0, 2, "a hunter's knife", '|',
 		"Rusty hunter's knife. Sharp, but a little too small for serious combat.",
 		mk_dice(3, 1, 4)),
@@ -54,9 +58,25 @@ const static vector<ItemPrototype> available_items = {
 		"An orcish sword. Crooked and tinged green.",
 		mk_dice(5, 2, 3)),
 
-	mk_weapon(1, 3, "an Elvish handaxe", '|',
+	mk_weapon(1, 3, "an Elvish handaxe", 'p',
 		"This light axe is surprisingly elegant.",
-		mk_dice(8, 1, 3)),
+		mk_dice(8, 1, 4)),
+
+	mk_weapon(0, 2, "an old man's cane", '/',
+		"Heavier and sturdier than it looks.",
+		mk_dice(6, 0, 0)),
+
+	mk_weapon(2, 5, "an enormous scythe", '7',
+		"Huge and crushingly heavy even to lift from the ground.",
+		mk_dice(0, 2, 16)),
+
+	mk_weapon(3, 6, "dwarvish warhammer", 'P',
+		"Beautifully forged out of silver.",
+		mk_dice(6, 6, 6)),
+
+	/**
+	 * Rings
+	 */
 
 	mk_ring(0, 0, "a grass Ring",
 		"This woven grass Ring pulses green, yellow, and oddly, blue.",
