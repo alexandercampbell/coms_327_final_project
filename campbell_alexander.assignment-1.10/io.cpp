@@ -59,6 +59,11 @@ static void draw_with_color(char c, int x, int y, int color) {
 	attroff(COLOR_PAIR(color));
 }
 
+static string dice_to_string(Dice *d) {
+	return to_string(d->base) + "+" + to_string(d->num) +
+		"d" + to_string(d->sides);
+}
+
 void io_render(World *w) {
 	clear();
 
@@ -154,8 +159,13 @@ void io_render(World *w) {
 	mvprintw(1, RENDER_WIDTH + 1, "HP:       %2d/%d", w->pc->hp, w->pc->max_hp);
 	mvprintw(2, RENDER_WIDTH + 1, "Ring:     %s", (w->pc->ring) ?
 			w->pc->ring->name.c_str() : "none");
-	mvprintw(3, RENDER_WIDTH + 1, "Wielding: %s", (w->pc->weapon) ?
-			w->pc->weapon->name.c_str() : "fists");
+
+	string weapon_str = "fists " + dice_to_string(&w->pc->unarmed_attack);
+	if (w->pc->weapon) {
+		weapon_str = w->pc->weapon->name + string(" ") +
+			dice_to_string(&w->pc->weapon->damage);
+	}
+	mvprintw(3, RENDER_WIDTH + 1, "Wielding: %s", weapon_str.c_str());
 	attroff(COLOR_PAIR(COLOR_YELLOW));
 
 	refresh();
