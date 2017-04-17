@@ -8,10 +8,13 @@
 #include "util.hpp"
 
 const int RENDER_WIDTH = 80;
-const int RENDER_HEIGHT = 24;
+const int RENDER_HEIGHT = 32;
 
 void io_init();
 void io_quit(); // idempotent
+
+// return true if the player decides to play
+bool io_main_menu(World *w);
 
 void io_render(World *w);
 

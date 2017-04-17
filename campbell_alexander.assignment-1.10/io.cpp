@@ -39,6 +39,8 @@ static struct {
 	{'>', Key::descend_stairs},
 	{'<', Key::ascend_stairs},
 	{' ', Key::trade_item},
+	{KEY_ENTER, Key::trade_item},
+	{'\n', Key::trade_item},
 	{0, Key(0)},
 };
 
@@ -169,5 +171,64 @@ void io_render(World *w) {
 	attroff(COLOR_PAIR(COLOR_YELLOW));
 
 	refresh();
+}
+
+bool io_main_menu(World *w) {
+	string right_justify = string("%") + to_string(RENDER_WIDTH) + "s";
+
+	int menu_index = 0;
+	const vector<string> menu_items = {
+		string("Play as Human"),
+		string("Play as Orc"),
+		string("Play as Elf"),
+		string("Quit"),
+	};
+
+	while (true) {
+		clear();
+
+		attron(COLOR_PAIR(COLOR_CYAN));
+		mvprintw(RENDER_HEIGHT - 2, 0, right_justify.c_str(),
+				"COM S 327 SPRING 2017 (Prof. Jeremy Sheaffer)");
+		mvprintw(RENDER_HEIGHT - 1, 0, right_justify.c_str(),
+				"Final Project :: Alexander Campbell");
+		attroff(COLOR_PAIR(COLOR_CYAN));
+
+		attron(COLOR_PAIR(COLOR_GREEN));
+		attron(A_BOLD);
+		mvprintw(8, 3, "Rogue Hunter");
+		attroff(A_BOLD);
+		mvprintw(9, 3, "v1.0.0");
+		attroff(COLOR_PAIR(COLOR_GREEN));
+
+		attron(COLOR_PAIR(COLOR_CYAN));
+		mvprintw(RENDER_HEIGHT - 2, 0, right_justify.c_str(),
+				"COM S 327 SPRING 2017 (Prof. Jeremy Sheaffer)");
+		mvprintw(RENDER_HEIGHT - 1, 0, right_justify.c_str(),
+				"Final Project :: Alexander Campbell");
+		attroff(COLOR_PAIR(COLOR_CYAN));
+
+		for (int i = 0; i < menu_items.size(); i++) {
+			if (menu_index == i) attron(A_BOLD);
+			mvprintw(8 + i, 40, "%40s", menu_items[i].c_str());
+			if (menu_index == i) attroff(A_BOLD);
+		}
+
+		refresh();
+
+		Key k = io_wait_for_key();
+		if (k == Key::quit) return false;
+		if (k == Key::trade_item) return true;
+
+		if (k == Key::down) {
+			menu_index++;
+			menu_index %= menu_items.size();
+		}
+
+		if (k == Key::up) {
+			menu_index--;
+			menu_index %= menu_items.size();
+		}
+	}
 }
 

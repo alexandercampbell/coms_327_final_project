@@ -38,6 +38,8 @@ static bool use_stairs(World *w, bool ascend) {
 		} else {
 			world_push_message(w, "You descend a little deeper into the dungeon.",
 					MessageSeverity::Warning);
+			world_push_message(w, "Dungeon Floor " + to_string(w->pc->level + 2),
+					MessageSeverity::Warning);
 		}
 		w->pc->level++;
 	} else {

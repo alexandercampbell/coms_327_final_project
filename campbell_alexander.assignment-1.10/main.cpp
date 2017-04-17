@@ -19,21 +19,25 @@ int main(int argc, char *argv[]) {
 	world_init(w);
 
 	io_init();
-	while (true) {
-		io_render(w);
 
-		Key key = io_wait_for_key();
-		if (key == Key::quit) break;
-		pc_process_key(w, key);
-
-		world_update_mobs(w);
-		if (w->pc->hp <= 0) {
+	if (io_main_menu(w)) {
+		while (true) {
 			io_render(w);
-			while (io_wait_for_key() != Key::quit)
-				;
-			break;
+
+			Key key = io_wait_for_key();
+			if (key == Key::quit) break;
+			pc_process_key(w, key);
+
+			world_update_mobs(w);
+			if (w->pc->hp <= 0) {
+				io_render(w);
+				while (io_wait_for_key() != Key::quit)
+					;
+				break;
+			}
 		}
 	}
+
 	io_quit();
 
 	world_destroy(w);
