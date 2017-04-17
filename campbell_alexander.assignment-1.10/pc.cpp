@@ -11,9 +11,9 @@ void pc_init(Mob *pc) {
 	pc->max_hp = 100;
 	pc->symb = '@';
 
-	pc->unarmed_attack.base = 3; 
+	pc->unarmed_attack.base = 2; 
 	pc->unarmed_attack.num = 2;  
-	pc->unarmed_attack.sides = 6;
+	pc->unarmed_attack.sides = 1;
 }
 
 static bool use_stairs(World *w, bool ascend) {
@@ -95,7 +95,7 @@ bool pc_process_key(World *w, Key k) {
 	else if (k == Key::down) dir = Direction::down;
 	else return false;
 
-	bool move_successful = mob_try_to_move(w->cur_level, w->pc, dir);
+	bool move_successful = mob_try_to_move(w, w->pc, dir);
 	if (move_successful) {
 		if (w->cur_level->cells[w->pc->y][w->pc->x] == Cell::river) {
 			if (FRAND() < 0.03) {

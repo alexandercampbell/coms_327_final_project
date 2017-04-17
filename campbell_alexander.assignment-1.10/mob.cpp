@@ -1,7 +1,54 @@
 
 #include "mob.hpp"
 
-bool mob_try_to_move(Level *l, Mob *mob, Direction direction) {
+static int roll_dice(Dice d) {
+	int total = d.base;
+	for (int i = 0; i < d.num; i++) total += RAND_BETWEEN(1, d.sides);
+	return total;
+}
+
+void mob_do_combat(World *w, Mob *atk, Mob *def) {
+	Level *l = w->cur_level;
+	Dice *atk_dice = atk->weapon ? &atk->weapon->damage : &atk->unarmed_attack;
+	int damage = roll_dice(*atk_dice);
+	def->hp -= damage;
+
+	if (atk == w->pc) {
+		string s = "You smite the ";
+		s += def->name;
+		s += " for ";
+		s += to_string(damage);
+		s += " HP!";
+		world_push_message(w, s, MessageSeverity::OhGodTheresBloodEverywhere);
+	}
+
+	if (def == w->pc) {
+		string s = "You take ";
+		s += to_string(damage);
+		s += " damage from ";
+		s += atk->name;
+		s += ".";
+		world_push_message(w, s, MessageSeverity::OhGodTheresBloodEverywhere);
+	}
+
+	if (def->hp <= 0) {
+		l->mobs[def->y][def->x] = nullptr;
+
+		bool found_in_mob_turns = false;
+		for (int i = 0; i < l->mob_turns.size(); i++) {
+			if (l->mob_turns[i] == def) {
+				assert(!found_in_mob_turns);
+				found_in_mob_turns = true;
+				l->mob_turns.erase(l->mob_turns.begin() + i);
+			}
+		}
+		assert(found_in_mob_turns);
+		delete def;
+	}
+}
+
+bool mob_try_to_move(World *w, Mob *mob, Direction direction) {
+	Level *l = w->cur_level;
 	assert(l->mobs[mob->y][mob->x] == mob);
 
 	int delta_x = 0, delta_y = 0;
@@ -19,6 +66,10 @@ bool mob_try_to_move(Level *l, Mob *mob, Direction direction) {
 	if (!CELL_IS_WALKABLE(l->cells[new_y][new_x])) return false;
 	if (l->mobs[new_y][new_x]) {
 		// another mob is already occupying this position
+		if (l->mobs[new_y][new_x]->is_friendly != mob->is_friendly) {
+			mob_do_combat(w, mob, l->mobs[new_y][new_x]);
+			return true;
+		}
 		return false;
 	}
 
@@ -83,7 +134,7 @@ void mob_move_ai(World *w, Mob *mob) {
 		if (FRAND() < 0.6) return;
 
 		Direction dir = (Direction) RAND_BETWEEN(0, 3); // yuck :)
-		mob_try_to_move(w->cur_level, mob, dir);
+		mob_try_to_move(w, mob, dir);
 		return;
 	}
 
@@ -108,6 +159,6 @@ void mob_move_ai(World *w, Mob *mob) {
 		}
 	}
 
-	mob_try_to_move(w->cur_level, mob, dir);
+	mob_try_to_move(w, mob, dir);
 }
 
