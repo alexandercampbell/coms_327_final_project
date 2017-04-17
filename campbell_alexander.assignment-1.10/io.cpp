@@ -178,10 +178,10 @@ bool io_main_menu(World *w) {
 
 	int menu_index = 0;
 	const vector<string> menu_items = {
-		string("Play as Human"),
-		string("Play as Orc"),
-		string("Play as Elf"),
-		string("Quit"),
+		string("Play as Human             (hp up)"),
+		string("Play as Dwarf    (find more loot)"),
+		string("Play as Elf         (see farther)"),
+		string("                           (quit)"),
 	};
 
 	while (true) {
@@ -193,6 +193,11 @@ bool io_main_menu(World *w) {
 		mvprintw(RENDER_HEIGHT - 1, 0, right_justify.c_str(),
 				"Final Project :: Alexander Campbell");
 		attroff(COLOR_PAIR(COLOR_CYAN));
+
+		attron(COLOR_PAIR(COLOR_WHITE));
+		mvprintw(RENDER_HEIGHT - 6, 28, "%s",
+				"Controls: Arrow Keys, Space");
+		attroff(COLOR_PAIR(COLOR_WHITE));
 
 		attron(COLOR_PAIR(COLOR_GREEN));
 		attron(A_BOLD);
@@ -208,17 +213,25 @@ bool io_main_menu(World *w) {
 				"Final Project :: Alexander Campbell");
 		attroff(COLOR_PAIR(COLOR_CYAN));
 
+		attron(COLOR_PAIR(COLOR_WHITE));
 		for (int i = 0; i < menu_items.size(); i++) {
-			if (menu_index == i) attron(A_BOLD);
-			mvprintw(8 + i, 40, "%40s", menu_items[i].c_str());
+			string fmt_str;
+			if (menu_index == i) {
+				attron(A_BOLD);
+				fmt_str = "       [ %s ] ";
+			} else {
+				fmt_str = "         %s   ";
+			}
+			mvprintw(8 + i, 40, fmt_str.c_str(), menu_items[i].c_str());
 			if (menu_index == i) attroff(A_BOLD);
 		}
+		attroff(COLOR_PAIR(COLOR_MAGENTA));
 
 		refresh();
 
 		Key k = io_wait_for_key();
 		if (k == Key::quit) return false;
-		if (k == Key::trade_item) return true;
+		if (k == Key::trade_item) break;
 
 		if (k == Key::down) {
 			menu_index++;
@@ -230,5 +243,17 @@ bool io_main_menu(World *w) {
 			menu_index %= menu_items.size();
 		}
 	}
+
+	if (menu_index == 0) {
+		w->pc->max_hp = w->pc->hp = w->pc->hp + 20;
+	} else if (menu_index == 1) {
+		world_increase_loot(w);
+	} else if (menu_index == 2) {
+		w->pc->view_radius += 4;
+	} else if (menu_index == 3) {
+		return false;
+	}
+
+	return true;
 }
 

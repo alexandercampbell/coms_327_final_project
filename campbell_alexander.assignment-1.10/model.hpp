@@ -24,7 +24,8 @@ using namespace std;
  */
 
 // PC_VIEW_RADIUS increases when we are above ground (i.e. in town).
-#define PC_VIEW_RADIUS(world) ((world->pc->level == 0) ? 12 : 6)
+#define PC_VIEW_RADIUS(world) ((world->pc->level == 0) ? \
+		world->pc->view_radius + 6 : world->pc->view_radius)
 
 #define MONSTER_VIEW_RADIUS 6
 
@@ -87,6 +88,7 @@ struct Mob {
 	Dice unarmed_attack;
 	Item *weapon;
 	Item *ring;
+	int view_radius;
 };
 
 enum class Cell {

@@ -14,6 +14,7 @@ void pc_init(Mob *pc) {
 	pc->unarmed_attack.base = 2; 
 	pc->unarmed_attack.num = 2;  
 	pc->unarmed_attack.sides = 1;
+	pc->view_radius = 6;
 }
 
 static bool use_stairs(World *w, bool ascend) {
@@ -48,6 +49,11 @@ static bool use_stairs(World *w, bool ascend) {
 
 	w->cur_level->mobs[w->pc->y][w->pc->x] = nullptr;
 	w->cur_level = &w->levels[w->pc->level];
+	if (w->cur_level->mobs[w->pc->y][w->pc->x]) {
+		// a monster is on the staircase
+		// telefrag
+		world_kill(w, w->cur_level->mobs[w->pc->y][w->pc->x], "telefrag.");
+	}
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
 
 	pc_update_memory(w);

@@ -8,13 +8,12 @@ static int roll_dice(Dice d) {
 }
 
 void mob_do_combat(World *w, Mob *atk, Mob *def) {
-	Level *l = w->cur_level;
 	Dice *atk_dice = atk->weapon ? &atk->weapon->damage : &atk->unarmed_attack;
 	int damage = roll_dice(*atk_dice);
 	def->hp -= damage;
 
 	if (atk == w->pc) {
-		string s = "You smite the ";
+		string s = "You smite ";
 		s += def->name;
 		s += " for ";
 		s += to_string(damage);
@@ -32,30 +31,7 @@ void mob_do_combat(World *w, Mob *atk, Mob *def) {
 	}
 
 	if (def->hp <= 0) {
-		if (def == w->pc) {
-			world_push_message(w, "---",
-					MessageSeverity::OhGodTheresBloodEverywhere);
-			world_push_message(w, "You have died.",
-					MessageSeverity::OhGodTheresBloodEverywhere);
-			world_push_message(w, string("You were killed by a ") + atk->name + ".",
-					MessageSeverity::OhGodTheresBloodEverywhere);
-			world_push_message(w, string("Press [q] to return to reality, loser."),
-					MessageSeverity::Warning);
-			return;
-		}
-
-		l->mobs[def->y][def->x] = nullptr;
-
-		bool found_in_mob_turns = false;
-		for (int i = 0; i < l->mob_turns.size(); i++) {
-			if (l->mob_turns[i] == def) {
-				assert(!found_in_mob_turns);
-				found_in_mob_turns = true;
-				l->mob_turns.erase(l->mob_turns.begin() + i);
-			}
-		}
-		assert(found_in_mob_turns);
-		delete def;
+		world_kill(w, def, atk->name);
 	}
 }
 
@@ -121,9 +97,13 @@ static MobPrototype mk_mob(int min_level, int max_level, string name, bool
 const static vector<MobPrototype> available_mobs = {
 	mk_mob(0, 0, "a friendly rabbit", true, 10, 'r', mk_dice(0, 1, 1)),
 	mk_mob(0, 0, "a deer", true, 25, 'd', mk_dice(0, 1, 4)),
-	mk_mob(1, 3, "a kobold", false, 25, 'k', mk_dice(4, 1, 4)),
+	mk_mob(1, 7, "a kobold", false, 25, 'k', mk_dice(4, 1, 4)),
 	mk_mob(1, 2, "a rat", false, 6, 'r', mk_dice(2, 1, 2)),
-	mk_mob(4, 6, "a dragon", false, 120, 'D', mk_dice(6, 3, 4)),
+	mk_mob(0, 3, "a snake", false, 10, '~', mk_dice(3, 1, 2)),
+	mk_mob(3, 6, "an evil gnome", false, 12, 'g', mk_dice(6, 1, 2)),
+	mk_mob(6, 8, "a dragon", false, 120, 'D', mk_dice(6, 2, 4)),
+	mk_mob(7, 9, "a vampire", false, 80, 'V', mk_dice(0, 3, 9)),
+	mk_mob(10, 10, "a tomb lord", false, 80, 'T', mk_dice(7, 2, 10)),
 };
 
 Mob *mob_generate(int depth) {

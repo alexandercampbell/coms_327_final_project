@@ -195,6 +195,47 @@ static void generate_and_place_items(Level *l) {
 	}
 }
 
+void world_increase_loot(World *w) {
+	for (int i = 0; i < NUM_LEVELS; i++) {
+		generate_and_place_items(&w->levels[i]);
+	}
+}
+
+void world_kill(World *w, Mob *m, string cause) {
+	Level *l = &w->levels[m->level];
+	if (m == w->pc) {
+		world_push_message(w, "---",
+				MessageSeverity::OhGodTheresBloodEverywhere);
+		world_push_message(w, "You have died.",
+				MessageSeverity::OhGodTheresBloodEverywhere);
+		world_push_message(w, string("You were killed by ") + cause,
+				MessageSeverity::OhGodTheresBloodEverywhere);
+		world_push_message(w, string("Press [q] to return to reality, loser."),
+				MessageSeverity::Warning);
+		return;
+	} else {
+		string capitalized_name = m->name;
+		capitalized_name[0] = toupper(capitalized_name[0]);
+
+		world_push_message(w, capitalized_name +
+				string(" dies."));
+	}
+
+
+	l->mobs[m->y][m->x] = nullptr;
+
+	bool found_in_mob_turns = false;
+	for (int i = 0; i < l->mob_turns.size(); i++) {
+		if (l->mob_turns[i] == m) {
+			assert(!found_in_mob_turns);
+			found_in_mob_turns = true;
+			l->mob_turns.erase(l->mob_turns.begin() + i);
+		}
+	}
+	assert(found_in_mob_turns);
+	delete m;
+}
+
 static void generate_town(Level *l) {
 	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
 		for (int x = 0; x < DUNGEON_WIDTH; x++) {

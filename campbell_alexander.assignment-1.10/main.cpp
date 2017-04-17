@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
 	io_init();
 
 	if (io_main_menu(w)) {
+		pc_update_memory(w);
+
 		while (true) {
 			io_render(w);
 

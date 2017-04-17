@@ -4,6 +4,7 @@
 #include <ncurses.h>
 #include <assert.h>
 
+#include "world.hpp"
 #include "model.hpp"
 #include "util.hpp"
 
