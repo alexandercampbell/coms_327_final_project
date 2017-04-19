@@ -208,11 +208,12 @@ void world_kill(World *w, Mob *m, string cause) {
 				MessageSeverity::OhGodTheresBloodEverywhere);
 		world_push_message(w, "You have died.",
 				MessageSeverity::OhGodTheresBloodEverywhere);
-		world_push_message(w, string("You were killed by ") + cause,
+		world_push_message(w, string("You were killed by ") + cause + ".",
 				MessageSeverity::OhGodTheresBloodEverywhere);
 		world_push_message(w, string("Press [q] to return to reality, loser."),
 				MessageSeverity::Warning);
 		return;
+	} else if (m == w->boss) {
 	} else {
 		string capitalized_name = m->name;
 		capitalized_name[0] = toupper(capitalized_name[0]);
@@ -320,9 +321,13 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	generate_and_place_mobs(l);
 }
 
-static void generate_boss_level(Level *l) {
+static void generate_boss_level(World *w) {
 	// The boss level has no staircase up.
 	// It contains only the boss and a series of minions.
+	Level *l = &w->levels[BOSS_LEVEL];
+	l->depth = BOSS_LEVEL;
+
+	w->boss = construct_jeremy();
 
 	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
 		for (int x = 0; x < DUNGEON_WIDTH; x++) {
@@ -330,9 +335,8 @@ static void generate_boss_level(Level *l) {
 		}
 	}
 
-	Mob *j = construct_jeremy();
-	l->mobs[j->y][j->x] = j;
-	l->mob_turns.push_back(j);
+	l->mobs[w->boss->y][w->boss->x] = w->boss;
+	l->mob_turns.push_back(w->boss);
 }
 
 void world_update_mobs(World *w) {
@@ -355,7 +359,6 @@ void world_init(World *w) {
 	w->messages = deque<Message>();
 
 	generate_town(&w->levels[TOWN_LEVEL]);
-	generate_boss_level(&w->levels[BOSS_LEVEL]);
 	for (int i = 1; i < BOSS_LEVEL; i++) {
 		w->levels[i].depth = i;
 		generate_dungeon_level(
@@ -364,6 +367,7 @@ void world_init(World *w) {
 			w->levels[i - 1].down_stair_y
 		);
 	}
+	generate_boss_level(w);
 
 	w->cur_level = &w->levels[PLAYER_START_LEVEL];
 

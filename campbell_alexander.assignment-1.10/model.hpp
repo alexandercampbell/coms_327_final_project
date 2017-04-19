@@ -16,6 +16,7 @@ using namespace std;
 #define NUM_LEVELS (1 + 4 + 1)
 #define TOWN_LEVEL 0
 #define BOSS_LEVEL (NUM_LEVELS - 1)
+#define BOSS_NAME "Professor Sheaffer"
 #define PLAYER_START_LEVEL TOWN_LEVEL
 
 // Number of messages kept in memory at one time. When the UI message queue
@@ -152,6 +153,7 @@ struct World {
 	Level levels[NUM_LEVELS];
 	Level *cur_level; // &levels[pc->level]
 	Mob *pc;
+	Mob *boss;
 
 	deque<Message> messages;
 };

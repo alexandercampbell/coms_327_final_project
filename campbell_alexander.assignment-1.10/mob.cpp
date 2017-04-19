@@ -160,7 +160,7 @@ Mob *construct_jeremy() {
 		m->y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 1);
 	} while (m->x == DUNGEON_WIDTH / 2 && m->y == DUNGEON_HEIGHT / 2);
 
-	m->name = "Professor Sheaffer";
+	m->name = BOSS_NAME;
 	m->symb = 'J';
 	m->unarmed_attack = mk_dice(2, 4, 8);
 	m->level = BOSS_LEVEL;
