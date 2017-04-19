@@ -117,7 +117,7 @@ static void place_dungeon_room(Level *l, int center_x, int center_y) {
 	}
 
 	// chance to spawn a healing fountain in the room
-	if (FRAND() > 0.8) {
+	if (FRAND() > 0.95) {
 		l->cells[center_y][center_x] = Cell::health_fountain;
 	}
 }
@@ -320,6 +320,21 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 	generate_and_place_mobs(l);
 }
 
+static void generate_boss_level(Level *l) {
+	// The boss level has no staircase up.
+	// It contains only the boss and a series of minions.
+
+	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+		for (int x = 0; x < DUNGEON_WIDTH; x++) {
+			l->cells[y][x] = Cell::tunnel;
+		}
+	}
+
+	Mob *j = construct_jeremy();
+	l->mobs[j->y][j->x] = j;
+	l->mob_turns.push_back(j);
+}
+
 void world_update_mobs(World *w) {
 	for (Mob *m : w->cur_level->mob_turns) {
 		mob_move_ai(w, m);
@@ -339,8 +354,9 @@ void world_init(World *w) {
 	// Must initialize the deque for whatever reason.
 	w->messages = deque<Message>();
 
-	generate_town(&w->levels[0]);
-	for (int i = 1; i < NUM_LEVELS; i++) {
+	generate_town(&w->levels[TOWN_LEVEL]);
+	generate_boss_level(&w->levels[BOSS_LEVEL]);
+	for (int i = 1; i < BOSS_LEVEL; i++) {
 		w->levels[i].depth = i;
 		generate_dungeon_level(
 			&w->levels[i],
@@ -349,17 +365,17 @@ void world_init(World *w) {
 		);
 	}
 
-	w->cur_level = &w->levels[0];
+	w->cur_level = &w->levels[PLAYER_START_LEVEL];
 
 	w->pc = new Mob;
 	pc_init(w->pc);
+	w->pc->level = PLAYER_START_LEVEL;
 	do {
 		w->pc->x = RAND_BETWEEN(1, DUNGEON_WIDTH - 2);
 		w->pc->y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 2);
-	} while (!level_location_clear(&w->levels[0], w->pc->x, w->pc->y));
+	} while (!level_location_clear(w->cur_level, w->pc->x, w->pc->y));
 
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
-
 	pc_update_memory(w);
 }
 

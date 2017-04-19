@@ -14,4 +14,5 @@ using namespace std;
 void mob_move_ai(World *w, Mob *mob);
 bool mob_try_to_move(World *w, Mob *mob, Direction direction);
 Mob *mob_generate(int depth);
+Mob *construct_jeremy();
 

@@ -31,11 +31,24 @@ static bool use_stairs(World *w, bool ascend) {
 					MessageSeverity::Warning);
 		}
 	} else if (c == Cell::stair_down && !ascend) {
-		if (w->pc->level == 0) {
+		if (w->pc->level == TOWN_LEVEL) {
 			world_push_message(w, "You descend into the dungeon.",
 					MessageSeverity::Warning);
 			world_push_message(w, "After a few steps, you can no longer see the sun.",
 					MessageSeverity::Warning);
+		} else if (w->pc->level == BOSS_LEVEL - 1) {
+			for (int i = 0; i < 3; i++) {
+				world_push_message(w, "...",
+						MessageSeverity::OhGodTheresBloodEverywhere);
+			}
+			world_push_message(w, "You climb down into the pit.",
+					MessageSeverity::OhGodTheresBloodEverywhere);
+			world_push_message(w, "A sense of doom envelops you.",
+					MessageSeverity::OhGodTheresBloodEverywhere);
+			world_push_message(w, "A booming voice echos through the chamber.",
+					MessageSeverity::OhGodTheresBloodEverywhere);
+			world_push_message(w, "\"To win the game, you must kill me, Jeremy Sheaffer.\"",
+					MessageSeverity::OhGodTheresBloodEverywhere);
 		} else {
 			world_push_message(w, "You descend a little deeper into the dungeon.",
 					MessageSeverity::Warning);
@@ -49,10 +62,17 @@ static bool use_stairs(World *w, bool ascend) {
 
 	w->cur_level->mobs[w->pc->y][w->pc->x] = nullptr;
 	w->cur_level = &w->levels[w->pc->level];
+	if (w->pc->level == BOSS_LEVEL) {
+		// When descending into the boss level, the player always lands
+		// in the center of the room.
+		w->pc->y = DUNGEON_HEIGHT / 2;
+		w->pc->x = DUNGEON_WIDTH / 2;
+	}
+
 	if (w->cur_level->mobs[w->pc->y][w->pc->x]) {
 		// a monster is on the staircase
 		// telefrag
-		world_kill(w, w->cur_level->mobs[w->pc->y][w->pc->x], "telefrag.");
+		world_kill(w, w->cur_level->mobs[w->pc->y][w->pc->x], "telefrag");
 	}
 	w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
 

@@ -12,8 +12,11 @@ using namespace std;
 #define DUNGEON_HEIGHT 64
 #define DUNGEON_NUM_CELLS (DUNGEON_WIDTH * DUNGEON_HEIGHT)
 #define MAX_MOBS 50
-// 10 dungeon floors, 1 town
-#define NUM_LEVELS (1 + 10)
+// 1 town level, 4 dungeon levels, 1 final boss level
+#define NUM_LEVELS (1 + 4 + 1)
+#define TOWN_LEVEL 0
+#define BOSS_LEVEL (NUM_LEVELS - 1)
+#define PLAYER_START_LEVEL TOWN_LEVEL
 
 // Number of messages kept in memory at one time. When the UI message queue
 // fills, we will evict old messages.

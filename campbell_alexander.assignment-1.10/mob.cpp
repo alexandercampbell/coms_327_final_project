@@ -151,3 +151,21 @@ void mob_move_ai(World *w, Mob *mob) {
 	mob_try_to_move(w, mob, dir);
 }
 
+Mob *construct_jeremy() {
+	Mob *m = new Mob;
+	memset(m, 0, sizeof(*m));
+	m->is_friendly = false;
+	do {
+		m->x = RAND_BETWEEN(1, DUNGEON_WIDTH - 1);
+		m->y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 1);
+	} while (m->x == DUNGEON_WIDTH / 2 && m->y == DUNGEON_HEIGHT / 2);
+
+	m->name = "Professor Sheaffer";
+	m->symb = 'J';
+	m->unarmed_attack = mk_dice(2, 4, 8);
+	m->level = BOSS_LEVEL;
+	m->hp = m->max_hp = 200;
+
+	return m;
+}
+
