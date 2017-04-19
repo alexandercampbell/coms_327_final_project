@@ -132,16 +132,13 @@ void mob_move_ai(World *w, Mob *mob) {
 
 	int dist_x = w->pc->x - mob->x;
 	int dist_y = w->pc->y - mob->y;
-
 	int squared_distance = dist_x * dist_x + dist_y * dist_y;
-	if (squared_distance > MONSTER_VIEW_RADIUS * MONSTER_VIEW_RADIUS) {
-		return;
-	}
 
 	Direction dir;
-	if (FRAND() > 0.93) {
+	if (squared_distance > MONSTER_VIEW_RADIUS * MONSTER_VIEW_RADIUS) {
 		// Small chance of moving randomly, even when we
 		// can see the player.
+		if (FRAND() < 0.93) return;
 		dir = (Direction) RAND_BETWEEN(0, 3); // yuck :)
 	} else {
 		if (abs(dist_x) > abs(dist_y)) {
