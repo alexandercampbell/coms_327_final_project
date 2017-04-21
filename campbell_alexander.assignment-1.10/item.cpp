@@ -54,33 +54,37 @@ const static vector<ItemPrototype> available_items = {
 		"Rusty hunter's knife. Sharp, but a little too small for serious combat.",
 		mk_dice(3, 1, 4)),
 
+	mk_weapon(0, 2, "an old man's cane", 'c',
+		"Heavier and sturdier than it looks.",
+		mk_dice(7, 0, 0)),
+
+	mk_weapon(1, 2, "a cutthroat razor", 'r',
+		"Barber's razor. Can be folded open or closed.",
+		mk_dice(3, 2, 3)),
+
 	mk_weapon(1, 3, "an Orcish sword", 's',
 		"An orcish sword. Crooked and tinged green.",
 		mk_dice(5, 2, 3)),
 
 	mk_weapon(1, 3, "an Elvish handaxe", 'p',
-		"This light axe is surprisingly elegant.",
+		"This lightweight axe is surprisingly elegant.",
 		mk_dice(8, 1, 4)),
 
-	mk_weapon(0, 2, "an old man's cane", 'c',
-		"Heavier and sturdier than it looks.",
-		mk_dice(6, 0, 0)),
-
-	mk_weapon(2, 3, "a cutthroat razor", 'r',
-		"Razor. Can be folded open or closed.",
-		mk_dice(3, 2, 4)),
-
-	mk_weapon(2, 4, "an enormous scythe", '7',
-		"Huge and crushingly heavy even to lift from the ground.",
+	mk_weapon(2, 4, "a reaper's scythe", 'R',
+		"This heavy scythe glimmers when the light catches it.",
 		mk_dice(0, 2, 16)),
 
 	mk_weapon(3, 5, "a dwarvish warhammer", 'W',
-		"Beautifully forged out of silver.",
+		"Beautifully forged out of silver and inscribed with Dwarvish writing.",
 		mk_dice(6, 6, 3)),
 
 	mk_weapon(5, 5, "Lucifer's Blade", 'L',
-		"The blade is patterned with shifting stains. Warm to the touch.",
+		"A twisted sword is marked with shifting bloodstains. Warm to the touch.",
 		mk_dice(20, 6, 6)),
+
+	mk_weapon(5, 5, "Skeletal Lord's Mace", 'M',
+		"This mace is constructed out of the interlocking bones.",
+		mk_dice(10, 5, 8)),
 
 	/**
 	 * Rings

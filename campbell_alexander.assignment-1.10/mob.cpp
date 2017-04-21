@@ -108,7 +108,7 @@ const static vector<MobPrototype> available_mobs = {
 	mk_mob(0, 3, "the snake", false, 10, '~', mk_dice(3, 1, 2)),
 	mk_mob(3, 5, "the evil gnome", false, 12, 'g', mk_dice(6, 1, 2)),
 	mk_mob(4, 5, "the dragon", false, 80, 'D', mk_dice(6, 2, 4)),
-	mk_mob(5, 5, "the vampire", false, 80, 'V', mk_dice(0, 3, 9)),
+	mk_mob(5, 5, "the vampire", false, 90, 'V', mk_dice(0, 3, 9)),
 };
 
 Mob *mob_generate(int depth) {
