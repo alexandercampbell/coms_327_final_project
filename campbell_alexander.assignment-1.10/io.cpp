@@ -191,7 +191,7 @@ bool io_main_menu(World *w) {
 	int menu_index = 0;
 	const vector<string> menu_items = {
 		string("Play as Human             (hp up)"),
-		string("Play as Dwarf    (find more loot)"),
+		string("Play as Dwarf      (find 2x loot)"),
 		string("Play as Elf         (see farther)"),
 		string("                           (quit)"),
 	};
@@ -245,7 +245,7 @@ bool io_main_menu(World *w) {
 	}
 
 	if (menu_index == 0) {
-		w->pc->max_hp = w->pc->hp = w->pc->hp + 20;
+		w->pc->max_hp = w->pc->hp = w->pc->hp + 35;
 	} else if (menu_index == 1) {
 		world_increase_loot(w);
 	} else if (menu_index == 2) {

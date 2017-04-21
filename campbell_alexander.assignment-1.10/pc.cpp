@@ -153,10 +153,10 @@ static bool use_ring(World *w) {
 		world_push_message(w, "Every living creature on this floor has been badly injured.",
 				MessageSeverity::OhGodTheresBloodEverywhere);
 	} else if (w->pc->ring->ability == RingAbility::boost_hp) {
-		world_push_message(w, "You immediately feel stronger. (+20 HP, +20 MAX HP)",
+		world_push_message(w, "You immediately feel stronger. (+20 HP, +10 MAX HP)",
 				MessageSeverity::Good);
+		w->pc->max_hp += 10;
 		w->pc->hp += 20;
-		w->pc->max_hp += 20;
 	} else if (w->pc->ring->ability == RingAbility::reveal) {
 		world_push_message(w, "You have a sudden sense of omniscience.",
 				MessageSeverity::Good);
