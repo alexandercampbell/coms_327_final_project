@@ -29,7 +29,7 @@ using namespace std;
 
 // PC_VIEW_RADIUS increases when we are above ground (i.e. in town).
 #define PC_VIEW_RADIUS(world) (\
-		(world->pc->level == BOSS_LEVEL) ? 32 : ( \
+		(world->pc->level == BOSS_LEVEL) ? 64 : ( \
 			(world->pc->level == TOWN_LEVEL) ? \
 				world->pc->view_radius + 6 : \
 				world->pc->view_radius \
