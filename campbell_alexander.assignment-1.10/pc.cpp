@@ -130,14 +130,13 @@ static bool use_ring(World *w) {
 		} while (!level_location_clear(w->cur_level, w->pc->x, w->pc->y));
 		w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
 
+		pc_update_memory(w);
+
 		world_push_message(w, "In a flash of green light, you teleport to the surface.",
 				MessageSeverity::Good);
 	} else if (w->pc->ring->ability == RingAbility::sacrifice) {
-		world_push_message(w, "An explosion of red envelops every monster on the floor.",
-				MessageSeverity::OhGodTheresBloodEverywhere);
-
 		int initial_hp = w->pc->hp;
-		w->pc->hp /= 3;
+		w->pc->hp /= 2;
 		w->pc->hp += 1;
 		int damage_done = initial_hp - w->pc->hp;
 
@@ -147,8 +146,26 @@ static bool use_ring(World *w) {
 
 		for (Mob *m : w->cur_level->mob_turns) {
 			if (m == w->pc) continue;
-			m->hp /= 3;
+			m->hp /= 4;
 			m->hp += 1;
+		}
+
+		world_push_message(w, "Every living creature on this floor has been badly injured.",
+				MessageSeverity::OhGodTheresBloodEverywhere);
+	} else if (w->pc->ring->ability == RingAbility::boost_hp) {
+		world_push_message(w, "You immediately feel stronger. (+20 HP, +20 MAX HP)",
+				MessageSeverity::Good);
+		w->pc->hp += 20;
+		w->pc->max_hp += 20;
+	} else if (w->pc->ring->ability == RingAbility::reveal) {
+		world_push_message(w, "You have a sudden sense of omniscience.",
+				MessageSeverity::Good);
+
+		for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+			for (int x = 0; x < DUNGEON_WIDTH; x++) {
+				w->cur_level->pc_memory[y][x] =
+					w->cur_level->cells[y][x];
+			}
 		}
 	}
 
@@ -195,7 +212,7 @@ bool pc_process_key(World *w, Key k) {
 
 		Item *i = w->cur_level->items[w->pc->y][w->pc->x];
 		if (i) {
-			string s = string("On the ground you see a ") + i->name + ".";
+			string s = string("On the ground you see ") + i->name + ".";
 			world_push_message(w, s.c_str());
 			s = "(Trade for currently equipped ";
 			s += (i->type == ItemType::weapon) ? "weapon" : "ring";

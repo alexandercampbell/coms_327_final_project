@@ -60,6 +60,8 @@ enum class ItemType {
 enum class RingAbility {
 	teleport_to_town,
 	sacrifice,
+	boost_hp,
+	reveal,
 };
 
 struct Item {
