@@ -183,7 +183,7 @@ static void generate_and_place_mobs(Level *l) {
 }
 
 static void generate_and_place_items(Level *l) {
-	int num_items = RAND_BETWEEN(2, 4);
+	int num_items = RAND_BETWEEN(3, 5);
 	for (int i = 0; i < num_items; i++) {
 		Item *item = item_generate(l->depth);
 
