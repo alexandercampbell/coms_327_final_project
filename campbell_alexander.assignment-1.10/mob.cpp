@@ -100,15 +100,15 @@ static MobPrototype mk_mob(int min_level, int max_level, string name, bool
 }
 
 const static vector<MobPrototype> available_mobs = {
-	mk_mob(0, 0, "a friendly rabbit", true, 10, 'r', mk_dice(0, 1, 1)),
-	mk_mob(0, 0, "a deer", true, 25, 'd', mk_dice(0, 1, 4)),
-	mk_mob(5, 5, "a phantom", false, 20, 'p', mk_dice(0, 1, 7)),
-	mk_mob(1, 4, "a kobold", false, 25, 'k', mk_dice(4, 1, 4)),
-	mk_mob(1, 2, "a rat", false, 6, 'r', mk_dice(2, 1, 2)),
-	mk_mob(0, 3, "a snake", false, 10, '~', mk_dice(3, 1, 2)),
-	mk_mob(3, 5, "an evil gnome", false, 12, 'g', mk_dice(6, 1, 2)),
-	mk_mob(4, 5, "a dragon", false, 80, 'D', mk_dice(6, 2, 4)),
-	mk_mob(5, 5, "a vampire", false, 80, 'V', mk_dice(0, 3, 9)),
+	mk_mob(0, 0, "the friendly rabbit", true, 10, 'r', mk_dice(0, 1, 1)),
+	mk_mob(0, 0, "the deer", true, 25, 'd', mk_dice(0, 1, 4)),
+	mk_mob(5, 5, "the phantom", false, 20, 'p', mk_dice(0, 1, 7)),
+	mk_mob(1, 4, "the kobold", false, 25, 'k', mk_dice(4, 1, 4)),
+	mk_mob(1, 2, "the rat", false, 6, 'r', mk_dice(2, 1, 2)),
+	mk_mob(0, 3, "the snake", false, 10, '~', mk_dice(3, 1, 2)),
+	mk_mob(3, 5, "the evil gnome", false, 12, 'g', mk_dice(6, 1, 2)),
+	mk_mob(4, 5, "the dragon", false, 80, 'D', mk_dice(6, 2, 4)),
+	mk_mob(5, 5, "the vampire", false, 80, 'V', mk_dice(0, 3, 9)),
 };
 
 Mob *mob_generate(int depth) {
