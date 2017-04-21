@@ -10,6 +10,8 @@
 
 const int RENDER_WIDTH = 80;
 const int RENDER_HEIGHT = 32;
+const int TERMINAL_WIDTH = 160;
+const int TERMINAL_HEIGHT = 30;
 
 void io_init();
 void io_quit(); // idempotent

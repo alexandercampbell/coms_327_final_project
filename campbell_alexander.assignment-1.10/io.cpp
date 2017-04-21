@@ -180,11 +180,13 @@ void io_render(World *w) {
 	"               arrows / hjkl          r               space");
 	attroff(COLOR_PAIR(COLOR_WHITE));
 
+	move(RENDER_HEIGHT / 2, RENDER_WIDTH / 2);
+
 	refresh();
 }
 
 bool io_main_menu(World *w) {
-	string right_justify = string("%") + to_string(RENDER_WIDTH) + "s";
+	string right_justify = string("%") + to_string(TERMINAL_WIDTH) + "s";
 
 	int menu_index = 0;
 	const vector<string> menu_items = {
@@ -197,26 +199,12 @@ bool io_main_menu(World *w) {
 	while (true) {
 		clear();
 
-		attron(COLOR_PAIR(COLOR_CYAN));
-		mvprintw(RENDER_HEIGHT - 2, 0, right_justify.c_str(),
-				"COM S 327 SPRING 2017 (Prof. Jeremy Sheaffer)");
-		mvprintw(RENDER_HEIGHT - 1, 0, right_justify.c_str(),
-				"Final Project :: Alexander Campbell");
-		attroff(COLOR_PAIR(COLOR_CYAN));
-
 		attron(COLOR_PAIR(COLOR_GREEN));
 		attron(A_BOLD);
 		mvprintw(8, 3, "Rogue Hunter");
 		attroff(A_BOLD);
 		mvprintw(9, 3, "v1.0.0");
 		attroff(COLOR_PAIR(COLOR_GREEN));
-
-		attron(COLOR_PAIR(COLOR_CYAN));
-		mvprintw(RENDER_HEIGHT - 2, 0, right_justify.c_str(),
-				"COM S 327 SPRING 2017 (Prof. Jeremy Sheaffer)");
-		mvprintw(RENDER_HEIGHT - 1, 0, right_justify.c_str(),
-				"Final Project :: Alexander Campbell");
-		attroff(COLOR_PAIR(COLOR_CYAN));
 
 		attron(COLOR_PAIR(COLOR_WHITE));
 		for (int i = 0; i < menu_items.size(); i++) {
@@ -227,10 +215,17 @@ bool io_main_menu(World *w) {
 			} else {
 				fmt_str = "         %s   ";
 			}
-			mvprintw(8 + i, 40, fmt_str.c_str(), menu_items[i].c_str());
+			mvprintw(8 + i, TERMINAL_WIDTH - 45, fmt_str.c_str(), menu_items[i].c_str());
 			if (menu_index == i) attroff(A_BOLD);
 		}
 		attroff(COLOR_PAIR(COLOR_MAGENTA));
+
+		attron(COLOR_PAIR(COLOR_CYAN));
+		mvprintw(TERMINAL_HEIGHT - 2, 0, right_justify.c_str(),
+				"COM S 327 SPRING 2017 (Prof. Jeremy Sheaffer)");
+		mvprintw(TERMINAL_HEIGHT - 1, 0, right_justify.c_str(),
+				"Final Project :: Alexander Campbell");
+		attroff(COLOR_PAIR(COLOR_CYAN));
 
 		refresh();
 
