@@ -159,9 +159,18 @@ void io_render(World *w) {
 		}
 	}
 
+	string location = "Floor " + to_string(w->pc->level) + "/" + to_string(BOSS_LEVEL);
+	if (w->pc->level == TOWN_LEVEL) {
+		location = "Town";
+	} else if (w->pc->level == BOSS_LEVEL) {
+		location = "BOSS";
+	}
+
+	mvprintw(1, RENDER_WIDTH + 1, "%s", location.c_str());
+
 	attron(COLOR_PAIR(COLOR_YELLOW));
-	mvprintw(1, RENDER_WIDTH + 1, "HP:       %2d/%d", w->pc->hp, w->pc->max_hp);
-	mvprintw(2, RENDER_WIDTH + 1, "Ring:     %s", (w->pc->ring) ?
+	mvprintw(2, RENDER_WIDTH + 1, "HP:       %2d/%d", w->pc->hp, w->pc->max_hp);
+	mvprintw(3, RENDER_WIDTH + 1, "Ring:     %s", (w->pc->ring) ?
 			w->pc->ring->name.c_str() : "none");
 
 	string weapon_str = "fists " + dice_to_string(&w->pc->unarmed_attack);
@@ -169,7 +178,7 @@ void io_render(World *w) {
 		weapon_str = w->pc->weapon->name + string(" ") +
 			dice_to_string(&w->pc->weapon->damage);
 	}
-	mvprintw(3, RENDER_WIDTH + 1, "Wielding: %s", weapon_str.c_str());
+	mvprintw(4, RENDER_WIDTH + 1, "Wielding: %s", weapon_str.c_str());
 	attroff(COLOR_PAIR(COLOR_YELLOW));
 
 
