@@ -39,6 +39,7 @@ static struct {
 	{'>', Key::descend_stairs},
 	{'<', Key::ascend_stairs},
 	{' ', Key::trade_item},
+	{'r', Key::use_ring},
 	{KEY_ENTER, Key::trade_item},
 	{'\n', Key::trade_item},
 	{0, Key(0)},

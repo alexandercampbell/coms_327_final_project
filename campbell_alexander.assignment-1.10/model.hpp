@@ -17,7 +17,7 @@ using namespace std;
 #define TOWN_LEVEL 0
 #define BOSS_LEVEL (NUM_LEVELS - 1)
 #define BOSS_NAME "Professor Sheaffer"
-#define PLAYER_START_LEVEL BOSS_LEVEL
+#define PLAYER_START_LEVEL TOWN_LEVEL
 
 // Number of messages kept in memory at one time. When the UI message queue
 // fills, we will evict old messages.
@@ -58,8 +58,6 @@ enum class ItemType {
 };
 
 enum class RingAbility {
-	none,
-	invisibility,
 	teleport_to_town,
 	sacrifice,
 };
@@ -174,6 +172,7 @@ enum class Key {
 	ascend_stairs,
 	descend_stairs,
 	trade_item,
+	use_ring,
 };
 
 enum class Direction {

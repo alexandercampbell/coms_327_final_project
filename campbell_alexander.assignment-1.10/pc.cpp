@@ -107,6 +107,55 @@ static bool trade_item(World *w) {
 	return true;
 }
 
+static bool use_ring(World *w) {
+	if (!w->pc->ring) {
+		world_push_message(w, "You have no ring equipped.");
+		return false;
+	}
+
+	assert(w->pc->ring->type == ItemType::ring);
+
+	world_push_message(w, "You activate the power contained in your ring.",
+			MessageSeverity::Good);
+	world_push_message(w, "It shatters into pieces and falls to the ground.",
+			MessageSeverity::Good);
+
+	if (w->pc->ring->ability == RingAbility::teleport_to_town) {
+		w->cur_level->mobs[w->pc->y][w->pc->x] = nullptr;
+		w->pc->level = TOWN_LEVEL;
+		w->cur_level = &w->levels[w->pc->level];
+		do {
+			w->pc->x = RAND_BETWEEN(0, DUNGEON_WIDTH);
+			w->pc->y = RAND_BETWEEN(0, DUNGEON_HEIGHT);
+		} while (!level_location_clear(w->cur_level, w->pc->x, w->pc->y));
+		w->cur_level->mobs[w->pc->y][w->pc->x] = w->pc;
+
+		world_push_message(w, "In a flash of green light, you teleport to the surface.",
+				MessageSeverity::Good);
+	} else if (w->pc->ring->ability == RingAbility::sacrifice) {
+		world_push_message(w, "An explosion of red envelops every monster on the floor.",
+				MessageSeverity::OhGodTheresBloodEverywhere);
+
+		int initial_hp = w->pc->hp;
+		w->pc->hp /= 3;
+		w->pc->hp += 1;
+		int damage_done = initial_hp - w->pc->hp;
+
+		world_push_message(w, string("You feel a sudden sharp pain in your chest. (-") +
+				to_string(damage_done) + string(" HP)"),
+				MessageSeverity::OhGodTheresBloodEverywhere);
+
+		for (Mob *m : w->cur_level->mob_turns) {
+			if (m == w->pc) continue;
+			m->hp /= 3;
+			m->hp += 1;
+		}
+	}
+
+	w->pc->ring = nullptr;
+	return true;
+}
+
 bool pc_process_key(World *w, Key k) {
 	if (k == Key::ascend_stairs || k == Key::descend_stairs) {
 		return use_stairs(w, k == Key::ascend_stairs);
@@ -114,6 +163,10 @@ bool pc_process_key(World *w, Key k) {
 
 	if (k == Key::trade_item) {
 		return trade_item(w);
+	}
+
+	if (k == Key::use_ring) {
+		return use_ring(w);
 	}
 
 	Direction dir;
@@ -131,7 +184,8 @@ bool pc_process_key(World *w, Key k) {
 				world_push_message(w, "You see a minnow swim by.");
 			}
 		} else if (*c == Cell::health_fountain) {
-			world_push_message(w, "You step onto the fountain of health and immediately feel refreshed.", MessageSeverity::Good);
+			world_push_message(w, "You step onto the fountain of health and immediately feel refreshed.",
+					MessageSeverity::Good);
 			w->pc->hp += 40;
 			if (w->pc->hp > w->pc->max_hp) {
 				w->pc->hp = w->pc->max_hp;
