@@ -66,7 +66,7 @@ const static vector<ItemPrototype> available_items = {
 		"An orcish sword. Crooked and tinged green.",
 		mk_dice(5, 2, 3)),
 
-	mk_weapon(1, 3, "an Elvish handaxe", 'p',
+	mk_weapon(1, 3, "an Elvish handaxe", 'a',
 		"This lightweight axe is surprisingly elegant.",
 		mk_dice(8, 1, 4)),
 
@@ -78,13 +78,13 @@ const static vector<ItemPrototype> available_items = {
 		"Beautifully forged out of silver and inscribed with Dwarvish writing.",
 		mk_dice(6, 6, 3)),
 
-	mk_weapon(5, 5, "Lucifer's Blade", 'L',
-		"A twisted sword is marked with shifting bloodstains. Warm to the touch.",
-		mk_dice(20, 6, 6)),
-
 	mk_weapon(5, 5, "Skeletal Lord's Mace", 'M',
 		"This mace is constructed out of the interlocking bones.",
 		mk_dice(10, 5, 8)),
+
+	mk_weapon(5, 5, "Lucifer's Blade", 'L',
+		"A twisted sword marked with shifting bloodstains. Warm to the touch.",
+		mk_dice(20, 6, 6)),
 
 	/**
 	 * Rings
