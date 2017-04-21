@@ -158,12 +158,8 @@ Mob *construct_jeremy(Level *l) {
 	Mob *m = new Mob;
 	memset(m, 0, sizeof(*m));
 	m->is_friendly = false;
-	do {
-		m->x = RAND_BETWEEN(1, DUNGEON_WIDTH - 1);
-		m->y = RAND_BETWEEN(1, DUNGEON_HEIGHT - 1);
-	} while ((m->x == DUNGEON_WIDTH / 2 && m->y == DUNGEON_HEIGHT / 2) ||
-		!level_location_clear(l, m->x, m->y));
-
+	m->x = DUNGEON_WIDTH / 2;
+	m->y = DUNGEON_HEIGHT / 2 - 3;
 	m->name = BOSS_NAME;
 	m->symb = 'J';
 	m->unarmed_attack = mk_dice(2, 4, 8);
