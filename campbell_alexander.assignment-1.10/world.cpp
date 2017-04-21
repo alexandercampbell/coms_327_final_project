@@ -225,11 +225,11 @@ void world_kill(World *w, Mob *m, string cause) {
 				MessageSeverity::Good);
 		world_push_message(w, "Press [q] to quit.",
 				MessageSeverity::Good);
+		return;
 	} else {
 		world_push_message(w, capitalized(m->name) +
 				string(" dies."));
 	}
-
 
 	l->mobs[m->y][m->x] = nullptr;
 
@@ -422,5 +422,8 @@ void world_destroy(World *w) {
 
 		l->mob_turns.clear();
 	}
+
+	w->pc = nullptr;
+	w->boss = nullptr;
 }
 
