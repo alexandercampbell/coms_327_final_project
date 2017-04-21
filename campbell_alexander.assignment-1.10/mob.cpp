@@ -3,7 +3,7 @@
 
 static int roll_dice(Dice d) {
 	int total = d.base;
-	for (int i = 0; i < d.num; i++) total += RAND_BETWEEN(1, d.sides);
+	for (int i = 0; i < d.num; i++) total += RAND_BETWEEN(0, d.sides);
 	return total;
 }
 
