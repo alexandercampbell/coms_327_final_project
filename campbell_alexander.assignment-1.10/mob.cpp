@@ -52,11 +52,16 @@ bool mob_try_to_move(World *w, Mob *mob, Direction direction) {
 	if (new_y < 0 || new_y >= DUNGEON_HEIGHT) return false;
 
 	if (!CELL_IS_WALKABLE(l->cells[new_y][new_x])) return false;
-	if (l->mobs[new_y][new_x]) {
+
+	Mob *other = l->mobs[new_y][new_x];
+	if (other) {
 		// another mob is already occupying this position
-		if (l->mobs[new_y][new_x]->is_friendly != mob->is_friendly) {
-			mob_do_combat(w, mob, l->mobs[new_y][new_x]);
+		if (other->is_friendly != mob->is_friendly) {
+			mob_do_combat(w, mob, other);
 			return true;
+		} else if (mob == w->pc) {
+			// we're interacting with a friendly mob
+			world_push_message(w, capitalized(other->name) + " ignores you.");
 		}
 		return false;
 	}

@@ -226,10 +226,7 @@ void world_kill(World *w, Mob *m, string cause) {
 		world_push_message(w, "Press [q] to quit.",
 				MessageSeverity::Good);
 	} else {
-		string capitalized_name = m->name;
-		capitalized_name[0] = toupper(capitalized_name[0]);
-
-		world_push_message(w, capitalized_name +
+		world_push_message(w, capitalized(m->name) +
 				string(" dies."));
 	}
 
