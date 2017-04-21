@@ -157,6 +157,7 @@ static bool use_ring(World *w) {
 				MessageSeverity::Good);
 		w->pc->max_hp += 10;
 		w->pc->hp += 20;
+		if (w->pc->hp > w->pc->max_hp) w->pc->hp = w->pc->max_hp;
 	} else if (w->pc->ring->ability == RingAbility::reveal) {
 		world_push_message(w, "You have a sudden sense of omniscience.",
 				MessageSeverity::Good);
