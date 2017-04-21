@@ -88,22 +88,26 @@ static void place_dungeon_entrance(Level *l) {
 	l->cells[entrance_y][entrance_x - 2] = Cell::health_fountain;
 }
 
+static void place_circle(Level *l, Cell cell, int center_x, int center_y, int radius) {
+	for (int y = center_y - radius; y <= center_y + radius; y++) {
+		for (int x = center_x - radius; x <= center_x + radius; x++) {
+			if (x < 0 || x >= DUNGEON_WIDTH || y < 0 || y >= DUNGEON_HEIGHT) continue;
+
+			int dist_x = (x - center_x);
+			int dist_y = (y - center_y);
+			if (sqrt(dist_x * dist_x + dist_y * dist_y) <= radius) {
+				l->cells[y][x] = cell;
+			}
+		}
+	}
+}
+
 static void place_dungeon_room(Level *l, int center_x, int center_y) {
 	// height is ignored if `circular == true`
 	bool circular = FRAND() > 0.8;
 	if (circular) {
 		int radius = RAND_BETWEEN(4, 9);
-		for (int y = center_y - radius; y <= center_y + radius; y++) {
-			for (int x = center_x - radius; x <= center_x + radius; x++) {
-				if (x < 0 || x >= DUNGEON_WIDTH || y < 0 || y >= DUNGEON_HEIGHT) continue;
-
-				int dist_x = (x - center_x);
-				int dist_y = (y - center_y);
-				if (sqrt(dist_x * dist_x + dist_y * dist_y) <= radius) {
-					l->cells[y][x] = Cell::tunnel;
-				}
-			}
-		}
+		place_circle(l, Cell::tunnel, center_x, center_y, radius);
 	} else {
 		int width = RAND_BETWEEN(4, 10);
 		int height = RAND_BETWEEN(4, 6);
@@ -196,7 +200,7 @@ static void generate_and_place_items(Level *l) {
 }
 
 void world_increase_loot(World *w) {
-	for (int i = 0; i < NUM_LEVELS; i++) {
+	for (int i = TOWN_LEVEL; i < BOSS_LEVEL; i++) {
 		generate_and_place_items(&w->levels[i]);
 	}
 }
@@ -214,6 +218,13 @@ void world_kill(World *w, Mob *m, string cause) {
 				MessageSeverity::Warning);
 		return;
 	} else if (m == w->boss) {
+		world_push_message(w, "---",
+				MessageSeverity::Good);
+		world_push_message(w, "You have defeated the final boss!");
+		world_push_message(w, "Congratulations!",
+				MessageSeverity::Good);
+		world_push_message(w, "Press [q] to quit.",
+				MessageSeverity::Good);
 	} else {
 		string capitalized_name = m->name;
 		capitalized_name[0] = toupper(capitalized_name[0]);
@@ -254,12 +265,28 @@ static void generate_town(Level *l) {
 	generate_and_place_mobs(l);
 }
 
-static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_y) {
+static void create_outer_wall_layer(Level *l) {
+	// Ensure a 1-cell thick border of wall around the edge of the Dungeon.
+	for (int x = 0; x < DUNGEON_WIDTH; x++) {
+		l->cells[0][x] = Cell::rock;
+		l->cells[DUNGEON_HEIGHT-1][x] = Cell::rock;
+	}
+	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
+		l->cells[y][0] = Cell::rock;
+		l->cells[y][DUNGEON_WIDTH-1] = Cell::rock;
+	}
+}
+
+static void level_fill_with(Level *l, const Cell c) {
 	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
 		for (int x = 0; x < DUNGEON_WIDTH; x++) {
-			l->cells[y][x] = Cell::rock;
+			l->cells[y][x] = c;
 		}
 	}
+}
+
+static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_y) {
+	level_fill_with(l, Cell::rock);
 
 	vector<int> room_x_positions;
 	vector<int> room_y_positions;
@@ -307,15 +334,7 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 				room_x_positions[i+1], room_y_positions[i+1]);
 	}
 
-	// Ensure a 1-cell thick border of wall around the edge of the Dungeon.
-	for (int x = 0; x < DUNGEON_WIDTH; x++) {
-		l->cells[0][x] = Cell::rock;
-		l->cells[DUNGEON_HEIGHT-1][x] = Cell::rock;
-	}
-	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
-		l->cells[y][0] = Cell::rock;
-		l->cells[y][DUNGEON_WIDTH-1] = Cell::rock;
-	}
+	create_outer_wall_layer(l);
 
 	generate_and_place_items(l);
 	generate_and_place_mobs(l);
@@ -327,13 +346,10 @@ static void generate_boss_level(World *w) {
 	Level *l = &w->levels[BOSS_LEVEL];
 	l->depth = BOSS_LEVEL;
 
-	w->boss = construct_jeremy();
+	level_fill_with(l, Cell::lava);
+	place_circle(l, Cell::none, DUNGEON_WIDTH / 2, DUNGEON_HEIGHT / 2, 8);
 
-	for (int y = 0; y < DUNGEON_HEIGHT; y++) {
-		for (int x = 0; x < DUNGEON_WIDTH; x++) {
-			l->cells[y][x] = Cell::tunnel;
-		}
-	}
+	w->boss = construct_jeremy(l);
 
 	l->mobs[w->boss->y][w->boss->x] = w->boss;
 	l->mob_turns.push_back(w->boss);

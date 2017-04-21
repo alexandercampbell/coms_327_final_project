@@ -118,6 +118,7 @@ void io_render(World *w) {
 			else if (c == Cell::rock)            { ch = '#'; color = COLOR_BLACK; }
 			else if (c == Cell::tunnel)          { ch = '.'; color = COLOR_WHITE; }
 			else if (c == Cell::river)           { ch = '~'; color = (FRAND() > 0.5) ? COLOR_BLUE : COLOR_WHITE; }
+			else if (c == Cell::lava)            { ch = '~'; color = (FRAND() > 0.5) ? COLOR_RED : COLOR_YELLOW; }
 			else if (c == Cell::stair_up)        { ch = '<'; color = COLOR_WHITE; }
 			else if (c == Cell::stair_down)      { ch = '>'; color = COLOR_WHITE; }
 			else if (c == Cell::mountain)        { ch = '^'; color = COLOR_WHITE; }

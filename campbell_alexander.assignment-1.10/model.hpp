@@ -17,7 +17,7 @@ using namespace std;
 #define TOWN_LEVEL 0
 #define BOSS_LEVEL (NUM_LEVELS - 1)
 #define BOSS_NAME "Professor Sheaffer"
-#define PLAYER_START_LEVEL TOWN_LEVEL
+#define PLAYER_START_LEVEL BOSS_LEVEL
 
 // Number of messages kept in memory at one time. When the UI message queue
 // fills, we will evict old messages.
@@ -28,8 +28,13 @@ using namespace std;
  */
 
 // PC_VIEW_RADIUS increases when we are above ground (i.e. in town).
-#define PC_VIEW_RADIUS(world) ((world->pc->level == 0) ? \
-		world->pc->view_radius + 6 : world->pc->view_radius)
+#define PC_VIEW_RADIUS(world) (\
+		(world->pc->level == BOSS_LEVEL) ? 32 : ( \
+			(world->pc->level == TOWN_LEVEL) ? \
+				world->pc->view_radius + 6 : \
+				world->pc->view_radius \
+			) \
+)
 
 #define MONSTER_VIEW_RADIUS 6
 
@@ -106,6 +111,7 @@ enum class Cell {
 	stair_up,
 	stair_down,
 	health_fountain,
+	lava,
 };
 #define CELL_IS_WALKABLE(c) (\
 	(c) == Cell::none             || \

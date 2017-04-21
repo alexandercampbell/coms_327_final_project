@@ -14,5 +14,8 @@ using namespace std;
 void mob_move_ai(World *w, Mob *mob);
 bool mob_try_to_move(World *w, Mob *mob, Direction direction);
 Mob *mob_generate(int depth);
-Mob *construct_jeremy();
+
+// Sets up a final boss Mob with valid coordinates, but does not place the mob
+// in the level.
+Mob *construct_jeremy(Level *l);
 
