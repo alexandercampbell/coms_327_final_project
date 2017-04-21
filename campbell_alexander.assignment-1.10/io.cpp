@@ -171,6 +171,14 @@ void io_render(World *w) {
 	mvprintw(3, RENDER_WIDTH + 1, "Wielding: %s", weapon_str.c_str());
 	attroff(COLOR_PAIR(COLOR_YELLOW));
 
+
+	attron(COLOR_PAIR(COLOR_WHITE));
+	mvprintw(RENDER_HEIGHT, 0,
+	"                   MOVE            USE RING           TAKE");
+	mvprintw(RENDER_HEIGHT+1, 0,
+	"               arrows / hjkl          r               space");
+	attroff(COLOR_PAIR(COLOR_WHITE));
+
 	refresh();
 }
 
@@ -194,11 +202,6 @@ bool io_main_menu(World *w) {
 		mvprintw(RENDER_HEIGHT - 1, 0, right_justify.c_str(),
 				"Final Project :: Alexander Campbell");
 		attroff(COLOR_PAIR(COLOR_CYAN));
-
-		attron(COLOR_PAIR(COLOR_WHITE));
-		mvprintw(RENDER_HEIGHT - 6, 28, "%s",
-				"Controls: Arrow Keys, Space");
-		attroff(COLOR_PAIR(COLOR_WHITE));
 
 		attron(COLOR_PAIR(COLOR_GREEN));
 		attron(A_BOLD);
