@@ -12,8 +12,8 @@ using namespace std;
 #define DUNGEON_HEIGHT 64
 #define DUNGEON_NUM_CELLS (DUNGEON_WIDTH * DUNGEON_HEIGHT)
 #define MAX_MOBS 50
-// 1 town level, 4 dungeon levels, 1 final boss level
-#define NUM_LEVELS (1 + 4 + 1)
+// 1 town level, 5 dungeon levels, 1 final boss level
+#define NUM_LEVELS (1 + 5 + 1)
 #define TOWN_LEVEL 0
 #define BOSS_LEVEL (NUM_LEVELS - 1)
 #define BOSS_NAME "Professor Sheaffer"
