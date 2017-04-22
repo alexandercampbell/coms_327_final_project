@@ -197,7 +197,7 @@ void io_render(World *w) {
 bool io_main_menu(World *w) {
 	string right_justify = string("%") + to_string(TERMINAL_WIDTH) + "s";
 
-	int menu_index = 0;
+	unsigned menu_index = 0;
 	const vector<string> menu_items = {
 		string("Play as Human             (hp up)"),
 		string("Play as Dwarf      (find 2x loot)"),
@@ -216,7 +216,7 @@ bool io_main_menu(World *w) {
 		attroff(COLOR_PAIR(COLOR_GREEN));
 
 		attron(COLOR_PAIR(COLOR_WHITE));
-		for (int i = 0; i < menu_items.size(); i++) {
+		for (unsigned i = 0; i < menu_items.size(); i++) {
 			string fmt_str;
 			if (menu_index == i) {
 				attron(A_BOLD);

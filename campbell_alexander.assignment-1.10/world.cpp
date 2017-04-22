@@ -234,7 +234,7 @@ void world_kill(World *w, Mob *m, string cause) {
 	l->mobs[m->y][m->x] = nullptr;
 
 	bool found_in_mob_turns = false;
-	for (int i = 0; i < l->mob_turns.size(); i++) {
+	for (unsigned i = 0; i < l->mob_turns.size(); i++) {
 		if (l->mob_turns[i] == m) {
 			assert(!found_in_mob_turns);
 			found_in_mob_turns = true;
@@ -326,7 +326,7 @@ static void generate_dungeon_level(Level *l, int above_stair_x, int above_stair_
 
 	assert(room_x_positions.size() == room_y_positions.size());
 
-	for (int i = 0; i < room_x_positions.size() - 1; i++) {
+	for (unsigned i = 0; i < room_x_positions.size() - 1; i++) {
 		generate_tunnel_between(l, room_x_positions[i], room_y_positions[i],
 				room_x_positions[i+1], room_y_positions[i+1]);
 	}
