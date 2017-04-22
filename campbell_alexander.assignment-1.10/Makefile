@@ -1,5 +1,5 @@
 
-CPP = clang++
+CPP = g++
 
 CFLAGS = -std=c++11 -Wall -ggdb
 LDFLAGS = -lncurses
