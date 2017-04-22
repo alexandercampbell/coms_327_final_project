@@ -1,0 +1,963 @@
+commit 4d163da85096da27c3f7d51a85a4ec15c77bc6d6
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 19:56:27 2017 -0500
+
+    Fix GCC warnings (signed/unsigned math)
+
+ campbell_alexander.assignment-1.10/io.cpp    | 4 ++--
+ campbell_alexander.assignment-1.10/world.cpp | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 66537ff7cc2d15564f14eaf9d5978754358bf936
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 19:53:32 2017 -0500
+
+    Makefile: use g++, not clang++
+
+ campbell_alexander.assignment-1.10/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit de37f6c46687b864139d75c0b5949bfeb3ff2e6f
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 18:24:56 2017 -0500
+
+    world: fix double-free on w->boss
+
+ campbell_alexander.assignment-1.10/world.cpp | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+commit 928319e748addd30a84690aed5ff4612ad125a74
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 18:02:23 2017 -0500
+
+    Prevent HP from increasing beyond max while using heal Ring
+
+ campbell_alexander.assignment-1.10/pc.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 45c96b8b6b56feab0db8f25d7158e68fd2511c56
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 15:29:00 2017 -0500
+
+    item: tweak definitions slightly
+
+ campbell_alexander.assignment-1.10/item.cpp | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+commit 96dc8cf9ea08b16838dd492cc42aa863249ee579
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 15:26:47 2017 -0500
+
+    io: display the number of floors
+
+ campbell_alexander.assignment-1.10/io.cpp | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+commit 599a53f7d05d3571ed8752dfe9c5bb7f1e1b73d6
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 15:01:28 2017 -0500
+
+    Rebalance weapons and items
+
+ campbell_alexander.assignment-1.10/item.cpp | 30 ++++++++++++++++-------------
+ campbell_alexander.assignment-1.10/mob.cpp  |  2 +-
+ 2 files changed, 18 insertions(+), 14 deletions(-)
+
+commit 1f8884a2bb2b9f633f85b0d44c32d0f98bba0e2c
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 14:55:54 2017 -0500
+
+    Rebalance races
+
+ campbell_alexander.assignment-1.10/io.cpp | 4 ++--
+ campbell_alexander.assignment-1.10/pc.cpp | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+commit ed6339fbb9aae65e46ce376f3508f5361f1e92d9
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 14:53:49 2017 -0500
+
+    world: increase number of items
+
+ campbell_alexander.assignment-1.10/world.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit b8306cd638c4596f5cb15dd88eb813e2a86e0dfb
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 14:45:46 2017 -0500
+
+    Add more rings and weapons
+
+ campbell_alexander.assignment-1.10/item.cpp  | 32 +++++++++++++++++++++-------
+ campbell_alexander.assignment-1.10/model.hpp |  2 ++
+ campbell_alexander.assignment-1.10/pc.cpp    | 29 +++++++++++++++++++------
+ 3 files changed, 49 insertions(+), 14 deletions(-)
+
+commit c0b183aac14cae97c3bd2d1074c9b07c3e4a3f12
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 14:18:48 2017 -0500
+
+    mob: use definite article ('the') with mob names
+
+ campbell_alexander.assignment-1.10/mob.cpp | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+commit ea24c2d188a596222261b26b069bae62cfbbfdd5
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 14:17:43 2017 -0500
+
+    mob: revise list of spawnable mobs
+
+ campbell_alexander.assignment-1.10/mob.cpp | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+commit 08410ff635a320e6f3c86c6e28a9b51c8d45d23f
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 14:17:36 2017 -0500
+
+    mob: roll dice starting at 0
+
+ campbell_alexander.assignment-1.10/mob.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit ac3591bb7ab1392c62f26cb9082b0d165b7be280
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 14:17:20 2017 -0500
+
+    model: add 5 dungeon levels
+
+ campbell_alexander.assignment-1.10/model.hpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 50c8037e5728b851f88d78de8b92ce4d704a2d49
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 14:16:53 2017 -0500
+
+    mob: print message for interaction with friendly mob
+
+ campbell_alexander.assignment-1.10/mob.cpp   | 11 ++++++++---
+ campbell_alexander.assignment-1.10/util.hpp  |  2 ++
+ campbell_alexander.assignment-1.10/world.cpp |  5 +----
+ 3 files changed, 11 insertions(+), 7 deletions(-)
+
+commit e108684cedbf419548a2ca061c5af38c25d17bf3
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 13:48:56 2017 -0500
+
+    Revise render code to be more aware of terminal size
+
+ campbell_alexander.assignment-1.10/io.cpp | 27 +++++++++++----------------
+ campbell_alexander.assignment-1.10/io.hpp |  2 ++
+ 2 files changed, 13 insertions(+), 16 deletions(-)
+
+commit 8a35a8f23d543052190d362eaabc301595d4fe42
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 12:58:35 2017 -0500
+
+    Implement using ring abilities
+
+ campbell_alexander.assignment-1.10/io.cpp    |  1 +
+ campbell_alexander.assignment-1.10/model.hpp |  5 +--
+ campbell_alexander.assignment-1.10/pc.cpp    | 56 +++++++++++++++++++++++++++-
+ 3 files changed, 58 insertions(+), 4 deletions(-)
+
+commit 0694c7bf539021853270247f963b4b177e958511
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 12:58:17 2017 -0500
+
+    io: add controls information during gameplay
+
+ campbell_alexander.assignment-1.10/io.cpp | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+commit 27294e5f89a01b09558183e284cd8bb61ae572cd
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 12:33:45 2017 -0500
+
+    model: player can see everything in boss level
+
+ campbell_alexander.assignment-1.10/model.hpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 58d71563510f554ea0fe5ec26bc84c37a36cd283
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 10:55:38 2017 -0500
+
+    mob: boss spawns in a fixed location
+
+ campbell_alexander.assignment-1.10/mob.cpp | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+commit 0e37ffae972c0d8d50bfc1b53d6f187f4a6d7c97
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 21 10:54:14 2017 -0500
+
+    Improve final boss battle
+
+ campbell_alexander.assignment-1.10/io.cpp    |  1 +
+ campbell_alexander.assignment-1.10/main.cpp  |  2 +-
+ campbell_alexander.assignment-1.10/mob.cpp   | 11 +++--
+ campbell_alexander.assignment-1.10/mob.hpp   |  5 +-
+ campbell_alexander.assignment-1.10/model.hpp | 12 +++--
+ campbell_alexander.assignment-1.10/world.cpp | 74 +++++++++++++++++-----------
+ 6 files changed, 67 insertions(+), 38 deletions(-)
+
+commit 1b7652be9e25a9df0189ede02bbeefc3d1958e05
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 19 15:58:07 2017 -0500
+
+    Clean up boss level generation
+
+ campbell_alexander.assignment-1.10/mob.cpp   |  2 +-
+ campbell_alexander.assignment-1.10/model.hpp |  2 ++
+ campbell_alexander.assignment-1.10/world.cpp | 16 ++++++++++------
+ 3 files changed, 13 insertions(+), 7 deletions(-)
+
+commit daad727b00d604c16f5dbd7b72ae70f79124ec48
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 19 15:50:45 2017 -0500
+
+    Add final boss level with final boss mob
+
+ campbell_alexander.assignment-1.10/mob.cpp   | 18 ++++++++++++++++++
+ campbell_alexander.assignment-1.10/mob.hpp   |  1 +
+ campbell_alexander.assignment-1.10/model.hpp |  7 +++++--
+ campbell_alexander.assignment-1.10/pc.cpp    | 24 ++++++++++++++++++++++--
+ campbell_alexander.assignment-1.10/world.cpp | 28 ++++++++++++++++++++++------
+ 5 files changed, 68 insertions(+), 10 deletions(-)
+
+commit 20835a1b7c55d73c6aeacb01df4ff3bfb8c00014
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 19 15:22:42 2017 -0500
+
+    Monsters occasionally move when the player is far away
+
+ campbell_alexander.assignment-1.10/mob.cpp | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+commit 909bf04cd94cd77f5afb5c7b731374e2dd4a5802
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Mon Apr 17 15:31:58 2017 -0500
+
+    world: ensure generated staircases are not overwritten
+
+ campbell_alexander.assignment-1.10/world.cpp | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit 0bef08113a5a55973e188b2aa4e20f46d4c1f863
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Mon Apr 17 14:16:01 2017 -0500
+
+    Finish main menu, add some more monsters, improve kill UI
+
+ campbell_alexander.assignment-1.10/io.cpp    | 39 +++++++++++++++++++++-----
+ campbell_alexander.assignment-1.10/io.hpp    |  1 +
+ campbell_alexander.assignment-1.10/main.cpp  |  2 ++
+ campbell_alexander.assignment-1.10/mob.cpp   | 36 ++++++------------------
+ campbell_alexander.assignment-1.10/model.hpp |  4 ++-
+ campbell_alexander.assignment-1.10/pc.cpp    |  6 ++++
+ campbell_alexander.assignment-1.10/world.cpp | 41 ++++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/world.hpp |  5 ++++
+ 8 files changed, 98 insertions(+), 36 deletions(-)
+
+commit 788c345bd679265447a8aebbedfca4b19af381bb
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Mon Apr 17 13:22:59 2017 -0500
+
+    Draw simple main menu
+    
+    Every option currently launches the game.
+
+ campbell_alexander.assignment-1.10/io.cpp   | 61 +++++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/io.hpp   |  5 ++-
+ campbell_alexander.assignment-1.10/main.cpp | 26 ++++++------
+ campbell_alexander.assignment-1.10/pc.cpp   |  2 +
+ 4 files changed, 82 insertions(+), 12 deletions(-)
+
+commit 0c54392916c85c212a53239e80f5ac1ea7b7ff39
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Mon Apr 17 12:44:02 2017 -0500
+
+    Correctly handle player death
+
+ campbell_alexander.assignment-1.10/main.cpp  |  6 ++++++
+ campbell_alexander.assignment-1.10/mob.cpp   | 12 ++++++++++++
+ campbell_alexander.assignment-1.10/world.cpp |  3 +++
+ 3 files changed, 21 insertions(+)
+
+commit b1e93077a3a9e21e6ef1be3d933d7a27b0d63384
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Mon Apr 17 10:52:24 2017 -0500
+
+    Add more weapons
+
+ campbell_alexander.assignment-1.10/item.cpp | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
+
+commit fd39465265a2288d41bb7a546cf3c0c7edc08db6
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Mon Apr 17 10:28:09 2017 -0500
+
+    io: display dice with weapon
+
+ campbell_alexander.assignment-1.10/io.cpp | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+commit 51493146b9d9c9cf4986b2cb3a9b9519588917ed
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Mon Apr 17 10:27:59 2017 -0500
+
+    world: add small chance to spawn fountain in dungeon
+
+ campbell_alexander.assignment-1.10/world.cpp | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 54ff1b6860eb7452545a874752fb6b2fab83b1d2
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Mon Apr 17 10:17:36 2017 -0500
+
+    Spawn a healing fountain within the dungeon entrance
+
+ campbell_alexander.assignment-1.10/io.cpp    | 19 ++++++++++---------
+ campbell_alexander.assignment-1.10/model.hpp | 14 ++++++++------
+ campbell_alexander.assignment-1.10/pc.cpp    |  9 ++++++++-
+ campbell_alexander.assignment-1.10/world.cpp | 10 +++++++---
+ 4 files changed, 33 insertions(+), 19 deletions(-)
+
+commit d146059773cf84c19636f680475e2308ce2b3fb4
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 23:43:27 2017 -0500
+
+    Implement combat between friendly and non-friendly NPCs
+    
+    Not entirely functional yet; when the player dies, the program crashes.
+
+ campbell_alexander.assignment-1.10/mob.cpp | 57 ++++++++++++++++++++++++++++--
+ campbell_alexander.assignment-1.10/mob.hpp |  4 ++-
+ campbell_alexander.assignment-1.10/pc.cpp  |  6 ++--
+ 3 files changed, 60 insertions(+), 7 deletions(-)
+
+commit 7f900e440a2f402dc6eefc623955c7cc9d596b74
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 23:23:29 2017 -0500
+
+    Implement movement for enemies
+
+ campbell_alexander.assignment-1.10/mob.cpp   | 28 ++++++++++++++++++++++++++--
+ campbell_alexander.assignment-1.10/mob.hpp   |  2 +-
+ campbell_alexander.assignment-1.10/model.hpp |  2 ++
+ campbell_alexander.assignment-1.10/world.cpp |  2 +-
+ 4 files changed, 30 insertions(+), 4 deletions(-)
+
+commit 234bb5f710a15049a0aa8fa0bb439e6a9103dd05
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 23:10:09 2017 -0500
+
+    Implement movement for friendly Mobs
+
+ campbell_alexander.assignment-1.10/main.cpp  |  2 ++
+ campbell_alexander.assignment-1.10/mob.cpp   |  9 +++++++++
+ campbell_alexander.assignment-1.10/mob.hpp   |  1 +
+ campbell_alexander.assignment-1.10/model.hpp | 16 +++++++++------
+ campbell_alexander.assignment-1.10/world.cpp | 29 ++++++++++++++--------------
+ campbell_alexander.assignment-1.10/world.hpp |  2 +-
+ 6 files changed, 38 insertions(+), 21 deletions(-)
+
+commit 66d312e439b6d8bff8fd5d6c8d6a011c64f4f345
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 22:52:54 2017 -0500
+
+    mob: write a few enemy prototypes
+
+ campbell_alexander.assignment-1.10/mob.cpp | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 0ad310a580290720a7a5796d28e51323a7b1b846
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 22:49:13 2017 -0500
+
+    Fix up memory leaks and bounds issues
+
+ campbell_alexander.assignment-1.10/io.hpp    |  1 +
+ campbell_alexander.assignment-1.10/item.cpp  |  2 +-
+ campbell_alexander.assignment-1.10/main.cpp  |  2 ++
+ campbell_alexander.assignment-1.10/mob.cpp   |  6 ++++--
+ campbell_alexander.assignment-1.10/world.cpp | 16 ++++++++++++++++
+ campbell_alexander.assignment-1.10/world.hpp |  2 ++
+ 6 files changed, 26 insertions(+), 3 deletions(-)
+
+commit 281ccb0e66adb4f7cbeb28ccc2f870e58f40e604
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 22:35:04 2017 -0500
+
+    Implement mob generation and placement
+
+ campbell_alexander.assignment-1.10/io.cpp    |  2 +-
+ campbell_alexander.assignment-1.10/mob.cpp   | 58 +++++++++++++++++++++++-----
+ campbell_alexander.assignment-1.10/mob.hpp   |  5 +++
+ campbell_alexander.assignment-1.10/model.hpp | 18 ++++-----
+ campbell_alexander.assignment-1.10/pc.cpp    |  2 +-
+ campbell_alexander.assignment-1.10/world.cpp | 50 +++++++++++++++++++++++-
+ campbell_alexander.assignment-1.10/world.hpp |  4 ++
+ 7 files changed, 116 insertions(+), 23 deletions(-)
+
+commit d93ea6d28fee0d58053cb139adf7bea5a02a56c5
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 20:24:44 2017 -0500
+
+    Clean up HUD a little bit
+
+ campbell_alexander.assignment-1.10/io.cpp    | 8 ++++++++
+ campbell_alexander.assignment-1.10/item.cpp  | 4 ++--
+ campbell_alexander.assignment-1.10/model.hpp | 2 +-
+ campbell_alexander.assignment-1.10/pc.cpp    | 3 +--
+ 4 files changed, 12 insertions(+), 5 deletions(-)
+
+commit 1ffc50a00f3d54a4cdb6820625a7656ed6d01a11
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 20:24:34 2017 -0500
+
+    pc: print item desc upon pickup
+
+ campbell_alexander.assignment-1.10/pc.cpp | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+commit 62d565fda566efd0f9d2ea0a8d963c48fe005d2a
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 17:54:36 2017 -0500
+
+    Improve weapon equip text UI
+
+ campbell_alexander.assignment-1.10/item.cpp | 10 +++++-----
+ campbell_alexander.assignment-1.10/pc.cpp   |  8 ++++----
+ 2 files changed, 9 insertions(+), 9 deletions(-)
+
+commit 1966fba6ed0814405d9cafaf6ed8e0ad341a9721
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 17:54:20 2017 -0500
+
+    world: ensure up/down staircases don't overlap
+
+ campbell_alexander.assignment-1.10/world.cpp | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+commit f4f1998bfadbdb7c814293e03f429f0b32d82463
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 17:49:36 2017 -0500
+
+    Implement player picking up items
+
+ campbell_alexander.assignment-1.10/io.cpp    |  1 +
+ campbell_alexander.assignment-1.10/item.cpp  |  2 ++
+ campbell_alexander.assignment-1.10/model.hpp |  3 ++-
+ campbell_alexander.assignment-1.10/pc.cpp    | 40 ++++++++++++++++++++++++++++
+ 4 files changed, 45 insertions(+), 1 deletion(-)
+
+commit edd147916e20b0da124a1297a95353073b0e0779
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 17:35:01 2017 -0500
+
+    Define more generated Items
+
+ campbell_alexander.assignment-1.10/item.cpp  | 44 ++++++++++++++++++++++++----
+ campbell_alexander.assignment-1.10/model.hpp |  1 +
+ 2 files changed, 40 insertions(+), 5 deletions(-)
+
+commit 3132f4db1f16cc22ce6717f6e760ae3a2e84283a
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 17:25:47 2017 -0500
+
+    world: generate items, even in town level
+
+ campbell_alexander.assignment-1.10/world.cpp | 36 +++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 17 deletions(-)
+
+commit 322f600703218400f99ed07313f780bb64b56b27
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 17:21:37 2017 -0500
+
+    Implement Item generation, placement, displaying
+
+ campbell_alexander.assignment-1.10/io.cpp    | 41 ++++++++++++++++++----------
+ campbell_alexander.assignment-1.10/item.cpp  | 25 +++++++++--------
+ campbell_alexander.assignment-1.10/item.hpp  |  2 +-
+ campbell_alexander.assignment-1.10/model.hpp | 20 +++++---------
+ campbell_alexander.assignment-1.10/world.cpp | 23 ++++++++++++++++
+ campbell_alexander.assignment-1.10/world.hpp |  1 +
+ 6 files changed, 71 insertions(+), 41 deletions(-)
+
+commit 57d886ab4f5e6c84b3ce4b92b36ba76c9e817d9e
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 17:06:41 2017 -0500
+
+    Add item module with item_generate(depth) function
+
+ campbell_alexander.assignment-1.10/Makefile  |  2 +-
+ campbell_alexander.assignment-1.10/item.cpp  | 44 ++++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/item.hpp  | 14 +++++++++
+ campbell_alexander.assignment-1.10/model.hpp | 21 +++++++++----
+ 4 files changed, 75 insertions(+), 6 deletions(-)
+
+commit bfc29840f64e3099dc0a856d2c1272111f1c79ca
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 17:03:13 2017 -0500
+
+    util: wrap macro args in parens
+    
+    Hopefully can avoid precedence issues this way.
+
+ campbell_alexander.assignment-1.10/util.hpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 0029c0defe42424f065aa214c5b75a7ccb0af4b1
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 16:40:48 2017 -0500
+
+    model: revise Weapon, Ring, Item definitions
+
+ campbell_alexander.assignment-1.10/model.hpp | 33 +++++++++++++++++-----------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
+
+commit 017083d18608fbad51d1493e6784383afdbd9178
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sun Apr 16 16:37:31 2017 -0500
+
+    model: remove unused `num_mobs` field on Level
+
+ campbell_alexander.assignment-1.10/model.hpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 5656112bfd8d0d9a2f617775f788d0139e0accdd
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Sat Apr 15 16:14:59 2017 -0500
+
+    world: initialize the `messages` field
+    
+    On Linux, without this statement, my program was crashing.
+
+ campbell_alexander.assignment-1.10/world.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 4ab8a4d8a1525a2081748b2216916e85fd791cf5
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 14:35:54 2017 -0500
+
+    pc: add random chance to see a minnow swimming
+
+ campbell_alexander.assignment-1.10/pc.cpp | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 43eab7aa1ae1eb92258573a2ae3f01b375967d70
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 13:08:23 2017 -0500
+
+    pc: remove annoying "something's in the way" message
+
+ campbell_alexander.assignment-1.10/pc.cpp | 2 --
+ 1 file changed, 2 deletions(-)
+
+commit 4b76aee3f0f452fa3d25ebc2281d282266e0bef9
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 13:06:39 2017 -0500
+
+    Tweak generation to provide more interesting dungeon
+
+ campbell_alexander.assignment-1.10/model.hpp |  8 ++++----
+ campbell_alexander.assignment-1.10/world.cpp | 17 +++++++++--------
+ 2 files changed, 13 insertions(+), 12 deletions(-)
+
+commit 55a1ffef7752e0e5b5e86d015ce387cc33877cbd
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 12:59:59 2017 -0500
+
+    world: correct room placement bug
+
+ campbell_alexander.assignment-1.10/util.hpp  |  2 +-
+ campbell_alexander.assignment-1.10/world.cpp | 28 +++++++++-------------------
+ 2 files changed, 10 insertions(+), 20 deletions(-)
+
+commit 89242e63dee96b1b266e51a66c6fbd7a54b49cc6
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 12:44:31 2017 -0500
+
+    world: implement failsafe on tunnel generation
+
+ campbell_alexander.assignment-1.10/world.cpp | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+commit 8e3d9009230ec61cc49d42f30f406f58b7d94d8e
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 12:39:05 2017 -0500
+
+    main: allocate World on the heap
+    
+    I was able to crash the stack by generating 100+ floors.
+
+ campbell_alexander.assignment-1.10/main.cpp | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+commit 9af48c559902d78e5727f3d55c298e9d2d2ff5ab
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 12:37:21 2017 -0500
+
+    world: tweak tunnel randomization
+
+ campbell_alexander.assignment-1.10/world.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit a658f4abf90a056a566dfbf51e0f80c8ba3847ca
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 12:33:43 2017 -0500
+
+    Generate tunnels between each room of the dungeon
+
+ campbell_alexander.assignment-1.10/world.cpp | 68 +++++++++++++++++++++++++---
+ campbell_alexander.assignment-1.10/world.hpp |  3 ++
+ 2 files changed, 65 insertions(+), 6 deletions(-)
+
+commit 0c134ed3989a05d653c8508ec5c760a107f7fbfa
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 12:13:30 2017 -0500
+
+    world: fix issue where staircases were being overwritten
+
+ campbell_alexander.assignment-1.10/world.cpp | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
+
+commit 360a64f98be5cd5af75b52aab505ae96406f803c
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 11:59:02 2017 -0500
+
+    world: place some rooms in the dungeon
+
+ campbell_alexander.assignment-1.10/world.cpp | 41 +++++++++++++++++++++++++++-
+ 1 file changed, 40 insertions(+), 1 deletion(-)
+
+commit 3f455b590864d055114695fcf81038403b363a2c
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 11:58:46 2017 -0500
+
+    main: print message before and after playing
+
+ campbell_alexander.assignment-1.10/main.cpp | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+commit 3f4c6c7827cfbe710e28d593b617ad4525a91b22
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 11:42:45 2017 -0500
+
+    Use underscores instead of namespaces
+    
+    It's the C tradition in me.
+
+ campbell_alexander.assignment-1.10/io.cpp    |  8 ++++----
+ campbell_alexander.assignment-1.10/io.hpp    | 14 ++++++--------
+ campbell_alexander.assignment-1.10/main.cpp  | 10 +++++-----
+ campbell_alexander.assignment-1.10/pc.cpp    | 10 +++++-----
+ campbell_alexander.assignment-1.10/pc.hpp    |  8 +++-----
+ campbell_alexander.assignment-1.10/world.cpp |  4 ++--
+ 6 files changed, 25 insertions(+), 29 deletions(-)
+
+commit 509b84212abc34860fb1655c69f2a9c10bbc1b84
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 11:38:07 2017 -0500
+
+    Add UI messages when player moves a certain way
+
+ campbell_alexander.assignment-1.10/main.cpp |  4 ----
+ campbell_alexander.assignment-1.10/pc.cpp   | 20 ++++++++++++++++++++
+ campbell_alexander.assignment-1.10/pc.hpp   |  1 +
+ 3 files changed, 21 insertions(+), 4 deletions(-)
+
+commit 5d0df40742b63df0fbfaaac9d04474ce11cdc53c
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 11:30:35 2017 -0500
+
+    Implement UI color-coded message system
+
+ campbell_alexander.assignment-1.10/io.cpp    | 23 +++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/main.cpp  |  4 ++++
+ campbell_alexander.assignment-1.10/model.hpp | 26 ++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/world.cpp | 11 +++++++++++
+ campbell_alexander.assignment-1.10/world.hpp |  2 ++
+ 5 files changed, 66 insertions(+)
+
+commit 1b62e57dc87d4132028b97ea7ba6d589175cc605
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 11:07:25 2017 -0500
+
+    PC can see farther when aboveground
+
+ campbell_alexander.assignment-1.10/io.cpp    |  4 +++-
+ campbell_alexander.assignment-1.10/model.hpp | 16 ++++++++++++----
+ campbell_alexander.assignment-1.10/pc.cpp    | 12 +++++++++---
+ 3 files changed, 24 insertions(+), 8 deletions(-)
+
+commit 071f3c692ce3bd1f4e9084468e0dea82a88da1b9
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 11:00:42 2017 -0500
+
+    Implement staircases and partial dungeon generation
+
+ campbell_alexander.assignment-1.10/io.cpp    |  2 ++
+ campbell_alexander.assignment-1.10/model.hpp | 11 +++++++---
+ campbell_alexander.assignment-1.10/pc.cpp    | 20 +++++++++++++++++
+ campbell_alexander.assignment-1.10/world.cpp | 33 ++++++++++++++++++++++++----
+ 4 files changed, 59 insertions(+), 7 deletions(-)
+
+commit 9af0166d2bf24053834f9f4dcbf182a2b4f8ba5d
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 10:30:47 2017 -0500
+
+    Populate mountains around the Town level
+
+ campbell_alexander.assignment-1.10/io.cpp    |  1 +
+ campbell_alexander.assignment-1.10/model.hpp |  1 +
+ campbell_alexander.assignment-1.10/world.cpp | 12 ++++++++++++
+ 3 files changed, 14 insertions(+)
+
+commit cf1b43c7cdfa0fc9132ddda0a51629a69a443c81
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 10:22:28 2017 -0500
+
+    mob: only allow movement onto walkable cells
+
+ campbell_alexander.assignment-1.10/mob.cpp | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+commit a489f198f477362a837ef3cc148527d9e2425eae
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Fri Apr 14 10:22:22 2017 -0500
+
+    world: randomly populate trees
+
+ campbell_alexander.assignment-1.10/world.cpp | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+commit 0f3d5175d777e6f9fd4d150c22c9001271eb64e8
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 23:31:38 2017 -0500
+
+    io: add hjkl movement bindings
+
+ campbell_alexander.assignment-1.10/io.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit b82aba8143dcbf0fceff0932fb8eb980d8c3abbf
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 23:30:23 2017 -0500
+
+    Implement pc view memory and circular view
+
+ campbell_alexander.assignment-1.10/io.cpp    | 15 +++++++++++++--
+ campbell_alexander.assignment-1.10/main.cpp  |  2 +-
+ campbell_alexander.assignment-1.10/model.hpp |  4 +++-
+ campbell_alexander.assignment-1.10/pc.cpp    | 25 +++++++++++++++++++++++--
+ campbell_alexander.assignment-1.10/pc.hpp    |  4 +++-
+ campbell_alexander.assignment-1.10/world.cpp |  4 +++-
+ 6 files changed, 46 insertions(+), 8 deletions(-)
+
+commit e14cc0114deae42638848e18ae1084880b3f7bc6
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 23:16:16 2017 -0500
+
+    Revise town level generation; impl dungeon entrance placement
+
+ campbell_alexander.assignment-1.10/io.cpp    | 15 ++++++-----
+ campbell_alexander.assignment-1.10/model.hpp |  3 +++
+ campbell_alexander.assignment-1.10/world.cpp | 37 ++++++++++++++++++++++++++--
+ 3 files changed, 47 insertions(+), 8 deletions(-)
+
+commit f9a042ad807a7461d1e4cfa1b813d89273cdf427
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 22:58:08 2017 -0500
+
+    Revise models to include a multi-leveled World
+    
+    Rather than a Dungeon struct, generate an entire World. One town level combined
+    with ten dungeon floors.
+
+ campbell_alexander.assignment-1.10/Makefile    |  2 +-
+ campbell_alexander.assignment-1.10/dungeon.cpp | 34 ------------------
+ campbell_alexander.assignment-1.10/dungeon.hpp | 13 -------
+ campbell_alexander.assignment-1.10/io.cpp      | 10 +++---
+ campbell_alexander.assignment-1.10/io.hpp      |  2 +-
+ campbell_alexander.assignment-1.10/main.cpp    | 10 +++---
+ campbell_alexander.assignment-1.10/mob.cpp     |  8 ++---
+ campbell_alexander.assignment-1.10/mob.hpp     |  2 +-
+ campbell_alexander.assignment-1.10/model.hpp   | 16 +++++++--
+ campbell_alexander.assignment-1.10/pc.cpp      | 19 ++++++++--
+ campbell_alexander.assignment-1.10/pc.hpp      |  4 ++-
+ campbell_alexander.assignment-1.10/world.cpp   | 50 ++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/world.hpp   | 12 +++++++
+ 13 files changed, 113 insertions(+), 69 deletions(-)
+
+commit e4a15e545aaa89fadb3bd83f0e0b6b705aa05832
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 22:32:29 2017 -0500
+
+    io: implement "follow" camera centered on PC
+
+ campbell_alexander.assignment-1.10/io.cpp | 20 ++++++++++++++++----
+ campbell_alexander.assignment-1.10/io.hpp |  3 +++
+ 2 files changed, 19 insertions(+), 4 deletions(-)
+
+commit 015c6db6a009a5036693c9443b37bb949f324286
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 22:27:41 2017 -0500
+
+    Implement mob movement & keyboard control of pc
+
+ campbell_alexander.assignment-1.10/Makefile    |  2 +-
+ campbell_alexander.assignment-1.10/dungeon.cpp |  8 +++++---
+ campbell_alexander.assignment-1.10/main.cpp    | 10 ++++++++--
+ campbell_alexander.assignment-1.10/mob.cpp     | 26 ++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/mob.hpp     |  9 +++++++++
+ campbell_alexander.assignment-1.10/model.hpp   | 11 +++++++++++
+ campbell_alexander.assignment-1.10/pc.cpp      | 14 ++++++++++++++
+ campbell_alexander.assignment-1.10/pc.hpp      | 12 ++++++++++++
+ 8 files changed, 86 insertions(+), 6 deletions(-)
+
+commit 80171e839cbae0bb27e0d4b797bf4c7e3f13fdae
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 22:07:16 2017 -0500
+
+    model: capitalize structs & enums
+
+ campbell_alexander.assignment-1.10/dungeon.cpp | 10 +++---
+ campbell_alexander.assignment-1.10/dungeon.hpp |  2 +-
+ campbell_alexander.assignment-1.10/io.cpp      | 32 ++++++++++----------
+ campbell_alexander.assignment-1.10/io.hpp      |  4 +--
+ campbell_alexander.assignment-1.10/main.cpp    |  4 +--
+ campbell_alexander.assignment-1.10/model.hpp   | 42 +++++++++++++-------------
+ 6 files changed, 47 insertions(+), 47 deletions(-)
+
+commit 57374f99da4ad613de3e831ef746de27edc32f6f
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 22:03:23 2017 -0500
+
+    Makefile: complete linking step
+    
+    Not sure how this was working before. Seems like make was approximating the
+    correct command magically.
+
+ campbell_alexander.assignment-1.10/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 949ce6f7f55f8bc7c040fb5398badf208852e3aa
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 22:03:15 2017 -0500
+
+    Implement river generation
+
+ campbell_alexander.assignment-1.10/dungeon.cpp | 21 ++++++++++++++++++++-
+ campbell_alexander.assignment-1.10/dungeon.hpp |  3 +++
+ campbell_alexander.assignment-1.10/io.cpp      |  3 ++-
+ campbell_alexander.assignment-1.10/io.hpp      |  1 +
+ campbell_alexander.assignment-1.10/main.cpp    |  9 ++++++---
+ campbell_alexander.assignment-1.10/model.hpp   |  1 +
+ campbell_alexander.assignment-1.10/util.hpp    |  9 +++++++++
+ 7 files changed, 42 insertions(+), 5 deletions(-)
+
+commit bf7e3837abc915dc1828b8f1e55220ecbaeabd62
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 21:42:31 2017 -0500
+
+    io: create namespace io, adapt functions
+
+ campbell_alexander.assignment-1.10/io.cpp   | 14 +++++++-------
+ campbell_alexander.assignment-1.10/io.hpp   | 10 ++++++----
+ campbell_alexander.assignment-1.10/main.cpp |  8 ++++----
+ 3 files changed, 17 insertions(+), 15 deletions(-)
+
+commit 9e372b89f5b4c611e818d60234696df9f61dfa56
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 21:40:35 2017 -0500
+
+    Convert project to C++
+
+ campbell_alexander.assignment-1.10/Makefile        | 10 ++--
+ .../{dungeon.c => dungeon.cpp}                     |  6 +--
+ .../{dungeon.h => dungeon.hpp}                     |  2 +-
+ .../{io.c => io.cpp}                               | 26 +++++-----
+ .../{io.h => io.hpp}                               |  4 +-
+ .../{main.c => main.cpp}                           |  8 +--
+ .../{model.h => model.hpp}                         | 60 +++++++++++-----------
+ 7 files changed, 57 insertions(+), 59 deletions(-)
+
+commit 1c6b265294894f0548a464dfb16917403cd5af0c
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Thu Apr 13 21:31:59 2017 -0500
+
+    io: correctly interpret quit key
+
+ campbell_alexander.assignment-1.10/io.c    | 1 +
+ campbell_alexander.assignment-1.10/main.c  | 3 ++-
+ campbell_alexander.assignment-1.10/model.h | 4 +++-
+ 3 files changed, 6 insertions(+), 2 deletions(-)
+
+commit 1c9452afbf01e5bb99b27e950b84b8f297d58803
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 12 17:56:36 2017 -0500
+
+    Impl and demonstrate mob drawing
+
+ campbell_alexander.assignment-1.10/dungeon.c | 5 +++++
+ campbell_alexander.assignment-1.10/io.c      | 7 +++++++
+ campbell_alexander.assignment-1.10/model.h   | 4 ++--
+ 3 files changed, 14 insertions(+), 2 deletions(-)
+
+commit 43a1078c388ab817e81bf5546dedf0ad7a3cb1a5
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 12 17:50:49 2017 -0500
+
+    Add gitignore with executable name
+
+ campbell_alexander.assignment-1.10/.gitignore | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 9a61b688118068fe8ca70439941073e5c027effa
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 12 17:49:21 2017 -0500
+
+    model: define core gameplay models
+
+ campbell_alexander.assignment-1.10/model.h | 59 ++++++++++++++++++++++++++++--
+ 1 file changed, 56 insertions(+), 3 deletions(-)
+
+commit 2ea30f912d96e2f9fcee2867bcdb6d2447b693ea
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 12 17:16:35 2017 -0500
+
+    io: implement simple dungeon rendering
+
+ campbell_alexander.assignment-1.10/io.c    | 28 ++++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/io.h    |  2 ++
+ campbell_alexander.assignment-1.10/main.c  |  2 ++
+ campbell_alexander.assignment-1.10/model.h |  2 ++
+ 4 files changed, 34 insertions(+)
+
+commit 4b8a954b421dc7f39911d47949c1a136d132d56a
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 12 16:54:55 2017 -0500
+
+    Set up modules for io, dungeon, model
+
+ campbell_alexander.assignment-1.10/Makefile  |  2 +-
+ campbell_alexander.assignment-1.10/dungeon.c |  8 +++++
+ campbell_alexander.assignment-1.10/dungeon.h | 10 ++++++
+ campbell_alexander.assignment-1.10/io.c      | 47 ++++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/io.h      | 12 +++++++
+ campbell_alexander.assignment-1.10/main.c    | 11 +++++++
+ campbell_alexander.assignment-1.10/model.h   | 27 ++++++++++++++++
+ 7 files changed, 116 insertions(+), 1 deletion(-)
+
+commit 8501777de70052d8c014d870430ef12ed72a0a1b
+Author: Alexander Campbell <alexanderhcampbell@gmail.com>
+Date:   Wed Apr 12 15:57:19 2017 -0500
+
+    Create directory for assignment-1.10
+
+ campbell_alexander.assignment-1.10/Makefile | 27 +++++++++++++++++++++++++++
+ campbell_alexander.assignment-1.10/main.c   |  4 ++++
+ 2 files changed, 31 insertions(+)

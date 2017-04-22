@@ -1,0 +1,61 @@
+
+Alexander Campbell
+Jeremy Sheaffer
+COM S 327
+21 April 2017
+
+
+Assignment 1.10
+===============
+
+I chose to create an entirely new Roguelike from scratch for this assignment.
+This code borrows nothing directly from our work so far this semester, but some
+of the ideas are still there :)
+
+
+Technical Details
+-----------------
+
+Please run the game in a terminal of at least 160 x 30 characters!
+There is no diagonal movement in this game.
+
+Notice:
+ - For whatever reason, std::string::swap during assignment of `const char*` in
+   the Boss constructor segfaults on my Slackware VM. I cannot reproduce this
+   issue on any other platform or VM. I think it's an issue with my linker /
+   stdlib version on that image.
+ - Valgrind reports 64 bytes lost. Those bytes seemed to have been lost by
+   std::deque.
+
+
+The Game
+--------
+
+The game is played in a dungeon with six floors (seven if you count the town
+level). The final floor of the dungeon contains a very tough boss. To defeat the
+boss, it is necessary to collect one of the strongest weapons. I would recommend
+either the Skeletal Lord's Mace or Lucifer's Blade.
+
+There are only two equipment slots: your weapon and your Ring. There is no
+inventory. To take a new weapon, you must drop your old weapon.
+
+Rings are destroyed upon use (with the 'r' key). Several Rings exist in the
+dungeon, including grass Rings, which teleport the player back to the town
+level. This is useful because the town contains a healing fountain.
+
+When you begin the game, you choose among three races. Each race has a specific
+perk that will aid you throughout the dungeon-- for instance, elves can see
+enemies and items from farther away.
+
+The game is pretty easy, so you should be able to beat the boss without dying
+more than once or twice. Good luck!
+
+
+Size
+----
+
+The code takes up some 1600 lines, written between April 12 and April 21. Note
+that all of the monster and item prototypes are included in the source code--
+there are no configuration files.
+
+
