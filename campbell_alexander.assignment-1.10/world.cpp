@@ -214,7 +214,7 @@ void world_kill(World *w, Mob *m, string cause) {
 				MessageSeverity::OhGodTheresBloodEverywhere);
 		world_push_message(w, string("You were killed by ") + cause + ".",
 				MessageSeverity::OhGodTheresBloodEverywhere);
-		world_push_message(w, string("Press [q] to return to reality, loser."),
+		world_push_message(w, string("Press [Q] to return to reality, loser."),
 				MessageSeverity::Warning);
 		return;
 	} else if (m == w->boss) {
