@@ -1,0 +1,9 @@
+
+/main
+*.o
+*.d
+*.out
+*.dSYM
+
+tags
+
